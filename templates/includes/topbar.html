@@ -1,0 +1,33 @@
+<header class="h-16 bg-surface border-b border-outline-variant/30 shadow-sm flex items-center justify-between px-6 md:px-8">
+    <div class="flex items-center gap-3 flex-1">
+        <div class="relative max-w-md w-full">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">
+                {% include "includes/icon.html" with icon="search" size=20 %}
+            </span>
+            <input type="search" placeholder="Buscar…" class="input pl-10 h-10">
+        </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+        <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high font-label-md text-label-md text-on-surface-variant">
+            {% include "includes/icon.html" with icon="currency_exchange" size=16 %}
+            {{ current_tenant.currency|default:"CLP" }}
+        </span>
+        <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-low font-label-md text-label-md text-on-surface-variant">
+            Este Mes
+        </span>
+        <button type="button" class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container transition-colors duration-150" aria-label="Notificaciones">
+            {% include "includes/icon.html" with icon="notifications" size=20 %}
+        </button>
+        <button type="button" class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container transition-colors duration-150" aria-label="Filtros">
+            {% include "includes/icon.html" with icon="tune" size=20 %}
+        </button>
+        <a href="{{ new_quotation_url|default:'#' }}" class="btn btn-primary btn-sm">
+            {% include "includes/icon.html" with icon="add" size=16 %}
+            <span class="hidden sm:inline">Nueva Cotización</span>
+        </a>
+        <button type="button" class="flex items-center justify-center w-9 h-9 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm" aria-label="Mi perfil">
+            {{ user.first_name|first|default:user.email|first|upper }}{{ user.last_name|first|upper }}
+        </button>
+    </div>
+</header>

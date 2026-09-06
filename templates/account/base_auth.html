@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block body %}
+<main class="min-h-screen flex flex-col lg:flex-row bg-background text-on-surface">
+    <section class="lg:w-[45%] relative overflow-hidden bg-surface-container-low flex flex-col justify-between p-8 md:p-12 lg:min-h-screen">
+        <span class="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-primary-container/20 blur-3xl" aria-hidden="true"></span>
+        <span class="absolute top-1/3 -right-24 w-80 h-80 rounded-full bg-secondary-container/20 blur-3xl" aria-hidden="true"></span>
+        <span class="absolute -bottom-24 left-1/3 w-72 h-72 rounded-full bg-tertiary-container/10 blur-3xl" aria-hidden="true"></span>
+
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-10">
+                <span class="flex items-center justify-center w-11 h-11 rounded-xl bg-primary-container text-on-primary">
+                    {% include "includes/icon.html" with icon="hub" size=24 %}
+                </span>
+                <span class="font-headline-md text-headline-md">Nexo</span>
+                <span class="ml-auto inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm">
+                    <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> v2.4 LIVE
+                </span>
+            </div>
+
+            <h1 class="font-display-lg text-display-lg mb-4 max-w-md">
+                Conversa, cotiza y conviértete en el centro de tu negocio.
+            </h1>
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">
+                Clientes, productos y cotizaciones en un solo lugar — con aprobación online que tu cliente resuelve en segundos.
+            </p>
+        </div>
+
+        <div class="relative z-10 hidden lg:block">
+            <div class="card card-elevation-2 p-5 max-w-md">
+                <p class="font-body-md text-body-md mb-3">"Envié la cotización por WhatsApp y el cliente la aprobó esa misma noche. Cerré la venta sin llamadas de seguimiento."</p>
+                <div class="flex items-center gap-3">
+                    <span class="flex items-center justify-center w-9 h-9 rounded-full bg-primary-container text-on-primary font-label-md text-label-md">VG</span>
+                    <div>
+                        <p class="font-label-md text-label-md">Valentina G.</p>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant">Interiorismo · Santiago</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="relative z-10 flex items-center gap-2 pt-8">
+            <span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant tracking-wide">UN PRODUCTO DE GALLEGEEKS</span>
+        </div>
+    </section>
+
+    <section class="lg:w-[55%] flex items-center justify-center p-6 md:p-12">
+        <div class="w-full max-w-md">
+            {% block auth_form %}{% endblock %}
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased;
+    background-color: #faf8ff;
+    color: #131b2e;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  }
+
+  .material-symbols-outlined {
+    font-family: "Material Symbols Outlined";
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  }
+
+  .ms-filled {
+    font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 24;
+  }
+}
+
+@layer utilities {
+  /* Numeros de tablas y montos alineados verticalmente */
+  .text-tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Elevacion: level 1 (cards por defecto) */
+  .card-elevation-1 {
+    box-shadow:
+      0 1px 3px 0 rgb(15 23 42 / 0.04),
+      0 1px 2px -1px rgb(15 23 42 / 0.04);
+  }
+
+  /* Elevacion: level 2 (hover / interactive) */
+  .card-elevation-2 {
+    box-shadow:
+      0 10px 20px -5px rgb(79 70 229 / 0.08),
+      0 4px 6px -2px rgb(15 23 42 / 0.03);
+    transform: translateY(-2px);
+  }
+
+  /* Elevacion: level 3 (modales / previews) */
+  .card-elevation-3 {
+    box-shadow:
+      0 20px 25px -5px rgb(15 23 42 / 0.08),
+      0 8px 10px -6px rgb(15 23 42 / 0.03);
+  }
+
+  /* Glows del brand (landing / CTAs de conversion) */
+  .warm-glow {
+    box-shadow: 0 8px 30px -6px rgb(245 158 11 / 0.25);
+  }
+
+  .indigo-glow {
+    box-shadow: 0 4px 14px 0 rgb(79 70 229 / 0.35);
+  }
+}
+
+@layer components {
+  /* --- Botones --- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl font-label-lg shadow-sm active:scale-[0.98] transition-all duration-150 select-none cursor-pointer;
+  }
+
+  .btn-primary {
+    @apply bg-primary-container hover:bg-primary text-on-primary;
+  }
+
+  .btn-warm {
+    @apply bg-secondary-container hover:bg-secondary-fixed-dim text-on-secondary-container;
+  }
+
+  .btn-outline {
+    @apply border border-outline-variant/50 bg-surface-container-lowest text-on-surface hover:bg-surface-container;
+  }
+
+  .btn-ghost {
+    @apply text-primary hover:bg-primary-container/10 shadow-none;
+  }
+
+  .btn-sm {
+    @apply h-9 px-3 text-[13px] gap-1.5;
+  }
+
+  .btn-md {
+    @apply h-11 px-4;
+  }
+
+  /* --- Campos --- */
+  .input {
+    @apply h-11 w-full rounded-xl border border-outline-variant/50 bg-surface-container-lowest px-3.5 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/60 focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 focus:outline-none transition-colors duration-150;
+  }
+
+  .label {
+    @apply block font-label-md text-label-md text-on-surface mb-1.5;
+  }
+
+  /* --- Contenedores --- */
+  .card {
+    @apply bg-surface-container-lowest rounded-2xl border border-outline-variant/30 shadow-sm;
+  }
+
+  /* --- Tablas --- */
+  .table-th {
+    @apply px-3 py-2.5 text-left font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant;
+  }
+
+  .table-td {
+    @apply px-3 py-3 font-body-md text-[13px] text-on-surface;
+  }
+
+  /* --- Chips de filtro --- */
+  .chip {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-label-md text-label-md transition-colors duration-150 cursor-pointer;
+  }
+
+  .chip-active {
+    @apply bg-primary-container text-on-primary;
+  }
+
+  .chip-default {
+    @apply bg-surface-container-lowest text-on-surface-variant border border-outline-variant/40 hover:bg-surface-container;
+  }
+}

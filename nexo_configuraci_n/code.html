@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Configuración - Nexo CRM</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-fixed": "#002113",
+            "tertiary-fixed-dim": "#4edea3",
+            "on-surface-variant": "#464555",
+            "primary-fixed": "#e2dfff",
+            "secondary": "#855300",
+            "on-surface": "#131b2e",
+            "background": "#faf8ff",
+            "on-primary": "#ffffff",
+            "outline-variant": "#c7c4d8",
+            "on-secondary-container": "#684000",
+            "tertiary": "#005338",
+            "on-error": "#ffffff",
+            "surface-container": "#eaedff",
+            "primary": "#3525cd",
+            "inverse-on-surface": "#eef0ff",
+            "on-secondary-fixed-variant": "#653e00",
+            "surface": "#faf8ff",
+            "on-error-container": "#93000a",
+            "on-background": "#131b2e",
+            "surface-variant": "#dae2fd",
+            "on-tertiary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "secondary-fixed-dim": "#ffb95f",
+            "on-tertiary-container": "#67f4b7",
+            "on-secondary-fixed": "#2a1700",
+            "primary-container": "#4f46e5",
+            "surface-container-high": "#e2e7ff",
+            "secondary-container": "#fea619",
+            "tertiary-fixed": "#6ffbbe",
+            "tertiary-container": "#006e4b",
+            "on-tertiary-fixed-variant": "#005236",
+            "surface-container-highest": "#dae2fd",
+            "inverse-surface": "#283044",
+            "secondary-fixed": "#ffddb8",
+            "surface-container-low": "#f2f3ff",
+            "outline": "#777587",
+            "surface-dim": "#d2d9f4",
+            "error": "#ba1a1a",
+            "on-primary-fixed-variant": "#3323cc",
+            "primary-fixed-dim": "#c3c0ff",
+            "on-primary-container": "#dad7ff",
+            "on-primary-fixed": "#0f0069",
+            "inverse-primary": "#c3c0ff",
+            "error-container": "#ffdad6",
+            "on-secondary": "#ffffff",
+            "surface-bright": "#faf8ff",
+            "surface-tint": "#4d44e3"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xs": "0.5rem",
+            "space-2xl": "3rem",
+            "space-xl": "2rem",
+            "space-sm": "0.75rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "gutter-desktop": "1.5rem",
+            "container-max": "76rem",
+            "space-xxs": "0.25rem",
+            "gutter-mobile": "1rem"
+          },
+          "fontFamily": {
+            "display-lg": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "label-lg": ["Plus Jakarta Sans"],
+            "display-lg-mobile": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.005em", "fontWeight": "600" }],
+            "display-lg-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    /* Card elevation levels conforming to design style */
+    .card-elevation-1 {
+      box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+    .card-elevation-2 {
+      box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.08), 0 4px 6px -2px rgba(15, 23, 42, 0.03);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md antialiased min-h-screen flex">
+<!-- SideNavBar Anchor Component from JSON -->
+<aside class="fixed left-0 top-0 bottom-0 w-60 h-screen bg-surface border-r border-outline-variant/30 shadow-sm flex flex-col justify-between p-4 z-40">
+<!-- Header -->
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-3 px-2 pt-1">
+<div class="w-10 h-10 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary font-bold text-headline-sm">
+<span class="material-symbols-outlined text-primary text-2xl">hub</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md font-bold text-primary tracking-tight">Nexo</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant leading-none">Gallegeeks Studio</span>
+</div>
+</div>
+<!-- Quick CTA Button -->
+<button class="w-full bg-primary-container text-on-primary font-label-lg text-label-lg py-2.5 px-4 rounded-xl shadow-md hover:bg-primary transition-colors duration-150 active:scale-[0.98] flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">add</span>
+<span>+ Nueva Cotización</span>
+</button>
+<!-- Main Navigation Menu Tabs -->
+<nav class="flex flex-col gap-1.5">
+<!-- Dashboard -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<!-- Cotizaciones -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">request_quote</span>
+<span class="font-label-lg text-label-lg">Cotizaciones</span>
+</a>
+<!-- Clientes -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-lg text-label-lg">Clientes</span>
+</a>
+<!-- Pedidos -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-lg text-label-lg">Pedidos</span>
+</a>
+<!-- Productos -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="font-label-lg text-label-lg">Productos</span>
+</a>
+<!-- Configuración (ACTIVE TAB per hierarchy rule) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-primary-container text-on-primary font-semibold transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-lg text-label-lg">Configuración</span>
+</a>
+</nav>
+</div>
+<!-- SideNavBar Footer -->
+<div class="flex flex-col gap-2 pt-4 border-t border-outline-variant/30">
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium transition-colors" href="#">
+<span class="material-symbols-outlined text-outline">help</span>
+<span class="font-label-lg text-label-lg">Ayuda y Soporte</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium transition-colors" href="#">
+<span class="material-symbols-outlined text-outline">account_circle</span>
+<div class="flex flex-col text-left">
+<span class="font-label-lg text-label-lg leading-tight text-on-surface font-semibold">Marcos V.</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Perfil de Usuario</span>
+</div>
+</a>
+<!-- Endorsement Badge -->
+<div class="mt-2 px-3 py-2 rounded-lg bg-surface-container-low flex items-center justify-between border border-outline-variant/20">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Un producto de Gallegeeks</span>
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+</div>
+</div>
+</aside>
+<!-- Main Canvas Content Area -->
+<div class="flex-1 ml-60 min-h-screen flex flex-col pb-28">
+<!-- TopNavBar Anchor Component from JSON -->
+<header class="sticky top-0 z-30 bg-surface/90 backdrop-blur-md border-b border-outline-variant/30 shadow-sm h-16 flex items-center justify-between px-8">
+<!-- Search on Left per JSON -->
+<div class="flex items-center gap-3 w-96">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-lg">search</span>
+<input class="w-full h-10 pl-10 pr-4 bg-surface-container-lowest border border-outline-variant/40 rounded-xl font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all duration-150" placeholder="Buscar en configuración, folios, impuestos..." type="text"/>
+</div>
+</div>
+<!-- Center & Trailing Navigation & Actions -->
+<div class="flex items-center gap-5">
+<!-- Navigation Links per JSON -->
+<div class="hidden lg:flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-xl border border-outline-variant/30 text-on-surface-variant font-label-md text-label-md">
+<span class="flex items-center gap-1 font-semibold text-primary">
+<span class="material-symbols-outlined text-sm">payments</span>
+            EUR (€)
+          </span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+            Este Mes
+          </span>
+</div>
+<!-- Trailing Icon Actions per JSON -->
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 rounded-xl text-on-surface-variant hover:bg-surface-container flex items-center justify-center transition-colors active:scale-[0.98]">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-xl text-on-surface-variant hover:bg-surface-container flex items-center justify-center transition-colors active:scale-[0.98]">
+<span class="material-symbols-outlined">tune</span>
+</button>
+</div>
+<div class="h-6 w-px bg-outline-variant/40"></div>
+<!-- Action Buttons per JSON -->
+<button class="px-3.5 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-lg text-label-lg rounded-xl transition-colors active:scale-[0.98] flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+<span>Filtros</span>
+</button>
+<button class="px-4 py-2 bg-primary-container hover:bg-primary text-on-primary font-label-lg text-label-lg rounded-xl shadow-sm hover:shadow transition-all duration-150 active:scale-[0.98] flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">add</span>
+<span>+ Nueva Cotización</span>
+</button>
+</div>
+</header>
+<!-- Page Header & Subtitle -->
+<main class="flex-1 max-w-container-max w-full mx-auto px-8 pt-8 flex flex-col gap-8">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span>Nexo Workspace</span>
+<span class="text-outline-variant">/</span>
+<span class="text-primary font-semibold">Configuración General</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Configuración del Workspace</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Administra los parámetros comerciales, identidad de marca, correlativos y acceso para tu equipo.</p>
+</div>
+<!-- Quick Status Badge -->
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-surface-container-lowest card-elevation-1 rounded-full text-on-surface-variant font-label-md text-label-md self-start md:self-auto">
+<span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span>
+<span>Sincronización en la nube activa</span>
+</div>
+</div>
+<!-- Secondary Sub-Tab Navigation Strip -->
+<nav class="flex items-center gap-2 border-b border-outline-variant/40 overflow-x-auto pb-1 scrollbar-none">
+<button class="px-4 py-3 font-label-lg text-label-lg text-primary border-b-2 border-primary font-bold flex items-center gap-2 whitespace-nowrap">
+<span class="material-symbols-outlined text-lg">storefront</span>
+<span>General &amp; Empresa</span>
+</button>
+<button class="px-4 py-3 font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-t-lg transition-colors flex items-center gap-2 whitespace-nowrap">
+<span class="material-symbols-outlined text-lg">palette</span>
+<span>Logo &amp; Marca</span>
+</button>
+<button class="px-4 py-3 font-label-lg text-label-lg text-primary border-b-2 border-primary font-bold flex items-center gap-2 whitespace-nowrap">
+<span class="material-symbols-outlined text-lg">percent</span>
+<span>Impuestos &amp; Moneda</span>
+</button>
+<button class="px-4 py-3 font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-t-lg transition-colors flex items-center gap-2 whitespace-nowrap">
+<span class="material-symbols-outlined text-lg">tag</span>
+<span>Numeración Correlativa</span>
+</button>
+<button class="px-4 py-3 font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-t-lg transition-colors flex items-center gap-2 whitespace-nowrap">
+<span class="material-symbols-outlined text-lg">admin_panel_settings</span>
+<span>Roles y Permisos</span>
+</button>
+<button class="px-4 py-3 font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-t-lg transition-colors flex items-center gap-2 whitespace-nowrap">
+<span class="material-symbols-outlined text-lg">extension</span>
+<span>Integraciones</span>
+</button>
+</nav>
+<!-- Content Bento Grid Structure -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- SECTION 1: Datos del Negocio y Marca (Span 8 Cols) -->
+<section class="lg:col-span-8 bg-surface-container-lowest rounded-2xl p-6 card-elevation-1 flex flex-col gap-6">
+<div class="flex items-center justify-between border-b border-outline-variant/30 pb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">domain</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Datos del Negocio y Marca</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Información fiscal y comercial para emitir propuestas y presupuestos formales.</p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface-variant">Oficial</span>
+</div>
+<!-- Brand Logo Upload Preview Box -->
+<div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 p-4 rounded-xl bg-surface-container-low border border-outline-variant/30">
+<div class="w-full sm:w-64 bg-surface-container-lowest p-3 rounded-xl border border-outline-variant/40 flex flex-col items-center justify-center gap-2 shadow-sm">
+<!-- Official Logo Image Placeholder -->
+<img alt="Logotipo oficial de Nexo CRM - Gallegeeks SpA" class="h-14 w-auto object-contain rounded-md" src="https://lh3.googleusercontent.com/aida/AEtjO1XJWxkkAbGJjf0Q554InTcPmyDKJqXYek--XmlzosXjZpcHwhaG_pNTvrl-q38c03-f19lbfdr78J9F-tGgCzD0bBwXBm5vhWOkhGn-v_TuwpSu_IjeFre-aRwn64HNrgTBCd-5J0wX70x3h1KPV7es4XdNYBnMsajDPKHXMH6YD4_Eq3egI0LALvgOzsT9Esv319JtTmMyzqE2Z-jTwGy_gY1mEqTxCxSMUVFeQ5MwVHmQOdS3eOCmPrU"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-tertiary-container">verified</span>
+                Logo Principal Activo
+              </span>
+</div>
+<div class="flex-1 flex flex-col gap-2">
+<span class="font-label-lg text-label-lg text-on-surface">Logotipo Corporativo</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Se incluirá automáticamente en la cabecera de tus PDFs, facturas y enlaces interactivos para clientes.</p>
+<div class="flex items-center gap-3 pt-1">
+<button class="px-3.5 py-2 bg-surface-container-lowest hover:bg-surface-container border border-outline-variant/50 text-on-surface rounded-xl font-label-md text-label-md flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-base">cloud_upload</span>
+                  Cambiar Logotipo
+                </button>
+<button class="text-error hover:bg-error-container/20 px-3 py-2 rounded-xl font-label-md text-label-md transition-colors">
+                  Restablecer
+                </button>
+</div>
+</div>
+</div>
+<!-- Form Fields Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<!-- Razón Social -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface">Razón Social</label>
+<div class="relative">
+<input class="w-full h-11 px-3.5 rounded-xl border border-outline-variant/50 bg-surface-container-lowest font-body-md text-body-md text-on-surface focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all" type="text" value="Gallegeeks SpA"/>
+</div>
+</div>
+<!-- Nombre Comercial de Fantasía -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface">Nombre Comercial de Fantasía</label>
+<div class="relative">
+<input class="w-full h-11 px-3.5 rounded-xl border border-outline-variant/50 bg-surface-container-lowest font-body-md text-body-md text-on-surface focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all" type="text" value="Nexo Studio"/>
+</div>
+</div>
+<!-- RUT de la Empresa -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface">RUT de la Empresa</label>
+<div class="relative">
+<input class="w-full h-11 px-3.5 rounded-xl border border-outline-variant/50 bg-surface-container-lowest font-body-md text-body-md text-on-surface font-mono focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all" type="text" value="76.992.410-8"/>
+</div>
+</div>
+<!-- Email Comercial -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface">Email Comercial</label>
+<div class="relative">
+<input class="w-full h-11 px-3.5 rounded-xl border border-outline-variant/50 bg-surface-container-lowest font-body-md text-body-md text-on-surface focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all" type="email" value="contacto@gallegeeks.com"/>
+</div>
+</div>
+<!-- Teléfono de Soporte -->
+<div class="flex flex-col gap-1.5 md:col-span-2">
+<label class="font-label-md text-label-md text-on-surface">Teléfono / WhatsApp de Soporte Comercial</label>
+<div class="relative">
+<input class="w-full h-11 px-3.5 rounded-xl border border-outline-variant/50 bg-surface-container-lowest font-body-md text-body-md text-on-surface focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all" type="text" value="+56 9 8412 3990"/>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 2: Impuestos y Moneda (Span 4 Cols) -->
+<section class="lg:col-span-4 bg-surface-container-lowest rounded-2xl p-6 card-elevation-1 flex flex-col gap-6">
+<div class="flex items-center gap-3 border-b border-outline-variant/30 pb-4">
+<div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">paid</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Impuestos &amp; Moneda</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cálculos tributarios base.</p>
+</div>
+</div>
+<!-- Currency Selector -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface">Moneda Principal</label>
+<div class="grid grid-cols-3 gap-2">
+<label class="cursor-pointer border-2 border-primary bg-primary-container/10 p-3 rounded-xl flex flex-col items-center justify-center text-center transition-all">
+<input checked="" class="sr-only" name="currency" type="radio"/>
+<span class="font-label-lg text-label-lg text-primary font-bold">CLP ($)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Peso Chileno</span>
+</label>
+<label class="cursor-pointer border border-outline-variant/50 hover:bg-surface-container p-3 rounded-xl flex flex-col items-center justify-center text-center transition-all">
+<input class="sr-only" name="currency" type="radio"/>
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">EUR (€)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Euro</span>
+</label>
+<label class="cursor-pointer border border-outline-variant/50 hover:bg-surface-container p-3 rounded-xl flex flex-col items-center justify-center text-center transition-all">
+<input class="sr-only" name="currency" type="radio"/>
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">USD ($)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Dólar US</span>
+</label>
+</div>
+</div>
+<!-- Tax Setting -->
+<div class="flex flex-col gap-4 pt-2">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface">Tasa Predeterminada (IVA)</label>
+<div class="relative">
+<input class="w-full h-11 px-3.5 pr-12 rounded-xl border border-outline-variant/50 bg-surface-container-lowest font-body-md text-body-md text-on-surface font-bold focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all" type="number" value="19"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 font-label-lg text-label-lg text-outline">%</span>
+</div>
+</div>
+<!-- Tax Toggle Breakdown -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low border border-outline-variant/30">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Desglose Automático</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Mostrar Neto + IVA en presupuestos</span>
+</div>
+<!-- Simulated Active Toggle -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-outline-variant/50 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Optional Retention -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/30">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Retención Honorarios (13.75%)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Opcional para servicios profesionales</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-outline-variant/40 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- SECTION 3: Prefijos y Numeración Correlativa (Span 12 Cols) -->
+<section class="lg:col-span-12 bg-surface-container-lowest rounded-2xl p-6 card-elevation-1 flex flex-col gap-6">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-outline-variant/30 pb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">tag</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Prefijos y Numeración Correlativa</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Configura la estructura de correlativos secuenciales para documentos y registros.</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-container text-sm">lock_clock</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Secuencia garantizada sin duplicidad</span>
+</div>
+</div>
+<!-- Correlative 3-Card Bento Row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Cotizaciones Card -->
+<div class="p-5 rounded-xl bg-surface-container-low border border-outline-variant/30 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">request_quote</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Cotizaciones</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-container/20 text-secondary font-label-sm text-label-sm font-semibold">En Curso</span>
+</div>
+<div class="grid grid-cols-2 gap-3 pt-2">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Prefijo</label>
+<input class="h-10 px-3 rounded-lg border border-outline-variant/40 bg-surface-container-lowest font-mono font-bold text-on-surface text-center focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container" type="text" value="COT-"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Próximo Folio</label>
+<input class="h-10 px-3 rounded-lg border border-outline-variant/40 bg-surface-container-lowest font-mono font-bold text-primary text-center focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container" type="text" value="0043"/>
+</div>
+</div>
+<div class="pt-2 text-center bg-surface-container-lowest py-2 rounded-lg border border-outline-variant/20 font-mono text-body-sm text-on-surface-variant">
+                Ejemplo resultante: <strong class="text-on-surface">COT-0043</strong>
+</div>
+</div>
+<!-- Pedidos Card -->
+<div class="p-5 rounded-xl bg-surface-container-low border border-outline-variant/30 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">inventory_2</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Pedidos</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">Activo</span>
+</div>
+<div class="grid grid-cols-2 gap-3 pt-2">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Prefijo</label>
+<input class="h-10 px-3 rounded-lg border border-outline-variant/40 bg-surface-container-lowest font-mono font-bold text-on-surface text-center focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container" type="text" value="PED-"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Próximo Folio</label>
+<input class="h-10 px-3 rounded-lg border border-outline-variant/40 bg-surface-container-lowest font-mono font-bold text-primary text-center focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container" type="text" value="0019"/>
+</div>
+</div>
+<div class="pt-2 text-center bg-surface-container-lowest py-2 rounded-lg border border-outline-variant/20 font-mono text-body-sm text-on-surface-variant">
+                Ejemplo resultante: <strong class="text-on-surface">PED-0019</strong>
+</div>
+</div>
+<!-- Clientes Card -->
+<div class="p-5 rounded-xl bg-surface-container-low border border-outline-variant/30 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">group</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Clientes</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">Directorio</span>
+</div>
+<div class="grid grid-cols-2 gap-3 pt-2">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Prefijo</label>
+<input class="h-10 px-3 rounded-lg border border-outline-variant/40 bg-surface-container-lowest font-mono font-bold text-on-surface text-center focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container" type="text" value="CLI-"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Próximo Folio</label>
+<input class="h-10 px-3 rounded-lg border border-outline-variant/40 bg-surface-container-lowest font-mono font-bold text-primary text-center focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container" type="text" value="0049"/>
+</div>
+</div>
+<div class="pt-2 text-center bg-surface-container-lowest py-2 rounded-lg border border-outline-variant/20 font-mono text-body-sm text-on-surface-variant">
+                Ejemplo resultante: <strong class="text-on-surface">CLI-0049</strong>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 4: Roles y Permisos de Equipo (Span 12 Cols) -->
+<section class="lg:col-span-12 bg-surface-container-lowest rounded-2xl p-6 card-elevation-1 flex flex-col gap-6">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-outline-variant/30 pb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">manage_accounts</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Roles y Permisos de Equipo</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Control de accesos y responsabilidades operativas dentro de Nexo CRM.</p>
+</div>
+</div>
+<button class="px-4 py-2.5 bg-primary-container hover:bg-primary text-on-primary font-label-lg text-label-lg rounded-xl shadow-sm transition-all duration-150 active:scale-[0.98] flex items-center gap-2 self-start sm:self-auto">
+<span class="material-symbols-outlined text-lg">person_add</span>
+<span>+ Invitar Miembro</span>
+</button>
+</div>
+<!-- Clean Modern Table for Team Members -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/30 text-on-surface-variant font-label-md text-label-md">
+<th class="py-3.5 px-4 font-semibold">Integrante</th>
+<th class="py-3.5 px-4 font-semibold">Rol Asignado</th>
+<th class="py-3.5 px-4 font-semibold">Nivel de Alcance y Permisos</th>
+<th class="py-3.5 px-4 font-semibold">Estado</th>
+<th class="py-3.5 px-4 font-semibold text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20 font-body-md text-body-md">
+<!-- Row 1: Administrador -->
+<tr class="hover:bg-surface-container-low transition-colors duration-150">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary font-bold flex items-center justify-center font-label-lg">
+                        MV
+                      </div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Marcos V.</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">marcos@gallegeeks.com</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-sm">shield_person</span>
+                      Administrador
+                    </span>
+</td>
+<td class="py-4 px-4">
+<span class="text-on-surface font-medium">Acceso total</span>
+<span class="text-on-surface-variant font-body-sm block">Configuración, facturación, reportes y usuarios</span>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 text-tertiary font-label-sm text-label-sm font-semibold">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+                      Activo
+                    </span>
+</td>
+<td class="py-4 px-4 text-right">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: Vendedor -->
+<tr class="hover:bg-surface-container-low transition-colors duration-150">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container font-bold flex items-center justify-center font-label-lg">
+                        CR
+                      </div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Camila R.</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">camila.ventas@gallegeeks.com</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-sm">point_of_sale</span>
+                      Vendedor
+                    </span>
+</td>
+<td class="py-4 px-4">
+<span class="text-on-surface font-medium">Crear y editar cotizaciones</span>
+<span class="text-on-surface-variant font-body-sm block">Gestión directa de clientes y pipeline comercial</span>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 text-tertiary font-label-sm text-label-sm font-semibold">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+                      Activo
+                    </span>
+</td>
+<td class="py-4 px-4 text-right">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: Contador -->
+<tr class="hover:bg-surface-container-low transition-colors duration-150">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container text-outline font-bold flex items-center justify-center font-label-lg">
+                        EA
+                      </div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Estudio Auditor</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">auditoria@estudioexterno.cl</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-sm">receipt_long</span>
+                      Contador
+                    </span>
+</td>
+<td class="py-4 px-4">
+<span class="text-on-surface font-medium">Acceso sólo lectura y pagos</span>
+<span class="text-on-surface-variant font-body-sm block">Exportación de libros contables y cobranzas</span>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 text-tertiary font-label-sm text-label-sm font-semibold">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+                      Activo
+                    </span>
+</td>
+<td class="py-4 px-4 text-right">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+<!-- Sticky Bottom Bar Action Strip -->
+<div class="fixed bottom-0 right-0 left-60 bg-surface-container-lowest/95 backdrop-blur-md border-t border-outline-variant/30 py-3.5 px-8 flex items-center justify-between z-30 shadow-lg">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-tertiary-container text-xl" style="font-variation-settings: 'FILL' 1;">cloud_done</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Todos los cambios están sincronizados</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-xl font-label-lg text-label-lg transition-colors">
+          Descartar
+        </button>
+<button class="px-6 py-2.5 bg-primary-container hover:bg-primary text-on-primary font-label-lg text-label-lg rounded-xl shadow-md hover:shadow-lg transition-all duration-150 active:scale-[0.98] flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">save</span>
+<span>Guardar Cambios</span>
+</button>
+</div>
+</div>
+</div>
+</body></html>

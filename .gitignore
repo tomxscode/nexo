@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.mypy_cache/
+.ruff_cache/
+
+# Django
+staticfiles/
+media/
+db.sqlite3
+
+# Node / Tailwind
+node_modules/
+static/css/nexo.css
+
+# Env & secrets
+.env
+.env.local
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

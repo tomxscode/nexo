@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-surface" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Acceder a Nexo | Mini CRM por Gallegeeks</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-fixed": "#002113",
+            "tertiary-fixed-dim": "#4edea3",
+            "on-surface-variant": "#464555",
+            "primary-fixed": "#e2dfff",
+            "secondary": "#855300",
+            "on-surface": "#131b2e",
+            "background": "#faf8ff",
+            "on-primary": "#ffffff",
+            "outline-variant": "#c7c4d8",
+            "on-secondary-container": "#684000",
+            "tertiary": "#005338",
+            "on-error": "#ffffff",
+            "surface-container": "#eaedff",
+            "primary": "#3525cd",
+            "inverse-on-surface": "#eef0ff",
+            "on-secondary-fixed-variant": "#653e00",
+            "surface": "#faf8ff",
+            "on-error-container": "#93000a",
+            "on-background": "#131b2e",
+            "surface-variant": "#dae2fd",
+            "on-tertiary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "secondary-fixed-dim": "#ffb95f",
+            "on-tertiary-container": "#67f4b7",
+            "on-secondary-fixed": "#2a1700",
+            "primary-container": "#4f46e5",
+            "surface-container-high": "#e2e7ff",
+            "secondary-container": "#fea619",
+            "tertiary-fixed": "#6ffbbe",
+            "tertiary-container": "#006e4b",
+            "on-tertiary-fixed-variant": "#005236",
+            "surface-container-highest": "#dae2fd",
+            "inverse-surface": "#283044",
+            "secondary-fixed": "#ffddb8",
+            "surface-container-low": "#f2f3ff",
+            "outline": "#777587",
+            "surface-dim": "#d2d9f4",
+            "error": "#ba1a1a",
+            "on-primary-fixed-variant": "#3323cc",
+            "primary-fixed-dim": "#c3c0ff",
+            "on-primary-container": "#dad7ff",
+            "on-primary-fixed": "#0f0069",
+            "inverse-primary": "#c3c0ff",
+            "error-container": "#ffdad6",
+            "on-secondary": "#ffffff",
+            "surface-bright": "#faf8ff",
+            "surface-tint": "#4d44e3"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xs": "0.5rem",
+            "space-2xl": "3rem",
+            "space-xl": "2rem",
+            "space-sm": "0.75rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "gutter-desktop": "1.5rem",
+            "container-max": "76rem",
+            "space-xxs": "0.25rem",
+            "gutter-mobile": "1rem"
+          },
+          "fontFamily": {
+            "display-lg": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "label-lg": ["Plus Jakarta Sans"],
+            "display-lg-mobile": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.005em", "fontWeight": "600" }],
+            "display-lg-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .material-symbols-outlined.fill-icon {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+</head>
+<body class="h-full bg-surface text-on-surface font-body-md text-body-md antialiased selection:bg-primary-fixed selection:text-primary flex flex-col justify-between">
+<!-- Linear Authentication Canvas (Shell Suppressed under Destination Rule) -->
+<main class="min-h-screen w-full flex flex-col lg:flex-row">
+<!-- LEFT PANEL (45% on Desktop): Brand & Ambient Narrative -->
+<section class="lg:w-[45%] relative bg-gradient-to-br from-surface-container-high via-surface-container to-secondary-fixed/40 p-8 sm:p-12 lg:p-16 flex flex-col justify-between overflow-hidden border-b lg:border-b-0 lg:border-r border-outline-variant/30">
+<!-- Ambient Glow Orbs -->
+<div class="absolute -top-24 -left-20 w-80 h-80 rounded-full bg-primary-container/15 blur-3xl pointer-events-none"></div>
+<div class="absolute bottom-10 right-0 w-96 h-96 rounded-full bg-secondary-container/20 blur-3xl pointer-events-none"></div>
+<!-- Top Branding Bar -->
+<div class="relative z-10">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img alt="Nexo CRM" class="h-10 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XJWxkkAbGJjf0Q554InTcPmyDKJqXYek--XmlzosXjZpcHwhaG_pNTvrl-q38c03-f19lbfdr78J9F-tGgCzD0bBwXBm5vhWOkhGn-v_TuwpSu_IjeFre-aRwn64HNrgTBCd-5J0wX70x3h1KPV7es4XdNYBnMsajDPKHXMH6YD4_Eq3egI0LALvgOzsT9Esv319JtTmMyzqE2Z-jTwGy_gY1mEqTxCxSMUVFeQ5MwVHmQOdS3eOCmPrU"/>
+</div>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-lowest/80 text-on-surface-variant font-label-sm text-label-sm border border-outline-variant/40 shadow-sm backdrop-blur-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span>
+            v2.4 Live
+          </span>
+</div>
+</div>
+<!-- Center Narrative & Human Value Proposition -->
+<div class="relative z-10 my-10 lg:my-0 max-w-lg">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-lowest/90 border border-outline-variant/40 text-primary font-label-md text-label-md mb-6 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">handshake</span>
+<span>Mini CRM diseñado para personas reales</span>
+</div>
+<h1 class="font-headline-lg lg:font-display-lg text-headline-lg lg:text-display-lg text-on-surface mb-6 tracking-tight">
+          Cierra más acuerdos <span class="text-primary-container">sin perder</span> la calidez humana.
+        </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-8">
+          Diseñado para agencias boutique y consultores independientes. Genera presupuestos impecables y gestiona clientes en minutos, sin la frialdad corporativa.
+        </p>
+<!-- Floating Testimonial Micro-Card (Level 2 Elevation) -->
+<div class="p-5 rounded-xl bg-surface-container-lowest/95 border border-outline-variant/50 shadow-md backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
+<div class="flex items-center gap-1 text-secondary-container mb-3">
+<span class="material-symbols-outlined fill-icon text-[18px]">star</span>
+<span class="material-symbols-outlined fill-icon text-[18px]">star</span>
+<span class="material-symbols-outlined fill-icon text-[18px]">star</span>
+<span class="material-symbols-outlined fill-icon text-[18px]">star</span>
+<span class="material-symbols-outlined fill-icon text-[18px]">star</span>
+<span class="ml-2 font-label-sm text-label-sm text-on-surface-variant">5.0 de 5 estrellas</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface italic mb-4">
+            “Nexo transformó nuestro proceso comercial. Enviamos cotizaciones claras en 3 minutos y nuestros clientes aprecian la transparencia y el trato cálido.”
+          </p>
+<div class="flex items-center justify-between border-t border-outline-variant/30 pt-3">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-primary-fixed text-primary flex items-center justify-center font-label-md text-label-md font-bold">
+                MC
+              </div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Martín Cifuentes</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Director en Estudio Cero</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 text-tertiary font-label-sm text-label-sm font-semibold bg-tertiary-fixed/30 px-2.5 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+              Cliente activo
+            </span>
+</div>
+</div>
+</div>
+<!-- Bottom Heritage & Endorsement -->
+<div class="relative z-10 pt-4 flex items-center justify-between">
+<div class="flex items-center gap-2.5 px-3 py-1.5 rounded-lg bg-surface-container-lowest/70 border border-outline-variant/30">
+<div class="w-2.5 h-2.5 rounded-full bg-secondary"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Un producto de <span class="font-semibold text-on-surface">Gallegeeks</span></span>
+</div>
+<div class="hidden sm:flex items-center gap-4 text-on-surface-variant font-label-sm text-label-sm">
+<span>Privacidad</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>Términos</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>Soporte</span>
+</div>
+</div>
+</section>
+<!-- RIGHT PANEL (55% on Desktop): Auth Form & Interactive Controls -->
+<section class="lg:w-[55%] flex-1 bg-surface flex flex-col justify-center items-center p-6 sm:p-12 lg:p-16 relative">
+<!-- Top Mobile Brand Indicator (Only visible if small) -->
+<div class="w-full max-w-md mb-6 lg:hidden flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Acceso seguro a Workspace</span>
+<div class="flex items-center gap-1.5 text-tertiary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span>Cifrado SSL 256-bit</span>
+</div>
+</div>
+<div class="w-full max-w-md mx-auto">
+<!-- Interactive Mode Toggle: Iniciar sesión vs Crear cuenta -->
+<div class="mb-8 p-1 bg-surface-container-low rounded-xl border border-outline-variant/40 flex items-center shadow-inner">
+<button class="flex-1 py-2.5 rounded-lg font-label-lg text-label-lg transition-all duration-200 bg-surface-container-lowest text-primary font-bold shadow-sm flex items-center justify-center gap-1.5" id="tab-login" onclick="switchAuthMode('login')" type="button">
+<span class="material-symbols-outlined text-[18px]">login</span>
+<span>Iniciar sesión</span>
+</button>
+<button class="flex-1 py-2.5 rounded-lg font-label-lg text-label-lg transition-all duration-200 text-on-surface-variant hover:text-on-surface font-medium flex items-center justify-center gap-1.5" id="tab-register" onclick="switchAuthMode('register')" type="button">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+<span>Crear cuenta gratis</span>
+</button>
+</div>
+<!-- Heading Context Header -->
+<div class="mb-8">
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight mb-2" id="auth-title">
+            ¡Hola de nuevo!
+          </h2>
+<p class="font-body-md text-body-md text-on-surface-variant" id="auth-subtitle">
+            Ingresa tus credenciales para gestionar tus presupuestos de hoy.
+          </p>
+</div>
+<!-- Social Quick Auth Button -->
+<button class="w-full h-11 px-4 rounded-xl border border-outline-variant/60 bg-surface-container-lowest hover:bg-surface-container-low font-label-lg text-label-lg text-on-surface flex items-center justify-center gap-3 transition-all duration-150 shadow-sm active:scale-[0.99] mb-6" type="button">
+<svg aria-hidden="true" class="w-5 h-5" viewbox="0 0 24 24">
+<path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" fill="#4285F4"></path>
+<path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.15C3.25 21.36 7.33 24 12 24z" fill="#34A853"></path>
+<path d="M5.28 14.27a7.18 7.18 0 0 1 0-4.54V6.58H1.26a11.97 11.97 0 0 0 0 10.84l4.02-3.15z" fill="#FBBC05"></path>
+<path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.25 2.64 1.26 6.58l4.02 3.15c.95-2.83 3.6-4.98 6.72-4.98z" fill="#EA4335"></path>
+</svg>
+<span>Continuar con Google</span>
+</button>
+<!-- Divider -->
+<div class="relative flex items-center justify-center mb-6">
+<div class="w-full border-t border-outline-variant/40"></div>
+<span class="absolute px-3 bg-surface text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">o con tu correo</span>
+</div>
+<!-- Auth Form -->
+<form class="space-y-4" id="auth-form" onsubmit="handleFormSubmit(event)">
+<!-- Name field (Conditional for Register) -->
+<div class="hidden space-y-1.5" id="field-name">
+<label class="block font-label-md text-label-md text-on-surface font-semibold" for="fullname">
+              Nombre completo o agencia
+            </label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+</span>
+<input class="w-full h-11 pl-11 pr-4 rounded-xl border border-outline-variant/60 bg-surface-container-lowest text-on-surface placeholder:text-outline/70 focus:outline-none focus:ring-2 focus:ring-primary-container focus:border-primary transition duration-150 font-body-md text-body-md shadow-sm" id="fullname" name="fullname" placeholder="Ej. Camila Morales" type="text"/>
+</div>
+</div>
+<!-- Email Field -->
+<div class="space-y-1.5">
+<label class="block font-label-md text-label-md text-on-surface font-semibold" for="email">
+              Email de trabajo
+            </label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</span>
+<input class="w-full h-11 pl-11 pr-4 rounded-xl border border-outline-variant/60 bg-surface-container-lowest text-on-surface placeholder:text-outline/70 focus:outline-none focus:ring-2 focus:ring-primary-container focus:border-primary transition duration-150 font-body-md text-body-md shadow-sm" id="email" name="email" placeholder="nombre@estudio.com" required="" type="email" value="demo@gallegeeks.com"/>
+</div>
+</div>
+<!-- Password Field with Toggle -->
+<div class="space-y-1.5">
+<label class="block font-label-md text-label-md text-on-surface font-semibold" for="password">
+              Contraseña
+            </label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">key</span>
+</span>
+<input class="w-full h-11 pl-11 pr-11 rounded-xl border border-outline-variant/60 bg-surface-container-lowest text-on-surface placeholder:text-outline/70 focus:outline-none focus:ring-2 focus:ring-primary-container focus:border-primary transition duration-150 font-body-md text-body-md shadow-sm" id="password" name="password" placeholder="••••••••••••" required="" type="password" value="cotizaciones2025"/>
+<button class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-on-surface-variant hover:text-on-surface transition-colors" onclick="togglePasswordVisibility()" title="Mostrar u ocultar contraseña" type="button">
+<span class="material-symbols-outlined text-[20px]" id="password-icon">visibility</span>
+</button>
+</div>
+</div>
+<!-- Remember me & Forgot Password Row -->
+<div class="flex items-center justify-between pt-1" id="row-auxiliary">
+<label class="flex items-center gap-2 cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded text-primary-container border-outline-variant/70 focus:ring-primary-container focus:ring-offset-0 transition" id="remember" name="remember" type="checkbox"/>
+<span class="font-label-md text-label-md text-on-surface-variant">Recordarme en este equipo</span>
+</label>
+<a class="font-label-md text-label-md text-primary hover:text-primary-container font-semibold transition-colors" href="#recuperar" onclick="alert('Enlace de restablecimiento enviado a tu correo corporativo.'); return false;">
+              ¿Olvidaste tu contraseña?
+            </a>
+</div>
+<!-- Terms acceptance for registration -->
+<div class="hidden pt-1" id="row-terms">
+<label class="flex items-start gap-2 cursor-pointer text-on-surface-variant font-label-sm text-label-sm">
+<input class="mt-0.5 w-4 h-4 rounded text-primary-container border-outline-variant focus:ring-primary-container" id="terms" type="checkbox"/>
+<span>Acepto las <a class="underline text-primary" href="#">Condiciones de Servicio</a> y la política de privacidad de Gallegeeks.</span>
+</label>
+</div>
+<!-- Primary CTA Button -->
+<div class="pt-2">
+<button class="w-full h-11 px-6 rounded-xl bg-primary-container hover:bg-primary text-on-primary font-label-lg text-label-lg font-bold tracking-wide shadow-md hover:shadow-lg transition-all duration-150 flex items-center justify-center gap-2 active:scale-[0.99]" id="btn-submit" type="submit">
+<span>Ingresar a Nexo</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</form>
+<!-- Quick Demo Hint Pill -->
+<div class="mt-6 p-3 rounded-xl bg-surface-container-low border border-outline-variant/30 flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">lightbulb</span>
+<span class="font-label-sm text-label-sm"><strong class="font-semibold text-on-surface">Espacio Demo:</strong> Acceso pre-configurado para explorar.</span>
+</div>
+<button class="font-label-sm text-label-sm text-primary hover:underline font-bold" onclick="loadDemoCredentials()" type="button">
+            Autocompletar
+          </button>
+</div>
+<!-- Security & Guarantee Badge -->
+<div class="mt-8 pt-6 border-t border-outline-variant/30 flex items-center justify-center gap-4 text-outline font-label-sm text-label-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary">verified_user</span>
+            Conexión protegida con SSL
+          </span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">cloud_done</span>
+            Copias de seguridad diarias
+          </span>
+</div>
+</div>
+</section>
+</main>
+<script>
+    let currentMode = 'login';
+
+    function switchAuthMode(mode) {
+      currentMode = mode;
+      const tabLogin = document.getElementById('tab-login');
+      const tabRegister = document.getElementById('tab-register');
+      const authTitle = document.getElementById('auth-title');
+      const authSubtitle = document.getElementById('auth-subtitle');
+      const fieldName = document.getElementById('field-name');
+      const rowAux = document.getElementById('row-auxiliary');
+      const rowTerms = document.getElementById('row-terms');
+      const btnSubmit = document.getElementById('btn-submit');
+
+      if (mode === 'register') {
+        // Toggle tabs
+        tabRegister.className = "flex-1 py-2.5 rounded-lg font-label-lg text-label-lg transition-all duration-200 bg-surface-container-lowest text-primary font-bold shadow-sm flex items-center justify-center gap-1.5";
+        tabLogin.className = "flex-1 py-2.5 rounded-lg font-label-lg text-label-lg transition-all duration-200 text-on-surface-variant hover:text-on-surface font-medium flex items-center justify-center gap-1.5";
+        
+        // Text & Content
+        authTitle.innerText = "Empieza gratis en 1 minuto";
+        authSubtitle.innerText = "Sin tarjeta de crédito requerida. Configura tu espacio de cotizaciones hoy mismo.";
+        
+        // Fields visibility
+        fieldName.classList.remove('hidden');
+        rowAux.classList.add('hidden');
+        rowTerms.classList.remove('hidden');
+        
+        // CTA Button
+        btnSubmit.innerHTML = `<span>Crear mi cuenta gratis</span><span class="material-symbols-outlined text-[18px]">check_circle</span>`;
+      } else {
+        // Toggle tabs
+        tabLogin.className = "flex-1 py-2.5 rounded-lg font-label-lg text-label-lg transition-all duration-200 bg-surface-container-lowest text-primary font-bold shadow-sm flex items-center justify-center gap-1.5";
+        tabRegister.className = "flex-1 py-2.5 rounded-lg font-label-lg text-label-lg transition-all duration-200 text-on-surface-variant hover:text-on-surface font-medium flex items-center justify-center gap-1.5";
+        
+        // Text & Content
+        authTitle.innerText = "¡Hola de nuevo!";
+        authSubtitle.innerText = "Ingresa tus credenciales para gestionar tus presupuestos de hoy.";
+        
+        // Fields visibility
+        fieldName.classList.add('hidden');
+        rowAux.classList.remove('hidden');
+        rowTerms.classList.add('hidden');
+        
+        // CTA Button
+        btnSubmit.innerHTML = `<span>Ingresar a Nexo</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>`;
+      }
+    }
+
+    function togglePasswordVisibility() {
+      const passInput = document.getElementById('password');
+      const passIcon = document.getElementById('password-icon');
+      if (passInput.type === 'password') {
+        passInput.type = 'text';
+        passIcon.innerText = 'visibility_off';
+      } else {
+        passInput.type = 'password';
+        passIcon.innerText = 'visibility';
+      }
+    }
+
+    function loadDemoCredentials() {
+      document.getElementById('email').value = "demo@gallegeeks.com";
+      document.getElementById('password').value = "cotizaciones2025";
+      const btn = document.getElementById('btn-submit');
+      btn.classList.add('ring-2', 'ring-secondary-container');
+      setTimeout(() => btn.classList.remove('ring-2', 'ring-secondary-container'), 700);
+    }
+
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      const email = document.getElementById('email').value;
+      const btn = document.getElementById('btn-submit');
+      const originalText = btn.innerHTML;
+      
+      btn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[20px]">sync</span><span>Accediendo...</span>`;
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.innerHTML = `<span class="material-symbols-outlined text-[20px]">done</span><span>¡Bienvenido a Nexo!</span>`;
+        btn.classList.remove('bg-primary-container', 'hover:bg-primary');
+        btn.classList.add('bg-tertiary-container', 'text-on-tertiary');
+        
+        setTimeout(() => {
+          alert(`¡Sesión iniciada con éxito! Redirigiendo a tu workspace Nexo CRM para ${email}...`);
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+          btn.classList.add('bg-primary-container', 'hover:bg-primary');
+          btn.classList.remove('bg-tertiary-container', 'text-on-tertiary');
+        }, 600);
+      }, 900);
+    }
+  </script>
+</body></html>

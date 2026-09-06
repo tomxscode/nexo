@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block body %}
+    {% include "includes/sidebar.html" %}
+
+    <div class="md:ml-60 min-h-screen flex flex-col">
+        {% include "includes/topbar.html" %}
+        <main class="flex-1 px-gutter-mobile md:px-gutter-desktop py-6 md:py-8 bg-surface">
+            <div class="max-w-container-max mx-auto">
+                {% if messages %}
+                    <div class="mb-4 space-y-2">
+                        {% for message in messages %}
+                            <div class="card px-4 py-3 flex items-center gap-2.5">
+                                {% include "includes/icon.html" with icon="info" size=18 %}
+                                <span class="font-body-md text-body-md text-on-surface">{{ message }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% block workspace_content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+{% endblock %}

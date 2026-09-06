@@ -1,0 +1,99 @@
+{% extends "workspace/base_workspace.html" %}
+
+{% block title %}Dashboard · Nexo{% endblock %}
+
+{% block workspace_content %}
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-6">
+        <div>
+            <p class="font-label-md text-label-md text-secondary tracking-wide uppercase mb-1">
+                {% now "l, d \d\e F" %}
+            </p>
+            <h1 class="font-headline-lg text-headline-lg">Hola, {{ user.first_name|default:user.email }}</h1>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-1">Aquí está el pulso de
+                <strong class="text-on-surface">{{ current_tenant.name|default:"tu negocio" }}</strong>.</p>
+        </div>
+        <select class="input md:w-44" aria-label="Periodo">
+            <option>Este Mes</option>
+            <option>Este Trimestre</option>
+            <option>Este Año</option>
+        </select>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+        <div class="card p-5">
+            <div class="flex items-center gap-3 mb-3">
+                <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-primary-container/10 text-primary-container">
+                    {% include "includes/icon.html" with icon="trending_up" size=20 %}
+                </span>
+                <span class="font-label-md text-label-md text-on-surface-variant">Ventas del mes</span>
+            </div>
+            <p class="font-headline-md text-headline-md text-tabular">$0</p>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Ventas registradas</p>
+        </div>
+        <div class="card p-5">
+            <div class="flex items-center gap-3 mb-3">
+                <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-secondary-fixed text-on-secondary-fixed-variant">
+                    {% include "includes/icon.html" with icon="request_quote" size=20 %}
+                </span>
+                <span class="font-label-md text-label-md text-on-surface-variant">Cartera abierta</span>
+            </div>
+            <p class="font-headline-md text-headline-md text-tabular">$0</p>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Cotizaciones en curso</p>
+        </div>
+        <div class="card p-5">
+            <div class="flex items-center gap-3 mb-3">
+                <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-tertiary-fixed text-on-tertiary-fixed">
+                    {% include "includes/icon.html" with icon="check_circle" size=20 %}
+                </span>
+                <span class="font-label-md text-label-md text-on-surface-variant">Tasa de conversión</span>
+            </div>
+            <p class="font-headline-md text-headline-md text-tabular">0%</p>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Aprobadas / enviadas</p>
+        </div>
+        <div class="card p-5">
+            <div class="flex items-center gap-3 mb-3">
+                <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-error-container/60 text-on-error-container">
+                    {% include "includes/icon.html" with icon="receipt_long" size=20 %}
+                </span>
+                <span class="font-label-md text-label-md text-on-surface-variant">Ticket promedio</span>
+            </div>
+            <p class="font-headline-md text-headline-md text-tabular">$0</p>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Por venta realizada</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+        <div class="card p-5 lg:col-span-2">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="font-headline-sm text-headline-sm">Montos por estado</h2>
+                <a href="#" class="btn btn-ghost btn-sm">Ver reporte</a>
+            </div>
+            <div class="rounded-xl border border-dashed border-outline-variant/60 px-5 py-8 text-center">
+                <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-surface-container text-on-surface-variant mb-3">
+                    {% include "includes/icon.html" with icon="candlestick_chart" size=22 %}
+                </span>
+                <p class="font-body-md text-body-md text-on-surface-variant">Aún no hay cotizaciones. Crea la primera y verás aquí el flujo por estado.</p>
+            </div>
+        </div>
+
+        <div class="card p-5">
+            <h2 class="font-headline-sm text-headline-sm mb-4">Cotizaciones calientes</h2>
+            <div class="rounded-xl border border-dashed border-outline-variant/60 px-5 py-8 text-center">
+                <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant mb-3">
+                    {% include "includes/icon.html" with icon="local_fire_department" size=22 %}
+                </span>
+                <p class="font-body-md text-body-md text-on-surface-variant">Sin pendientes por vencer.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card p-5">
+        <h2 class="font-headline-sm text-headline-sm mb-4">Actividad reciente</h2>
+        <div class="rounded-xl border border-dashed border-outline-variant/60 px-5 py-8 text-center">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-surface-container text-on-surface-variant mb-3">
+                {% include "includes/icon.html" with icon="bolt" size=22 %}
+            </span>
+            <p class="font-body-md text-body-md text-on-surface-variant">Aquí verás cada movimiento de tu negocio en tiempo real.</p>
+        </div>
+    </div>
+{% endblock %}

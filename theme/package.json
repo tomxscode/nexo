@@ -1,0 +1,12 @@
+{
+  "name": "nexo-theme",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "tailwindcss -i ./input.css -o ../static/css/nexo.css --watch",
+    "build": "tailwindcss -i ./input.css -o ../static/css/nexo.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}

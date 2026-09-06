@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" width="520" height="120" fill="none">
+  <defs>
+    <linearGradient id="nexoGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#6366F1"/>
+    </linearGradient>
+    <linearGradient id="nexoGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#FB923C"/>
+    </linearGradient>
+    <filter id="softGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#4F46E5" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <!-- Isotipo: Nodo de conexión humana y ágil (dos formas fluidas entrelazadas) -->
+  <g transform="translate(10, 10)" filter="url(#softGlow)">
+    <!-- Forma base índigo (CRM / Confianza) -->
+    <path d="M 40 18 C 22 18 10 30 10 50 C 10 70 24 82 44 82 C 60 82 72 70 76 56 C 78 50 72 44 64 44 C 57 44 54 48 51 54 C 47 62 38 66 30 62 C 22 58 22 42 30 36 C 36 32 46 34 52 40 C 57 45 65 44 68 38 C 71 32 68 25 61 20 C 54 18 47 18 40 18 Z" fill="url(#nexoGrad1)" />
+    
+    <!-- Forma acento ámbar / coral (Presupuestos / Calidez humana / Cierre de acuerdos) -->
+    <path d="M 60 82 C 78 82 90 70 90 50 C 90 30 76 18 56 18 C 40 18 28 30 24 44 C 22 50 28 56 36 56 C 43 56 46 52 49 46 C 53 38 62 34 70 38 C 78 42 78 58 70 64 C 64 68 54 66 48 60 C 43 55 35 56 32 62 C 29 68 32 75 39 80 C 46 82 53 82 60 82 Z" fill="url(#nexoGrad2)" opacity="0.92" style="mix-blend-mode: multiply;" />
+
+    <!-- Punto de pulso/conexión central -->
+    <circle cx="50" cy="50" r="5" fill="#FFFFFF" opacity="0.9" />
+  </g>
+
+  <!-- Wordmark 'Nexo' -->
+  <text x="126" y="66" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="44" font-weight="800" letter-spacing="-1.5" fill="#0F172A">
+    Nexo
+    <tspan fill="#F59E0B">.</tspan>
+  </text>
+
+  <!-- Tagline / Endoso Gallegeeks -->
+  <g transform="translate(128, 77)">
+    <rect x="0" y="5" width="4" height="14" rx="2" fill="#6366F1" opacity="0.6"/>
+    <text x="12" y="16" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" letter-spacing="0.3" fill="#64748B">
+      UN PRODUCTO DE <tspan font-weight="700" fill="#4338CA">GALLEGEEKS</tspan>
+    </text>
+  </g>
+</svg>

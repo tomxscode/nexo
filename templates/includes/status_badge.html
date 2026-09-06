@@ -1,0 +1,19 @@
+{% with status=value|default:"borrador" %}
+    {% if status == "aprobada" or status == "ganada" or status == "pagado" or status == "activo" or status == "completado" %}
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm font-semibold bg-tertiary-fixed text-on-tertiary-fixed">
+            <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>{{ label|default:status }}
+        </span>
+    {% elif status == "enviada" or status == "pendiente" or status == "vista" or status == "prospecto" %}
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm font-semibold bg-secondary-fixed text-on-secondary-fixed-variant">
+            <span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>{{ label|default:status }}
+        </span>
+    {% elif status == "rechazada" or status == "anulada" %}
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm font-semibold bg-error-container text-on-error-container">
+            <span class="w-1.5 h-1.5 rounded-full bg-error"></span>{{ label|default:status }}
+        </span>
+    {% else %}
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm font-semibold bg-surface-container-high text-on-surface-variant">
+            <span class="w-1.5 h-1.5 rounded-full bg-outline"></span>{{ label|default:status }}
+        </span>
+    {% endif %}
+{% endwith %}

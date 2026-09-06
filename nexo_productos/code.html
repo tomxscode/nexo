@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Catálogo de Productos y Servicios - Nexo CRM</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-fixed": "#002113",
+            "tertiary-fixed-dim": "#4edea3",
+            "on-surface-variant": "#464555",
+            "primary-fixed": "#e2dfff",
+            "secondary": "#855300",
+            "on-surface": "#131b2e",
+            "background": "#faf8ff",
+            "on-primary": "#ffffff",
+            "outline-variant": "#c7c4d8",
+            "on-secondary-container": "#684000",
+            "tertiary": "#005338",
+            "on-error": "#ffffff",
+            "surface-container": "#eaedff",
+            "primary": "#3525cd",
+            "inverse-on-surface": "#eef0ff",
+            "on-secondary-fixed-variant": "#653e00",
+            "surface": "#faf8ff",
+            "on-error-container": "#93000a",
+            "on-background": "#131b2e",
+            "surface-variant": "#dae2fd",
+            "on-tertiary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "secondary-fixed-dim": "#ffb95f",
+            "on-tertiary-container": "#67f4b7",
+            "on-secondary-fixed": "#2a1700",
+            "primary-container": "#4f46e5",
+            "surface-container-high": "#e2e7ff",
+            "secondary-container": "#fea619",
+            "tertiary-fixed": "#6ffbbe",
+            "tertiary-container": "#006e4b",
+            "on-tertiary-fixed-variant": "#005236",
+            "surface-container-highest": "#dae2fd",
+            "inverse-surface": "#283044",
+            "secondary-fixed": "#ffddb8",
+            "surface-container-low": "#f2f3ff",
+            "outline": "#777587",
+            "surface-dim": "#d2d9f4",
+            "error": "#ba1a1a",
+            "on-primary-fixed-variant": "#3323cc",
+            "primary-fixed-dim": "#c3c0ff",
+            "on-primary-container": "#dad7ff",
+            "on-primary-fixed": "#0f0069",
+            "inverse-primary": "#c3c0ff",
+            "error-container": "#ffdad6",
+            "on-secondary": "#ffffff",
+            "surface-bright": "#faf8ff",
+            "surface-tint": "#4d44e3"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xs": "0.5rem",
+            "space-2xl": "3rem",
+            "space-xl": "2rem",
+            "space-sm": "0.75rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "gutter-desktop": "1.5rem",
+            "container-max": "76rem",
+            "space-xxs": "0.25rem",
+            "gutter-mobile": "1rem"
+          },
+          "fontFamily": {
+            "display-lg": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "label-lg": ["Plus Jakarta Sans"],
+            "display-lg-mobile": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "800"}],
+            "body-lg": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+            "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+            "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700"}],
+            "headline-sm": ["18px", {"lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.005em", "fontWeight": "600"}],
+            "display-lg-mobile": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.025em", "fontWeight": "700"}],
+            "headline-md": ["22px", {"lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+            "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+            "body-md": ["14px", {"lineHeight": "22px", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex antialiased selection:bg-primary-container selection:text-on-primary">
+<!-- ================= SIDE NAVIGATION BAR (SHARED COMPONENT) ================= -->
+<aside class="fixed left-0 top-0 bottom-0 w-60 h-screen bg-surface border-r border-outline-variant/30 shadow-sm z-30 flex flex-col justify-between p-4 select-none">
+<!-- Header / Brand Section -->
+<div class="flex flex-col gap-5">
+<div class="flex items-center gap-3 px-2 pt-1">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-[24px]">hub</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md font-bold text-primary tracking-tight">Nexo</span>
+<span class="font-label-md text-label-md text-on-surface-variant leading-none">Gallegeeks Studio</span>
+</div>
+</div>
+<!-- Workspace Switcher Pill -->
+<div class="bg-surface-container-low border border-outline-variant/30 rounded-xl p-2.5 flex items-center justify-between hover:bg-surface-container transition-colors duration-150 cursor-pointer">
+<div class="flex items-center gap-2.5 overflow-hidden">
+<div class="w-6 h-6 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary font-bold text-[11px]">
+            NW
+          </div>
+<div class="flex flex-col truncate">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold truncate leading-tight">Nexo Workspace</span>
+<span class="font-body-sm text-body-sm text-outline leading-tight">Plan Pro Enterprise</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px]">unfold_more</span>
+</div>
+<!-- Quick Action CTA -->
+<button class="w-full py-2.5 px-4 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg font-semibold shadow-sm active:scale-[0.98] transition-all duration-150 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>+ Nueva Cotización</span>
+</button>
+<!-- Main Navigation Tabs -->
+<nav class="flex flex-col gap-1 mt-1">
+<!-- Dashboard -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<!-- Cotizaciones -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[20px]">request_quote</span>
+<span class="font-label-lg text-label-lg">Cotizaciones</span>
+</a>
+<!-- Clientes -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="font-label-lg text-label-lg">Clientes</span>
+</a>
+<!-- Pedidos -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+<span class="font-label-lg text-label-lg">Pedidos</span>
+</a>
+<!-- Productos (ACTIVE TAB) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-primary-container text-on-primary font-semibold shadow-sm active:scale-[0.98] transition-transform duration-100 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+<span class="font-label-lg text-label-lg">Productos</span>
+</a>
+<!-- Configuración -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="font-label-lg text-label-lg">Configuración</span>
+</a>
+</nav>
+</div>
+<!-- Footer Profile & Support -->
+<div class="flex flex-col gap-2 pt-4 border-t border-outline-variant/30">
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span class="font-label-md text-label-md">Ayuda y Soporte</span>
+</a>
+<div class="flex items-center gap-3 px-2 py-2 rounded-xl bg-surface-container-lowest border border-outline-variant/20">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary font-bold text-[13px]">
+          AG
+        </div>
+<div class="flex flex-col flex-1 min-w-0">
+<span class="font-label-md text-label-md font-semibold text-on-surface truncate">Alejandro G.</span>
+<span class="font-label-sm text-label-sm text-outline truncate">admin@gallegeeks.com</span>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px]">more_vert</span>
+</div>
+<!-- Brand Heritage Endorsement -->
+<div class="px-2 pt-1 flex items-center gap-1.5 opacity-60">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary-container"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Un producto de Gallegeeks</span>
+</div>
+</div>
+</aside>
+<!-- ================= MAIN WRAPPER ================= -->
+<div class="flex-1 ml-60 flex flex-col min-h-screen bg-background">
+<!-- ================= TOP NAVIGATION BAR (SHARED COMPONENT) ================= -->
+<header class="sticky top-0 z-20 h-16 bg-surface border-b border-outline-variant/30 shadow-sm flex items-center justify-between px-8">
+<!-- Search on Left -->
+<div class="flex items-center gap-4 w-96">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="w-full h-10 pl-10 pr-4 bg-surface-container-lowest border border-outline-variant/40 rounded-xl text-body-md font-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all duration-150" placeholder="Buscar por código, SKU o nombre de ítem..." type="text"/>
+</div>
+</div>
+<!-- Center & Trailing Actions -->
+<div class="flex items-center gap-4">
+<!-- Navigation Pill Links -->
+<div class="flex items-center bg-surface-container-low p-1 rounded-xl border border-outline-variant/30">
+<button class="px-3 py-1.5 rounded-lg text-primary font-semibold font-label-md text-label-md bg-surface shadow-xs">
+            EUR (€)
+          </button>
+<button class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-medium font-label-md text-label-md transition-colors">
+            Este Mes
+          </button>
+</div>
+<div class="h-5 w-[1px] bg-outline-variant/40 mx-1"></div>
+<!-- Secondary Icon Actions -->
+<div class="flex items-center gap-1">
+<button class="w-10 h-10 rounded-xl flex items-center justify-center text-on-surface-variant hover:bg-surface-container active:scale-[0.98] transition-colors relative" title="Filtros">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</button>
+<button class="w-10 h-10 rounded-xl flex items-center justify-center text-on-surface-variant hover:bg-surface-container active:scale-[0.98] transition-colors relative" title="Notificaciones">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-secondary-container rounded-full ring-2 ring-surface"></span>
+</button>
+</div>
+<!-- Trailing Primary Action -->
+<button class="h-10 px-4 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-semibold active:scale-[0.98] transition-transform duration-100 flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>+ Nueva Cotización</span>
+</button>
+</div>
+</header>
+<!-- ================= MAIN CONTENT CANVAS ================= -->
+<main class="flex-1 p-8 max-w-[1216px] w-full mx-auto flex flex-col gap-6">
+<!-- Page Header: Title, Description & Action Buttons -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2.5">
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">
+              Catálogo de Productos y Servicios
+            </h1>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container text-primary font-semibold">
+              IVA 19%
+            </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+            Gestiona tus ítems facturables, controla costos, márgenes e IVA 19%.
+          </p>
+</div>
+<!-- Header Action CTA Buttons -->
+<div class="flex items-center gap-3">
+<button class="h-11 px-4 rounded-xl bg-surface border border-outline-variant/40 hover:bg-surface-container text-on-surface font-label-lg text-label-lg font-semibold flex items-center gap-2 shadow-xs active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined text-[20px] text-outline">upload_file</span>
+<span>Importar CSV</span>
+</button>
+<button class="h-11 px-5 rounded-xl bg-primary-container hover:bg-primary text-on-primary font-label-lg text-label-lg font-semibold flex items-center gap-2 shadow-md active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span>+ Nuevo Ítem</span>
+</button>
+</div>
+</div>
+<!-- Bento Metric Summary Panels -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-5">
+<!-- Metric 1: Total Ítems -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/30 shadow-sm flex items-center justify-between group hover:border-primary-container/40 transition-all duration-200">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">Total de Ítems</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-display-lg text-display-lg font-bold text-on-surface">42</span>
+<span class="font-label-sm text-label-sm text-tertiary font-bold flex items-center">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> +4 este mes
+              </span>
+</div>
+<span class="font-body-sm text-body-sm text-outline mt-0.5">28 Servicios • 14 Productos</span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">category</span>
+</div>
+</div>
+<!-- Metric 2: Margen Promedio -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/30 shadow-sm flex items-center justify-between group hover:border-primary-container/40 transition-all duration-200">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">Margen Promedio</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-display-lg text-display-lg font-bold text-on-surface">58.4%</span>
+<span class="font-label-sm text-label-sm text-tertiary font-bold flex items-center">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> Óptimo
+              </span>
+</div>
+<span class="font-body-sm text-body-sm text-outline mt-0.5">Rango saludable &gt; 45%</span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-tertiary group-hover:bg-tertiary group-hover:text-on-tertiary transition-colors">
+<span class="material-symbols-outlined text-[24px]">percent</span>
+</div>
+</div>
+<!-- Metric 3: Valoración de Inventario -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/30 shadow-sm flex items-center justify-between group hover:border-primary-container/40 transition-all duration-200">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">Valoración de Inventario</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-display-lg text-display-lg font-bold text-on-surface">$14,890.00</span>
+<span class="font-label-sm text-label-sm text-secondary font-bold flex items-center">
+                Stock físico
+              </span>
+</div>
+<span class="font-body-sm text-body-sm text-outline mt-0.5">Costo total inmovilizado</span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-secondary-fixed/50 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined text-[24px]">account_balance_wallet</span>
+</div>
+</div>
+</section>
+<!-- Filter Controls & Segmented Toggles -->
+<section class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/30 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<!-- Category Filter Pills -->
+<div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 scrollbar-none">
+<span class="font-label-md text-label-md text-outline mr-2 hidden sm:inline">Categoría:</span>
+<button class="px-3.5 py-2 rounded-xl bg-primary text-on-primary font-label-md text-label-md font-semibold transition-all whitespace-nowrap shadow-xs">
+            Todos
+          </button>
+<button class="px-3.5 py-2 rounded-xl bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md font-medium transition-all whitespace-nowrap">
+            Diseño &amp; Branding
+          </button>
+<button class="px-3.5 py-2 rounded-xl bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md font-medium transition-all whitespace-nowrap">
+            Desarrollo Web
+          </button>
+<button class="px-3.5 py-2 rounded-xl bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md font-medium transition-all whitespace-nowrap">
+            Consultoría
+          </button>
+<button class="px-3.5 py-2 rounded-xl bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md font-medium transition-all whitespace-nowrap">
+            Hardware &amp; Licencias
+          </button>
+</div>
+<!-- Type Segmented Toggle -->
+<div class="flex items-center gap-2 self-end lg:self-auto shrink-0">
+<span class="font-label-md text-label-md text-outline">Tipo:</span>
+<div class="inline-flex p-1 bg-surface-container-low rounded-xl border border-outline-variant/30">
+<button class="px-3 py-1.5 rounded-lg bg-surface font-label-md text-label-md font-semibold text-primary shadow-xs">
+              Todos
+            </button>
+<button class="px-3 py-1.5 rounded-lg font-label-md text-label-md font-medium text-on-surface-variant hover:text-on-surface transition-colors">
+              Servicio
+            </button>
+<button class="px-3 py-1.5 rounded-lg font-label-md text-label-md font-medium text-on-surface-variant hover:text-on-surface transition-colors">
+              Producto con Stock
+            </button>
+</div>
+</div>
+</section>
+<!-- Catalog Table Card -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-sm overflow-hidden flex flex-col">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/30 bg-surface-container-low/40">
+<th class="py-3.5 pl-6 pr-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                  Código / Nombre
+                </th>
+<th class="py-3.5 px-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                  Tipo &amp; Categoría
+                </th>
+<th class="py-3.5 px-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right">
+                  Precio Neto
+                </th>
+<th class="py-3.5 px-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right">
+                  IVA (19%)
+                </th>
+<th class="py-3.5 px-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right">
+                  Precio Final
+                </th>
+<th class="py-3.5 px-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right">
+                  Costo
+                </th>
+<th class="py-3.5 px-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-center">
+                  Margen
+                </th>
+<th class="py-3.5 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                  Stock / Estado
+                </th>
+<th class="py-3.5 pl-3 pr-6 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right">
+                  Acciones
+                </th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<!-- ROW 1: PRD-010 Diseño de Identidad Visual -->
+<tr class="hover:bg-surface-container-low/60 transition-colors duration-150 group">
+<td class="py-4 pl-6 pr-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-xl bg-surface-container flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[20px]">palette</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-on-surface group-hover:text-primary transition-colors">
+                        Diseño de Identidad Visual
+                      </span>
+<span class="font-label-sm text-label-sm text-outline font-mono">
+                        PRD-010
+                      </span>
+</div>
+</div>
+</td>
+<td class="py-4 px-3">
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center gap-1 font-label-md text-label-md text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-outline">room_service</span>
+                      Servicio
+                    </span>
+<span class="text-label-sm font-label-sm text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded-full">
+                      Diseño &amp; Branding
+                    </span>
+</div>
+</td>
+<td class="py-4 px-3 text-right font-label-lg text-label-lg font-semibold text-on-surface font-mono">
+                  $850.00
+                </td>
+<td class="py-4 px-3 text-right font-label-md text-label-md text-on-surface-variant font-mono">
+                  $161.50
+                </td>
+<td class="py-4 px-3 text-right font-label-lg text-label-lg font-bold text-primary font-mono">
+                  $1,011.50
+                </td>
+<td class="py-4 px-3 text-right font-body-md text-body-md text-outline font-mono">
+                  $300.00
+                </td>
+<td class="py-4 px-3 text-center">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-label-sm font-label-sm font-bold bg-tertiary-fixed text-on-tertiary-fixed">
+                    64.7%
+                  </span>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 font-label-md text-label-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                    N/A (Servicio recurrente)
+                  </span>
+</td>
+<td class="py-4 pl-3 pr-6 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Editar">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Duplicar">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Ver historial">
+<span class="material-symbols-outlined text-[18px]">history</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 2: PRD-012 Desarrollo Web Landing Page -->
+<tr class="hover:bg-surface-container-low/60 transition-colors duration-150 group">
+<td class="py-4 pl-6 pr-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-xl bg-surface-container flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[20px]">web</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-on-surface group-hover:text-primary transition-colors">
+                        Desarrollo Web Landing Page
+                      </span>
+<span class="font-label-sm text-label-sm text-outline font-mono">
+                        PRD-012
+                      </span>
+</div>
+</div>
+</td>
+<td class="py-4 px-3">
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center gap-1 font-label-md text-label-md text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-outline">room_service</span>
+                      Servicio
+                    </span>
+<span class="text-label-sm font-label-sm text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded-full">
+                      Desarrollo Web
+                    </span>
+</div>
+</td>
+<td class="py-4 px-3 text-right font-label-lg text-label-lg font-semibold text-on-surface font-mono">
+                  $1,200.00
+                </td>
+<td class="py-4 px-3 text-right font-label-md text-label-md text-on-surface-variant font-mono">
+                  $228.00
+                </td>
+<td class="py-4 px-3 text-right font-label-lg text-label-lg font-bold text-primary font-mono">
+                  $1,428.00
+                </td>
+<td class="py-4 px-3 text-right font-body-md text-body-md text-outline font-mono">
+                  $450.00
+                </td>
+<td class="py-4 px-3 text-center">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-label-sm font-label-sm font-bold bg-tertiary-fixed text-on-tertiary-fixed">
+                    62.5%
+                  </span>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 font-label-md text-label-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                    N/A
+                  </span>
+</td>
+<td class="py-4 pl-3 pr-6 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Editar">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Duplicar">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Ver historial">
+<span class="material-symbols-outlined text-[18px]">history</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 3: PRD-024 Kit de Bienvenida Corporativo Premium -->
+<tr class="hover:bg-surface-container-low/60 transition-colors duration-150 group">
+<td class="py-4 pl-6 pr-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-xl bg-secondary-fixed/40 flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined text-[20px]">featured_seasonal_and_gifts</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-on-surface group-hover:text-primary transition-colors">
+                        Kit de Bienvenida Corporativo Premium
+                      </span>
+<span class="font-label-sm text-label-sm text-outline font-mono">
+                        PRD-024
+                      </span>
+</div>
+</div>
+</td>
+<td class="py-4 px-3">
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center gap-1 font-label-md text-label-md text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-outline">inventory</span>
+                      Producto
+                    </span>
+<span class="text-label-sm font-label-sm text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded-full">
+                      Merchandising
+                    </span>
+</div>
+</td>
+<td class="py-4 px-3 text-right font-label-lg text-label-lg font-semibold text-on-surface font-mono">
+                  $45.00
+                </td>
+<td class="py-4 px-3 text-right font-label-md text-label-md text-on-surface-variant font-mono">
+                  $8.55
+                </td>
+<td class="py-4 px-3 text-right font-label-lg text-label-lg font-bold text-primary font-mono">
+                  $53.55
+                </td>
+<td class="py-4 px-3 text-right font-body-md text-body-md text-outline font-mono">
+                  $22.00
+                </td>
+<td class="py-4 px-3 text-center">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-label-sm font-label-sm font-bold bg-tertiary-fixed text-on-tertiary-fixed">
+                    51.1%
+                  </span>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-label-sm font-label-sm font-semibold bg-tertiary-fixed/60 text-on-tertiary-fixed">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                    34 un. (En Stock)
+                  </span>
+</td>
+<td class="py-4 pl-3 pr-6 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Editar">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Duplicar">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Ver historial">
+<span class="material-symbols-outlined text-[18px]">history</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 4: PRD-025 Lector POS Inalámbrico Nexo -->
+<tr class="hover:bg-surface-container-low/60 transition-colors duration-150 group">
+<td class="py-4 pl-6 pr-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-xl bg-secondary-fixed/40 flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined text-[20px]">point_of_sale</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-on-surface group-hover:text-primary transition-colors">
+                        Lector POS Inalámbrico Nexo
+                      </span>
+<span class="font-label-sm text-label-sm text-outline font-mono">
+                        PRD-025
+                      </span>
+</div>
+</div>
+</td>
+<td class="py-4 px-3">
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center gap-1 font-label-md text-label-md text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-outline">inventory</span>
+                      Producto
+                    </span>
+<span class="text-label-sm font-label-sm text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded-full">
+                      Hardware
+                    </span>
+</div>
+</td>
+<td class="py-4 px-3 text-right font-label-lg text-label-lg font-semibold text-on-surface font-mono">
+                  $120.00
+                </td>
+<td class="py-4 px-3 text-right font-label-md text-label-md text-on-surface-variant font-mono">
+                  $22.80
+                </td>
+<td class="py-4 px-3 text-right font-label-lg text-label-lg font-bold text-primary font-mono">
+                  $142.80
+                </td>
+<td class="py-4 px-3 text-right font-body-md text-body-md text-outline font-mono">
+                  $95.00
+                </td>
+<td class="py-4 px-3 text-center">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-label-sm font-label-sm font-bold bg-secondary-fixed text-on-secondary-fixed">
+                    20.8%
+                  </span>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-label-sm font-label-sm font-semibold bg-secondary-fixed text-on-secondary-fixed">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+                    3 un. (Bajo stock)
+                  </span>
+</td>
+<td class="py-4 pl-3 pr-6 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Editar">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Duplicar">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Ver historial">
+<span class="material-symbols-outlined text-[18px]">history</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination Controls -->
+<div class="px-6 py-4 border-t border-outline-variant/30 flex items-center justify-between bg-surface-container-low/20">
+<span class="font-body-sm text-body-sm text-on-surface-variant">
+            Mostrando <strong>1-4</strong> de <strong>42</strong> ítems registrados
+          </span>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant/40 text-outline hover:bg-surface font-label-md text-label-md cursor-not-allowed opacity-60">
+              Anterior
+            </button>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-bold flex items-center justify-center">
+                1
+              </button>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container text-on-surface font-label-md text-label-md font-medium flex items-center justify-center transition-colors">
+                2
+              </button>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container text-on-surface font-label-md text-label-md font-medium flex items-center justify-center transition-colors">
+                3
+              </button>
+</div>
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant/40 text-on-surface hover:bg-surface font-label-md text-label-md font-medium shadow-xs">
+              Siguiente
+            </button>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

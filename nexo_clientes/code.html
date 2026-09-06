@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nexo CRM - Módulo de Clientes</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-fixed": "#002113",
+            "tertiary-fixed-dim": "#4edea3",
+            "on-surface-variant": "#464555",
+            "primary-fixed": "#e2dfff",
+            "secondary": "#855300",
+            "on-surface": "#131b2e",
+            "background": "#faf8ff",
+            "on-primary": "#ffffff",
+            "outline-variant": "#c7c4d8",
+            "on-secondary-container": "#684000",
+            "tertiary": "#005338",
+            "on-error": "#ffffff",
+            "surface-container": "#eaedff",
+            "primary": "#3525cd",
+            "inverse-on-surface": "#eef0ff",
+            "on-secondary-fixed-variant": "#653e00",
+            "surface": "#faf8ff",
+            "on-error-container": "#93000a",
+            "on-background": "#131b2e",
+            "surface-variant": "#dae2fd",
+            "on-tertiary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "secondary-fixed-dim": "#ffb95f",
+            "on-tertiary-container": "#67f4b7",
+            "on-secondary-fixed": "#2a1700",
+            "primary-container": "#4f46e5",
+            "surface-container-high": "#e2e7ff",
+            "secondary-container": "#fea619",
+            "tertiary-fixed": "#6ffbbe",
+            "tertiary-container": "#006e4b",
+            "on-tertiary-fixed-variant": "#005236",
+            "surface-container-highest": "#dae2fd",
+            "inverse-surface": "#283044",
+            "secondary-fixed": "#ffddb8",
+            "surface-container-low": "#f2f3ff",
+            "outline": "#777587",
+            "surface-dim": "#d2d9f4",
+            "error": "#ba1a1a",
+            "on-primary-fixed-variant": "#3323cc",
+            "primary-fixed-dim": "#c3c0ff",
+            "on-primary-container": "#dad7ff",
+            "on-primary-fixed": "#0f0069",
+            "inverse-primary": "#c3c0ff",
+            "error-container": "#ffdad6",
+            "on-secondary": "#ffffff",
+            "surface-bright": "#faf8ff",
+            "surface-tint": "#4d44e3"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xs": "0.5rem",
+            "space-2xl": "3rem",
+            "space-xl": "2rem",
+            "space-sm": "0.75rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "gutter-desktop": "1.5rem",
+            "container-max": "76rem",
+            "space-xxs": "0.25rem",
+            "gutter-mobile": "1rem"
+          },
+          "fontFamily": {
+            "display-lg": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "label-lg": ["Plus Jakarta Sans"],
+            "display-lg-mobile": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.005em", "fontWeight": "600" }],
+            "display-lg-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex overflow-hidden antialiased selection:bg-primary selection:text-on-primary">
+<!-- SideNavBar Anchor -->
+<aside class="docked left top-0 bottom-0 w-60 h-screen bg-surface dark:bg-surface border-r border-outline-variant/30 dark:border-outline/20 shadow-sm dark:shadow-none flex flex-col justify-between p-4 shrink-0 z-30">
+<div>
+<!-- Workspace Brand Header -->
+<div class="flex items-center gap-3 px-2 py-3 mb-4">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary font-headline-md text-headline-md font-bold shadow-sm">
+          N
+        </div>
+<div class="overflow-hidden">
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight leading-tight truncate">Nexo Workspace</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Gallegeeks Studio</p>
+</div>
+</div>
+<!-- CTA "+ Nueva Cotización" -->
+<button class="w-full mb-5 flex items-center justify-center gap-2 bg-primary-container text-on-primary hover:bg-primary transition-all duration-150 py-2.5 px-4 rounded-xl font-label-lg text-label-lg font-semibold shadow-sm active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>+ Nueva Cotización</span>
+</button>
+<!-- Main Navigation Links -->
+<nav class="space-y-1">
+<!-- Dashboard -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98] font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Cotizaciones -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98] font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">request_quote</span>
+<span>Cotizaciones</span>
+</a>
+<!-- Clientes (ACTIVE ITEM per prompt instruction & hierarchy) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-primary-container text-on-primary font-semibold transition-colors duration-150 active:scale-[0.98] font-label-lg text-label-lg shadow-sm" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Clientes</span>
+</a>
+<!-- Pedidos -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98] font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Pedidos</span>
+</a>
+<!-- Productos -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98] font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span>Productos</span>
+</a>
+<!-- Configuración -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98] font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Configuración</span>
+</a>
+</nav>
+</div>
+<!-- SideNavBar Footer -->
+<div class="border-t border-outline-variant/30 pt-3 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98] font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">help</span>
+<span>Ayuda y Soporte</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98] font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span>Perfil de Usuario</span>
+</a>
+<div class="px-3 pt-3 flex items-center justify-between text-on-surface-variant/70">
+<span class="font-label-sm text-label-sm">v2.4.1 Studio</span>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-primary font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span> Gallegeeks
+        </span>
+</div>
+</div>
+</aside>
+<!-- Main Canvas Hub -->
+<div class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar Anchor -->
+<header class="h-16 bg-surface dark:bg-surface border-b border-outline-variant/30 dark:border-outline/20 shadow-sm dark:shadow-none flex items-center justify-between px-6 shrink-0 z-20">
+<!-- Search Bar on Left -->
+<div class="flex items-center gap-4 w-96">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-9 pr-4 py-1.5 text-body-md bg-surface-container-low border border-outline-variant/40 rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-on-surface placeholder:text-on-surface-variant/70" placeholder="Buscar clientes, cotizaciones o RUT..." type="text"/>
+</div>
+</div>
+<!-- Center & Right Clusters -->
+<div class="flex items-center gap-4">
+<!-- Navigation / Scope Badges -->
+<div class="hidden md:flex items-center gap-2">
+<span class="font-label-lg text-label-lg px-3 py-1 bg-surface-container-low text-on-surface-variant rounded-lg border border-outline-variant/30 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">euro</span> EUR (€)
+          </span>
+<span class="font-label-lg text-label-lg px-3 py-1 bg-surface-container-low text-on-surface-variant rounded-lg border border-outline-variant/30 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span> Este Mes
+          </span>
+</div>
+<div class="h-4 w-[1px] bg-outline-variant/40 hidden md:block"></div>
+<!-- Trailing Actions -->
+<button class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container transition-colors duration-150 active:scale-[0.98]" title="Filtros">
+<span class="material-symbols-outlined">tune</span>
+</button>
+<button class="relative p-2 rounded-xl text-on-surface-variant hover:bg-surface-container transition-colors duration-150 active:scale-[0.98]" title="Notificaciones">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full ring-2 ring-surface"></span>
+</button>
+<button class="flex items-center gap-2 bg-primary text-on-primary hover:bg-primary-container transition-all duration-150 px-4 py-2 rounded-xl font-label-lg text-label-lg font-semibold shadow-sm active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>+ Nueva Cotización</span>
+</button>
+<!-- User Avatar -->
+<div class="flex items-center gap-2 pl-2">
+<div class="w-9 h-9 rounded-xl bg-surface-variant text-primary font-bold flex items-center justify-center border border-primary/20 overflow-hidden shadow-xs">
+<img class="w-full h-full object-cover" data-alt="Warm modern portrait of a creative design lead in an architectural office setting, soft rim lighting, candid friendly expression, wearing minimalist linen attire with a clean indigo backdrop in a light contemporary style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZd0ZpIiZX_l4S8Pjf0idpUkRN87gUhp-gqkh4ro-uXo-d27BjareGgmCr1Y_APunJjc24Kzmfvh69dNrVrq7NxMDcKqM-nI3-NL3KxuE5tu5jAzbynElC318ntSsYd0sCuMp0J8BBsyMl7Db7yzoMFzxyK581y3SJe5ZgKChsRIITCUT85ML3PjJgYbj3q3O-DGK7fcss1Wl0zCwquW-Tv69gVHjtvJiWitk61wAIsYELNB214p4r"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Workspace Content (Two-Column Master-Detail Layout) -->
+<main class="flex-1 flex overflow-hidden bg-background">
+<!-- LEFT COLUMN: Client List (Master) -->
+<section class="w-96 border-r border-outline-variant/30 flex flex-col bg-surface-bright shrink-0 h-full overflow-hidden">
+<!-- Search & Filters Header -->
+<div class="p-4 border-b border-outline-variant/20 space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<h1 class="font-headline-sm text-headline-sm font-bold text-on-surface">Clientes</h1>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm">48</span>
+</div>
+<button class="text-primary hover:text-primary-container p-1.5 rounded-lg hover:bg-surface-container transition-colors" title="Crear nuevo cliente">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+</button>
+</div>
+<!-- Quick Search -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full pl-9 pr-3 py-2 text-body-sm bg-surface-container-lowest border border-outline-variant/40 rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-on-surface placeholder:text-on-surface-variant/60" placeholder="Buscar por nombre o RUT..." type="text" value=""/>
+</div>
+<!-- Status Filters Segmented Bar -->
+<div class="flex items-center gap-1.5 p-1 bg-surface-container-low rounded-xl border border-outline-variant/20">
+<button class="flex-1 py-1 px-2.5 rounded-lg text-center font-label-md text-label-md font-semibold bg-surface-container-lowest text-primary shadow-xs transition-all">
+              Activo <span class="text-primary/70 ml-0.5">34</span>
+</button>
+<button class="flex-1 py-1 px-2.5 rounded-lg text-center font-label-md text-label-md font-medium text-on-surface-variant hover:text-on-surface transition-all">
+              Prospecto <span class="text-on-surface-variant/70 ml-0.5">9</span>
+</button>
+<button class="flex-1 py-1 px-2.5 rounded-lg text-center font-label-md text-label-md font-medium text-on-surface-variant hover:text-on-surface transition-all">
+              Inactivo <span class="text-on-surface-variant/70 ml-0.5">5</span>
+</button>
+</div>
+</div>
+<!-- Client Cards Scrollable List -->
+<div class="flex-1 overflow-y-auto p-3 space-y-2.5">
+<!-- Item 1: Valeria Silva (ACTIVE & SELECTED) -->
+<div class="p-3.5 rounded-2xl bg-surface-container-lowest border-2 border-primary shadow-md relative cursor-pointer transition-all duration-150">
+<div class="flex items-start justify-between gap-2 mb-1.5">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-xl bg-primary/10 text-primary font-bold flex items-center justify-center font-headline-sm text-headline-sm">
+                  VS
+                </div>
+<div>
+<h2 class="font-label-lg text-label-lg font-bold text-on-surface leading-tight">Valeria Silva</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Estudio Aura SpA</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-label-sm font-label-sm font-semibold bg-[#ECFDF5] text-[#047857]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span> Activo
+              </span>
+</div>
+<div class="mt-3 pt-2.5 border-t border-outline-variant/20 flex items-center justify-between text-on-surface-variant">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant/70 block">Total Facturado</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">$5,150.00</span>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant/70 block">Cotizaciones</span>
+<span class="inline-flex items-center gap-1 font-label-md text-label-md font-semibold text-primary">
+<span class="material-symbols-outlined text-[15px]">request_quote</span> 2 activas
+                </span>
+</div>
+</div>
+</div>
+<!-- Item 2: Camila Rojas -->
+<div class="p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 hover:border-outline-variant/60 hover:shadow-xs cursor-pointer transition-all duration-150">
+<div class="flex items-start justify-between gap-2 mb-1.5">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-xl bg-surface-container text-on-surface-variant font-bold flex items-center justify-center font-headline-sm text-headline-sm">
+                  CR
+                </div>
+<div>
+<h2 class="font-label-lg text-label-lg font-bold text-on-surface leading-tight">Camila Rojas</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Kutral Brand Design</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-label-sm font-label-sm font-semibold bg-[#ECFDF5] text-[#047857]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span> Activo
+              </span>
+</div>
+<div class="mt-3 pt-2.5 border-t border-outline-variant/20 flex items-center justify-between text-on-surface-variant">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant/70 block">Total Facturado</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">$3,240.00</span>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant/70 block">Cotizaciones</span>
+<span class="inline-flex items-center gap-1 font-label-md text-label-md font-semibold text-on-surface-variant">
+<span class="material-symbols-outlined text-[15px]">request_quote</span> 1 activa
+                </span>
+</div>
+</div>
+</div>
+<!-- Item 3: Rodrigo Mena -->
+<div class="p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 hover:border-outline-variant/60 hover:shadow-xs cursor-pointer transition-all duration-150">
+<div class="flex items-start justify-between gap-2 mb-1.5">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-xl bg-surface-container text-on-surface-variant font-bold flex items-center justify-center font-headline-sm text-headline-sm">
+                  RM
+                </div>
+<div>
+<h2 class="font-label-lg text-label-lg font-bold text-on-surface leading-tight">Rodrigo Mena</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Andes Digital Lab</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-label-sm font-label-sm font-semibold bg-[#FEF3C7] text-[#B45309]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#F59E0B]"></span> Prospecto
+              </span>
+</div>
+<div class="mt-3 pt-2.5 border-t border-outline-variant/20 flex items-center justify-between text-on-surface-variant">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant/70 block">Total Facturado</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">$0.00</span>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant/70 block">Cotizaciones</span>
+<span class="inline-flex items-center gap-1 font-label-md text-label-md font-semibold text-secondary">
+<span class="material-symbols-outlined text-[15px]">pending</span> 1 borrador
+                </span>
+</div>
+</div>
+</div>
+<!-- Item 4: Francisca Morales -->
+<div class="p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 hover:border-outline-variant/60 hover:shadow-xs cursor-pointer transition-all duration-150">
+<div class="flex items-start justify-between gap-2 mb-1.5">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-xl bg-surface-container text-on-surface-variant font-bold flex items-center justify-center font-headline-sm text-headline-sm">
+                  FM
+                </div>
+<div>
+<h2 class="font-label-lg text-label-lg font-bold text-on-surface leading-tight">Francisca Morales</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Sinergia Media</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-label-sm font-label-sm font-semibold bg-[#ECFDF5] text-[#047857]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span> Activo
+              </span>
+</div>
+<div class="mt-3 pt-2.5 border-t border-outline-variant/20 flex items-center justify-between text-on-surface-variant">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant/70 block">Total Facturado</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">$7,890.00</span>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant/70 block">Cotizaciones</span>
+<span class="inline-flex items-center gap-1 font-label-md text-label-md font-semibold text-on-surface-variant">
+                  0 activas
+                </span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- RIGHT COLUMN: Client Detail File (Ficha Detallada) -->
+<section class="flex-1 flex flex-col h-full overflow-y-auto bg-background p-6">
+<div class="max-w-6xl mx-auto w-full space-y-6">
+<!-- Header Card: Identity & Primary Info -->
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/30 p-6 shadow-sm">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-outline-variant/20">
+<!-- Left Profile Head -->
+<div class="flex items-start gap-4">
+<div class="w-16 h-16 rounded-2xl bg-primary-container text-on-primary font-display-lg text-headline-lg flex items-center justify-center font-extrabold shadow-sm shrink-0">
+                  VS
+                </div>
+<div>
+<div class="flex items-center gap-3">
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface">Valeria Silva</h1>
+<!-- VIP Badge -->
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-secondary-container/20 text-on-secondary-container font-label-sm text-label-sm font-bold border border-secondary-container/40">
+<span class="material-symbols-outlined text-[15px] text-secondary">star</span> Cliente VIP
+                    </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+                    Directora Creativa · <span class="font-semibold text-on-surface">Estudio Aura SpA</span>
+</p>
+</div>
+</div>
+<!-- Direct Action Buttons -->
+<div class="flex items-center gap-2.5">
+<button class="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-outline-variant/50 text-on-surface hover:bg-surface-container font-label-lg text-label-lg font-semibold transition-colors shadow-xs active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px] text-primary">call</span>
+<span>Llamar</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 font-label-lg text-label-lg font-semibold transition-colors shadow-xs active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px] text-emerald-600">chat</span>
+<span>WhatsApp</span>
+</button>
+<button class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-on-primary hover:bg-primary-container font-label-lg text-label-lg font-bold transition-all shadow-sm active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Nueva Cotización</span>
+</button>
+</div>
+</div>
+<!-- Client Metadata Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-5">
+<div class="flex items-center gap-3 p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/20">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">RUT</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">76.842.190-K</span>
+</div>
+</div>
+<div class="flex items-center gap-3 p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/20">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+</div>
+<div class="overflow-hidden">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Email</span>
+<span class="font-label-md text-label-md font-bold text-on-surface truncate block" title="valeria@estudioaura.cl">valeria@estudioaura.cl</span>
+</div>
+</div>
+<div class="flex items-center gap-3 p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/20">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">phone</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Teléfono</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">+56 9 8765 4321</span>
+</div>
+</div>
+<div class="flex items-center gap-3 p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/20">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+</div>
+<div class="overflow-hidden">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Dirección</span>
+<span class="font-label-md text-label-md font-bold text-on-surface truncate block" title="Av. Providencia 1208, Of. 402, Santiago, Chile">Av. Providencia 1208, Of. 402</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Tab Navigation Container -->
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/30 shadow-sm overflow-hidden">
+<!-- Tabs Header -->
+<div class="flex border-b border-outline-variant/30 bg-surface-container-low/40 px-6 pt-2">
+<button class="px-5 py-3.5 border-b-2 border-primary text-primary font-label-lg text-label-lg font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">history_edu</span>
+<span>Historial de Cotizaciones y Pedidos</span>
+<span class="px-2 py-0.2 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm">3</span>
+</button>
+<button class="px-5 py-3.5 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg font-semibold flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[20px]">sticky_note_2</span>
+<span>Notas y Seguimiento</span>
+<span class="px-2 py-0.2 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">2</span>
+</button>
+<button class="px-5 py-3.5 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg font-semibold flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[20px]">insights</span>
+<span>Métricas del cliente</span>
+</button>
+</div>
+<div class="p-6 space-y-6">
+<!-- TAB 1 CONTENT: Historial de Cotizaciones y Pedidos (Active View) -->
+<div>
+<div class="flex items-center justify-between mb-4">
+<div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Historial Comercial Reciente</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Documentos emitidos, órdenes vinculadas y estados de liquidación.</p>
+</div>
+<button class="font-label-md text-label-md text-primary font-semibold hover:underline flex items-center gap-1">
+                    Exportar Cartola <span class="material-symbols-outlined text-[16px]">file_download</span>
+</button>
+</div>
+<!-- Commercial Records Table -->
+<div class="overflow-x-auto border border-outline-variant/30 rounded-xl">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant/30 text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">
+<th class="py-3 px-4">Documento</th>
+<th class="py-3 px-4">Fecha</th>
+<th class="py-3 px-4">Concepto Principal</th>
+<th class="py-3 px-4">Estado</th>
+<th class="py-3 px-4">Asociación / Pedido</th>
+<th class="py-3 px-4 text-right">Monto Total</th>
+<th class="py-3 px-4 text-center">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20 font-body-sm text-body-sm">
+<!-- Row 1: COT-0042 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3.5 px-4 font-bold text-primary font-label-md text-label-md">
+                          COT-0042
+                        </td>
+<td class="py-3.5 px-4 text-on-surface-variant">22 Oct, 2024</td>
+<td class="py-3.5 px-4 font-medium text-on-surface">Rediseño Web UX/UI &amp; Sistema de Diseño</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-label-sm font-label-sm font-semibold bg-[#ECFDF5] text-[#047857]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span> Aprobada
+                          </span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant">
+<span class="text-on-surface-variant/70 italic">En preparación de pedido</span>
+</td>
+<td class="py-3.5 px-4 text-right font-bold text-on-surface font-label-md text-label-md">
+                          $1,850.00
+                        </td>
+<td class="py-3.5 px-4 text-center">
+<button class="p-1 rounded text-on-surface-variant hover:text-primary transition-colors" title="Ver cotización">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: COT-0031 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3.5 px-4 font-bold text-primary font-label-md text-label-md">
+                          COT-0031
+                        </td>
+<td class="py-3.5 px-4 text-on-surface-variant">14 Ago, 2024</td>
+<td class="py-3.5 px-4 font-medium text-on-surface">Manual de Identidad &amp; Arquitectura Visual</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-label-sm font-label-sm font-semibold bg-surface-container text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Convertida
+                          </span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-surface-container-low border border-outline-variant/30 text-on-surface font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px] text-tertiary">verified</span> #PED-0012 (Pagado)
+                          </span>
+</td>
+<td class="py-3.5 px-4 text-right font-bold text-on-surface font-label-md text-label-md">
+                          $2,400.00
+                        </td>
+<td class="py-3.5 px-4 text-center">
+<button class="p-1 rounded text-on-surface-variant hover:text-primary transition-colors" title="Ver cotización">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: COT-0015 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3.5 px-4 font-bold text-primary font-label-md text-label-md">
+                          COT-0015
+                        </td>
+<td class="py-3.5 px-4 text-on-surface-variant">03 Jun, 2024</td>
+<td class="py-3.5 px-4 font-medium text-on-surface">Campana Digital Lanzamiento de Colección</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-label-sm font-label-sm font-semibold bg-[#ECFDF5] text-[#047857]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span> Aprobada
+                          </span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-surface-container-low border border-outline-variant/30 text-on-surface font-label-sm text-label-sm">
+                            #PED-0004 (Completado)
+                          </span>
+</td>
+<td class="py-3.5 px-4 text-right font-bold text-on-surface font-label-md text-label-md">
+                          $900.00
+                        </td>
+<td class="py-3.5 px-4 text-center">
+<button class="p-1 rounded text-on-surface-variant hover:text-primary transition-colors" title="Ver cotización">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- TAB 2 & TAB 3 INTEGRATED INSIGHT MODULES (Bento / Deep Dive) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-4 border-t border-outline-variant/20">
+<!-- Section: Notas y Seguimiento (7 Cols) -->
+<div class="lg:col-span-7 space-y-4">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">edit_note</span>
+<span>Notas y Seguimiento</span>
+</h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant">2 notas registradas</span>
+</div>
+<!-- Note Creation Box -->
+<div class="bg-surface-container-low/60 rounded-xl p-3.5 border border-outline-variant/30">
+<textarea class="w-full p-2.5 text-body-sm bg-surface-container-lowest border border-outline-variant/40 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-on-surface placeholder:text-on-surface-variant/60 resize-none" placeholder="Escribe una nota rápida, compromiso o apunte comercial sobre Valeria..." rows="2"></textarea>
+<div class="flex items-center justify-between mt-2.5">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">account_circle</span>
+<span>Autor: Gallegeeks Admin</span>
+</div>
+<button class="px-3 py-1.5 bg-primary text-on-primary rounded-lg font-label-sm text-label-sm font-semibold hover:bg-primary-container transition-colors shadow-xs">
+                        Guardar Nota
+                      </button>
+</div>
+</div>
+<!-- Existing Notes List -->
+<div class="space-y-3">
+<!-- Note 1 -->
+<div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/25 space-y-1.5">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold text-on-surface flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> Preferencia de Contacto
+                        </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Ayer · 11:20 hrs</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+                        "Prefiere contacto por WhatsApp antes de las 14:00 hrs. En las tardes se encuentra regularmente en reuniones de rodaje o sesiones de dirección."
+                      </p>
+<div class="flex items-center justify-between pt-1 text-on-surface-variant/70 font-label-sm text-label-sm">
+<span>Registrado por: Rodrigo (Account Lead)</span>
+<span class="material-symbols-outlined text-[16px] text-emerald-600">verified</span>
+</div>
+</div>
+<!-- Note 2 -->
+<div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/25 space-y-1.5">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold text-on-surface flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span> Interés en Expansión
+                        </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">18 Oct, 2024</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+                        "Interesada en plan de mantención web para el primer trimestre. Solicitar propuesta con SLA prioritario y soporte de servidor cloud."
+                      </p>
+<div class="flex items-center justify-between pt-1 text-on-surface-variant/70 font-label-sm text-label-sm">
+<span>Registrado por: Valeria M. (Soporte)</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">bookmark</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section: Métricas del Cliente (5 Cols) -->
+<div class="lg:col-span-5 space-y-4">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">monitoring</span>
+<span>Métricas del Cliente</span>
+</h2>
+<span class="px-2 py-0.5 rounded-full bg-[#ECFDF5] text-[#047857] font-label-sm text-label-sm font-bold">Excelente</span>
+</div>
+<!-- Metrics Cards Cluster -->
+<div class="space-y-3">
+<!-- Metric 1: LTV -->
+<div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/30 flex items-center justify-between">
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant block">Valor de Vida (LTV)</span>
+<span class="font-headline-md text-headline-md font-extrabold text-on-surface tracking-tight">$5,150.00</span>
+<span class="font-label-sm text-label-sm text-tertiary flex items-center gap-0.5 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> +24% vs promedio cartera
+                        </span>
+</div>
+<div class="w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">payments</span>
+</div>
+</div>
+<!-- Metric 2: Approval Rate -->
+<div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/30 flex items-center justify-between">
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant block">Tasa de Aprobación</span>
+<span class="font-headline-md text-headline-md font-extrabold text-[#047857] tracking-tight">100%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant block mt-0.5">3 de 3 cotizaciones cerradas</span>
+</div>
+<div class="w-11 h-11 rounded-xl bg-[#ECFDF5] text-[#047857] flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">task_alt</span>
+</div>
+</div>
+<!-- Metric 3: Avg Payment Days -->
+<div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/30 flex items-center justify-between">
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant block">Días Promedio de Pago</span>
+<span class="font-headline-md text-headline-md font-extrabold text-on-surface tracking-tight">3 días</span>
+<span class="font-label-sm text-label-sm text-tertiary flex items-center gap-0.5 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">flash_on</span> Pagador super puntual
+                        </span>
+</div>
+<div class="w-11 h-11 rounded-xl bg-secondary-container/20 text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">speed</span>
+</div>
+</div>
+</div>
+<!-- Quick Recommendation Box -->
+<div class="p-3.5 rounded-xl bg-primary-container/10 border border-primary/20 flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[22px] shrink-0 mt-0.5">lightbulb</span>
+<div>
+<h4 class="font-label-md text-label-md font-bold text-primary leading-tight">Oportunidad sugerida</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                        Valeria es candidata ideal para el contrato recurrente anual con 10% de descuento por prepago.
+                      </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Workspace Endorsement Lockup -->
+<footer class="pt-2 pb-6 flex items-center justify-between text-on-surface-variant/60 border-t border-outline-variant/20">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-secondary-container"></div>
+<span class="font-label-sm text-label-sm">Nexo CRM Cloud · Entorno de Producción Gallegeeks</span>
+</div>
+<div class="flex items-center gap-4 font-label-sm text-label-sm">
+<span>Sincronización activa con Facturación Electrónica SII</span>
+<span class="font-semibold text-primary">Un producto de Gallegeeks</span>
+</div>
+</footer>
+</div>
+</section>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo de Cotizaciones - Nexo CRM</title>
+<!-- Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN with forms and container-queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration verbatim -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-fixed": "#002113",
+            "tertiary-fixed-dim": "#4edea3",
+            "on-surface-variant": "#464555",
+            "primary-fixed": "#e2dfff",
+            "secondary": "#855300",
+            "on-surface": "#131b2e",
+            "background": "#faf8ff",
+            "on-primary": "#ffffff",
+            "outline-variant": "#c7c4d8",
+            "on-secondary-container": "#684000",
+            "tertiary": "#005338",
+            "on-error": "#ffffff",
+            "surface-container": "#eaedff",
+            "primary": "#3525cd",
+            "inverse-on-surface": "#eef0ff",
+            "on-secondary-fixed-variant": "#653e00",
+            "surface": "#faf8ff",
+            "on-error-container": "#93000a",
+            "on-background": "#131b2e",
+            "surface-variant": "#dae2fd",
+            "on-tertiary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "secondary-fixed-dim": "#ffb95f",
+            "on-tertiary-container": "#67f4b7",
+            "on-secondary-fixed": "#2a1700",
+            "primary-container": "#4f46e5",
+            "surface-container-high": "#e2e7ff",
+            "secondary-container": "#fea619",
+            "tertiary-fixed": "#6ffbbe",
+            "tertiary-container": "#006e4b",
+            "on-tertiary-fixed-variant": "#005236",
+            "surface-container-highest": "#dae2fd",
+            "inverse-surface": "#283044",
+            "secondary-fixed": "#ffddb8",
+            "surface-container-low": "#f2f3ff",
+            "outline": "#777587",
+            "surface-dim": "#d2d9f4",
+            "error": "#ba1a1a",
+            "on-primary-fixed-variant": "#3323cc",
+            "primary-fixed-dim": "#c3c0ff",
+            "on-primary-container": "#dad7ff",
+            "on-primary-fixed": "#0f0069",
+            "inverse-primary": "#c3c0ff",
+            "error-container": "#ffdad6",
+            "on-secondary": "#ffffff",
+            "surface-bright": "#faf8ff",
+            "surface-tint": "#4d44e3"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xs": "0.5rem",
+            "space-2xl": "3rem",
+            "space-xl": "2rem",
+            "space-sm": "0.75rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "gutter-desktop": "1.5rem",
+            "container-max": "76rem",
+            "space-xxs": "0.25rem",
+            "gutter-mobile": "1rem"
+          },
+          "fontFamily": {
+            "display-lg": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "label-lg": ["Plus Jakarta Sans"],
+            "display-lg-mobile": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.005em", "fontWeight": "600" }],
+            "display-lg-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #dae2fd;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #c7c4d8;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased h-full flex overflow-hidden font-body-md text-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- ========================================================================= -->
+<!-- SHARED COMPONENT: SideNavBar (Active: 'Cotizaciones')                    -->
+<!-- ========================================================================= -->
+<aside class="w-60 h-screen bg-surface border-r border-outline-variant/30 flex flex-col justify-between p-4 flex-shrink-0 z-20 shadow-sm">
+<!-- Top Brand & Workspaces -->
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary shadow-sm">
+<span class="material-symbols-outlined" data-icon="request_quote">request_quote</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-primary tracking-tight">Nexo Workspace</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Gallegeeks Studio</span>
+</div>
+</div>
+<!-- Main Navigation -->
+<nav class="flex flex-col gap-1.5">
+<!-- Dashboard (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<!-- Cotizaciones (Active Tab) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-primary-container text-on-primary font-semibold shadow-sm active:scale-[0.98] transition-transform duration-100 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="request_quote" data-weight="fill" style="font-variation-settings: 'FILL' 1;">request_quote</span>
+<span class="font-label-lg text-label-lg">Cotizaciones</span>
+</a>
+<!-- Clientes (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-lg text-label-lg">Clientes</span>
+</a>
+<!-- Pedidos (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-lg text-label-lg">Pedidos</span>
+</a>
+<!-- Productos (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span class="font-label-lg text-label-lg">Productos</span>
+</a>
+<!-- Configuración (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium hover:bg-surface-container-high transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-lg text-label-lg">Configuración</span>
+</a>
+</nav>
+</div>
+<!-- Quick CTA & Footer Profile Actions -->
+<div class="flex flex-col gap-4">
+<button class="w-full flex items-center justify-center gap-2 bg-primary-container text-on-primary py-2.5 px-4 rounded-xl font-label-lg text-label-lg font-semibold shadow-sm hover:bg-primary transition-colors active:scale-[0.98]">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>+ Nueva Cotización</span>
+</button>
+<!-- Subtly placed Heritage Endorsement Badge -->
+<div class="px-3 py-2 rounded-xl bg-surface-container-low flex items-center justify-between border border-outline-variant/30 text-outline">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Un producto de <span class="font-bold text-on-surface">Gallegeeks</span></span>
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+</div>
+<div class="pt-2 border-t border-outline-variant/30 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-md text-label-md">Ayuda y Soporte</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container font-medium transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="font-label-md text-label-md">Perfil de Usuario</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- MAIN WORKSPACE CONTENT CANVAS                                             -->
+<!-- ========================================================================= -->
+<div class="flex-1 flex flex-col min-w-0 h-screen overflow-hidden bg-background">
+<!-- TopNavBar Component (Docked full-width top) -->
+<header class="h-16 bg-surface border-b border-outline-variant/30 px-6 flex items-center justify-between flex-shrink-0 z-10 shadow-sm">
+<div class="flex items-center gap-6">
+<div class="relative w-80">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-outline">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</span>
+<input class="w-full pl-10 pr-4 py-2 text-body-sm font-body-sm bg-surface-container-lowest border border-outline-variant/50 rounded-xl focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-on-surface placeholder:text-outline" placeholder="Buscar por cliente, folio o monto..." type="text"/>
+</div>
+<div class="flex items-center gap-3 text-body-sm text-on-surface-variant">
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant/40 hover:bg-surface-container transition-colors flex items-center gap-1.5 font-label-md text-label-md">
+<span>EUR (€)</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="expand_more">expand_more</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant/40 hover:bg-surface-container transition-colors flex items-center gap-1.5 font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]" data-icon="calendar_today">calendar_today</span>
+<span>Este Mes</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors relative" title="Notificaciones">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-secondary-container"></span>
+</button>
+<button class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Filtros avanzados">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+</button>
+<div class="h-6 w-[1px] bg-outline-variant/40 mx-1"></div>
+<div class="flex items-center gap-2 pl-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant/50 flex items-center justify-center font-label-md text-label-md text-primary font-bold">
+            GA
+          </div>
+<span class="font-label-md text-label-md text-on-surface font-semibold hidden md:inline">Gallegeeks</span>
+</div>
+</div>
+</header>
+<!-- Main Container: Quotations List + Open Side Drawer -->
+<main class="flex-1 flex overflow-hidden">
+<!-- Left / Center: Quotations Main View -->
+<section class="flex-1 overflow-y-auto p-6 flex flex-col gap-6">
+<!-- Header & Action Ribbon -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2.5">
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">Cotizaciones y Presupuestos</h1>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-bold">5 activas</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Gestiona, envía propuestas comerciales dinámicas y realiza seguimiento en tiempo real.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2.5 rounded-xl border border-outline-variant text-on-surface hover:bg-surface-container-low transition-colors font-label-lg text-label-lg font-semibold flex items-center gap-2 active:scale-[0.98]">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+<span>Filtros</span>
+</button>
+<button class="px-4 py-2.5 rounded-xl bg-secondary-container text-on-secondary-container hover:bg-secondary-fixed-dim transition-all font-label-lg text-label-lg font-bold shadow-sm flex items-center gap-2 active:scale-[0.98]">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>+ Nueva Cotización</span>
+</button>
+</div>
+</div>
+<!-- Filter Pill Chips Bar -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 border-b border-outline-variant/20">
+<button class="px-3.5 py-1.5 rounded-full font-label-sm text-label-sm bg-primary-container text-on-primary font-semibold transition-all">Todos (24)</button>
+<button class="px-3.5 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors font-medium">Borrador (3)</button>
+<button class="px-3.5 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors font-medium">Enviada (5)</button>
+<button class="px-3.5 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors font-medium">Vista (2)</button>
+<button class="px-3.5 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors font-medium">Aprobada (8)</button>
+<button class="px-3.5 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors font-medium">Rechazada (2)</button>
+<button class="px-3.5 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors font-medium">Convertida (4)</button>
+</div>
+<!-- Responsive Quotations Table Canvas -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/30 bg-surface-container-low/60 text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-3 px-4 font-bold">Folio</th>
+<th class="py-3 px-4 font-bold">Cliente / Razón Social</th>
+<th class="py-3 px-4 font-bold text-right">Monto</th>
+<th class="py-3 px-4 font-bold">Emisión / Vencimiento</th>
+<th class="py-3 px-4 font-bold">Estado</th>
+<th class="py-3 px-4 font-bold text-right">Acciones Rápidas</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20 font-body-sm text-body-sm">
+<!-- ROW 1: COT-0042 (Selected / Highlighted Row) -->
+<tr class="bg-surface-container-high/40 hover:bg-surface-container transition-colors cursor-pointer border-l-4 border-l-primary-container">
+<td class="py-3.5 px-4 font-semibold text-primary">
+<span class="font-mono">COT-0042</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">Valeria Silva</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Estudio Aura</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-right">
+<span class="font-bold text-on-surface font-mono">$1,850.00</span>
+<span class="block font-label-sm text-label-sm text-outline">+ IVA 19%</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="text-on-surface">Creada: 24 Oct</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Vence: 07 Nov</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm font-semibold bg-tertiary-fixed text-on-tertiary-fixed">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                      Aprobada
+                    </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-1.5 rounded-lg text-primary hover:bg-primary-fixed transition-colors" title="Ver enlace público">
+<span class="material-symbols-outlined text-[18px]" data-icon="link">link</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" title="Descargar PDF">
+<span class="material-symbols-outlined text-[18px]" data-icon="picture_as_pdf">picture_as_pdf</span>
+</button>
+<button class="px-2.5 py-1 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold hover:bg-primary-container transition-colors shadow-sm">
+                        Convertir a Pedido
+                      </button>
+</div>
+</td>
+</tr>
+<!-- ROW 2: COT-0041 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3.5 px-4 font-semibold text-on-surface">
+<span class="font-mono">COT-0041</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">TechSolutions SpA</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Soporte Anual Cloud</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-right">
+<span class="font-bold text-on-surface font-mono">$4,200.00</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="text-on-surface">Creada: 22 Oct</span>
+<span class="font-label-sm text-label-sm text-outline">Vence: 30 Oct</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col items-start gap-0.5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm font-semibold bg-surface-variant text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                        Vista
+                      </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="visibility">visibility</span>
+<span>Hace 2 h</span>
+</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="px-2.5 py-1 rounded-lg border border-outline-variant text-on-surface font-label-sm text-label-sm hover:bg-surface-container transition-colors">
+                        Ver
+                      </button>
+<button class="px-2.5 py-1 rounded-lg text-primary font-label-sm text-label-sm hover:bg-surface-container font-semibold transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="send">send</span>
+<span>Reenviar</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 3: COT-0040 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3.5 px-4 font-semibold text-on-surface">
+<span class="font-mono">COT-0040</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">Constructora Los Andes</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Portal Corporativo</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-right">
+<span class="font-bold text-on-surface font-mono">$12,800.00</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="text-on-surface">Creada: 18 Oct</span>
+<span class="font-label-sm text-label-sm text-outline">Vence: 15 Nov</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm font-semibold bg-primary-fixed text-on-primary-fixed">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                      Convertida
+                    </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<a class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-surface-container-high text-primary font-label-sm text-label-sm font-bold hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined text-[14px]" data-icon="inventory_2">inventory_2</span>
+<span>Ver Pedido #PED-0018</span>
+</a>
+</td>
+</tr>
+<!-- ROW 4: COT-0039 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3.5 px-4 font-semibold text-on-surface">
+<span class="font-mono">COT-0039</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">Agencia Nómade</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Identidad de Marca</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-right">
+<span class="font-bold text-on-surface font-mono">$950.00</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="text-on-surface">Creada: 15 Oct</span>
+<span class="font-label-sm text-label-sm text-outline">Vence: 28 Oct</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm font-semibold bg-secondary-fixed text-on-secondary-fixed">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+                      Enviada
+                    </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<button class="p-1.5 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- ROW 5: COT-0038 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3.5 px-4 font-semibold text-on-surface">
+<span class="font-mono">COT-0038</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">Café Central</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Menú Digital QR</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-right">
+<span class="font-bold text-on-surface font-mono">$620.00</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="text-on-surface">Creada: 10 Oct</span>
+<span class="font-label-sm text-label-sm text-outline">Vence: 20 Oct</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm font-semibold bg-surface-container-high text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                      Borrador
+                    </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<button class="p-1.5 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer Pagination -->
+<div class="p-3 bg-surface border-t border-outline-variant/30 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>Mostrando 5 de 24 cotizaciones</span>
+<div class="flex items-center gap-1">
+<button class="px-2.5 py-1 rounded-lg border border-outline-variant/40 hover:bg-surface-container disabled:opacity-40" disabled="">Anterior</button>
+<button class="px-2.5 py-1 rounded-lg bg-primary-container text-on-primary font-bold">1</button>
+<button class="px-2.5 py-1 rounded-lg border border-outline-variant/40 hover:bg-surface-container">2</button>
+<button class="px-2.5 py-1 rounded-lg border border-outline-variant/40 hover:bg-surface-container">Siguiente</button>
+</div>
+</div>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- RIGHT PANEL: Interactive Lateral Drawer (Detail of COT-0042)            -->
+<!-- ========================================================================= -->
+<aside class="w-[460px] border-l border-outline-variant/30 bg-surface-container-lowest flex flex-col h-full flex-shrink-0 shadow-lg z-10 animate-in slide-in-from-right duration-200">
+<!-- Drawer Header -->
+<div class="p-5 border-b border-outline-variant/30 flex items-center justify-between bg-surface-container-low/40">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-xl bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]" data-icon="verified">verified</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">COT-0042</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm font-bold bg-tertiary-fixed text-on-tertiary-fixed">Aprobada</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Cliente: Valeria Silva • Estudio Aura</p>
+</div>
+</div>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-outline hover:text-on-surface hover:bg-surface-container transition-colors" title="Cerrar detalle">
+<span class="material-symbols-outlined text-[18px]" data-icon="close">close</span>
+</button>
+</div>
+<!-- Drawer Content Scrollable Area -->
+<div class="flex-1 overflow-y-auto p-5 flex flex-col gap-6">
+<!-- Public Approval Link Card -->
+<div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/40 flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider text-on-surface-variant">Enlace Público de Aprobación</span>
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-tertiary font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Activo
+              </span>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex-1 bg-surface-container-lowest border border-outline-variant/40 px-3 py-1.5 rounded-lg font-mono text-body-sm text-on-surface truncate select-all">
+                nexo.app/p/COT-0042-valeria
+              </div>
+<button class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary transition-colors flex items-center justify-center" title="Copiar enlace público">
+<span class="material-symbols-outlined text-[18px]" data-icon="content_copy">content_copy</span>
+</button>
+</div>
+<!-- Signature Certificate Stamp Preview -->
+<div class="mt-1 p-2.5 rounded-lg bg-surface-container-lowest border border-outline-variant/30 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary" data-icon="draw">draw</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-bold text-on-surface">Firmado digitalmente por cliente</span>
+<span class="text-[11px] text-outline">24 Oct, 2023 - 17:42 GMT-3 (IP: 181.42.xx.xx)</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-tertiary" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- Items Table Breakdown -->
+<div class="flex flex-col gap-2">
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider text-on-surface-variant">Partidas y Servicios</span>
+<div class="border border-outline-variant/30 rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">
+<tr class="border-b border-outline-variant/30">
+<th class="py-2 px-3">Concepto</th>
+<th class="py-2 px-2 text-center">Cant.</th>
+<th class="py-2 px-3 text-right">Unitario</th>
+<th class="py-2 px-3 text-right">Total</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20 font-body-sm text-body-sm">
+<tr>
+<td class="py-2.5 px-3">
+<span class="font-semibold text-on-surface">Diseño UI/UX Sistema Web</span>
+<span class="block font-label-sm text-label-sm text-outline">Fase 1: Wireframes y UI kit</span>
+</td>
+<td class="py-2.5 px-2 text-center font-mono">1</td>
+<td class="py-2.5 px-3 text-right font-mono">$1,200.00</td>
+<td class="py-2.5 px-3 text-right font-mono font-semibold">$1,200.00</td>
+</tr>
+<tr>
+<td class="py-2.5 px-3">
+<span class="font-semibold text-on-surface">Desarrollo Frontend React</span>
+<span class="block font-label-sm text-label-sm text-outline">Componentes accesibles Tailwind</span>
+</td>
+<td class="py-2.5 px-2 text-center font-mono">1</td>
+<td class="py-2.5 px-3 text-right font-mono">$855.56</td>
+<td class="py-2.5 px-3 text-right font-mono font-semibold">$855.56</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Financial Calculation Breakdown -->
+<div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/30 flex flex-col gap-2.5">
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span>Subtotal Bruto Neto</span>
+<span class="font-mono text-on-surface font-semibold">$2,055.56</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-tertiary">
+<span>Descuento Comercial (10%)</span>
+<span class="font-mono font-semibold">-$205.56</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span>Subtotal con Descuento</span>
+<span class="font-mono text-on-surface">$1,850.00</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span>IVA Desglosado (19%)</span>
+<span class="font-mono text-on-surface font-semibold">$351.50</span>
+</div>
+<div class="pt-2 border-t border-outline-variant/40 flex justify-between items-baseline">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">Total Cotizado</span>
+<span class="font-headline-md text-headline-md font-bold font-mono text-primary">$2,201.50</span>
+</div>
+</div>
+<!-- Quick Notes / Metadata -->
+<div class="flex flex-col gap-1.5 text-on-surface-variant text-body-sm">
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider">Condiciones Comerciales</span>
+<p class="p-3 rounded-lg bg-surface-container-low/50 text-body-sm">
+              Forma de pago: 50% anticipo, 50% entrega contra satisfacción. Válida hasta el 07 de Noviembre 2023.
+            </p>
+</div>
+</div>
+<!-- Drawer Fixed Footer Actions -->
+<div class="p-4 border-t border-outline-variant/30 bg-surface flex flex-col gap-2.5">
+<button class="w-full py-2.5 px-4 rounded-xl bg-primary text-on-primary hover:bg-primary-container font-label-lg text-label-lg font-bold transition-all shadow-sm flex items-center justify-center gap-2 active:scale-[0.98]">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Convertir a Pedido en Firme</span>
+</button>
+<button class="w-full py-2 px-4 rounded-xl border border-outline-variant text-on-surface hover:bg-surface-container transition-colors font-label-md text-label-md font-semibold flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span>Descargar PDF con logo corporativo</span>
+</button>
+</div>
+</aside>
+</main>
+</div>
+</body></html>
