@@ -8,26 +8,45 @@
         </div>
     </div>
 
-    <div class="flex items-center gap-2">
+<div class="flex items-center gap-2">
         <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high font-label-md text-label-md text-on-surface-variant">
             {% include "includes/icon.html" with icon="currency_exchange" size=16 %}
-            {{ current_tenant.currency|default:"CLP" }}
+            {% if current_tenant %}{{ current_tenant.currency|default:"CLP" }}{% else %}CLP{% endif %}
         </span>
         <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-low font-label-md text-label-md text-on-surface-variant">
             Este Mes
         </span>
-        <button type="button" class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container transition-colors duration-150" aria-label="Notificaciones">
-            {% include "includes/icon.html" with icon="notifications" size=20 %}
+        <div class="relative" id="notif-bell">
+            {% include "notifications/_bell.html" %}
+        </div>
+        <button type="button" onclick="nexoToggleTheme()" class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container transition-colors duration-150" aria-label="Alternar tema" title="Alternar tema claro/oscuro">
+            {% include "includes/icon.html" with icon="dark_mode" size=20 id="theme-icon-dark" %}
+            {% include "includes/icon.html" with icon="light_mode" size=20 id="theme-icon-light" %}
         </button>
         <button type="button" class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container transition-colors duration-150" aria-label="Filtros">
             {% include "includes/icon.html" with icon="tune" size=20 %}
         </button>
-        <a href="{{ new_quotation_url|default:'#' }}" class="btn btn-primary btn-sm">
+        <a href="{% url 'quotations:create' %}" class="btn btn-primary btn-sm">
             {% include "includes/icon.html" with icon="add" size=16 %}
             <span class="hidden sm:inline">Nueva Cotización</span>
         </a>
-        <button type="button" class="flex items-center justify-center w-9 h-9 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm" aria-label="Mi perfil">
-            {{ user.first_name|first|default:user.email|first|upper }}{{ user.last_name|first|upper }}
-        </button>
+        <span class="flex items-center gap-1.5 pl-2 pr-1.5 py-1.5 rounded-full bg-surface-container-low border border-outline-variant/40">
+            <a href="{% url 'account:profile' %}" class="flex items-center gap-1.5" title="Mi perfil">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm">
+                    {{ user.first_name|first|default:user.email|first|upper }}{{ user.last_name|first|upper }}
+                </span>
+                <span class="hidden lg:block text-left leading-tight mr-1">
+                    <span class="block font-label-md text-label-md">{{ user.first_name|default:"Usuario" }}</span>
+                    <span class="block font-label-sm text-label-sm text-on-surface-variant">{% if current_tenant %}{{ current_tenant.name }}{% else %}Mi negocio{% endif %}</span>
+                </span>
+            </a>
+            <form method="post" action="{% url 'account:logout' %}" class="inline">
+                {% csrf_token %}
+                <button type="submit" aria-label="Cerrar sesión" title="Cerrar sesión"
+                        class="p-1.5 rounded-lg text-on-surface-variant hover:bg-error-container hover:text-on-error-container transition-colors duration-150">
+                    {% include "includes/icon.html" with icon="logout" size=18 %}
+                </button>
+            </form>
+        </span>
     </div>
 </header>

@@ -1,0 +1,211 @@
+{% load nexo %}
+
+<div class="flex flex-wrap items-center gap-2 mb-5">
+    <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mr-1">Periodo</span>
+    {% for key, label in periods.items %}
+        <a href="?periodo={{ key }}"
+           hx-get="{% url 'dashboard:index' %}?periodo={{ key }}"
+           hx-target="#dashboard-content" hx-swap="outerHTML"
+           class="chip {% if period == key %}chip-active{% endif %}">{{ label }}</a>
+    {% endfor %}
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+    {% for k in kpis %}
+        <div class="card p-5">
+            <div class="flex items-center justify-between mb-3">
+                <span class="flex items-center gap-3">
+                    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-primary-container/10 text-primary">
+                        {% include "includes/icon.html" with icon=k.icon size=20 %}
+                    </span>
+                    <span class="font-label-md text-label-md text-on-surface-variant">{{ k.label }}</span>
+                </span>
+                {% if k.delta is not None %}
+                    <span class="chip {% if k.delta >= 0 %}chip-warm{% else %}chip-error{% endif %}" title="{{ k.delta_label }}">
+                        {% include "includes/icon.html" with icon="arrow_upward" size=14 %}
+                        {{ k.delta|floatformat:0 }}%
+                    </span>
+                {% endif %}
+            </div>
+            <p class="font-headline-md text-headline-md text-tabular">{% if k.money %}{{ k.value|clp }}{% else %}{{ k.value }}{% endif %}</p>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                {{ k.sub }}{% if k.delta is not None %} · <span class="text-on-surface-variant">{{ k.delta_label }}</span>{% endif %}
+            </p>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div class="card p-5">
+        <div class="flex items-center justify-between mb-3">
+            <span class="flex items-center gap-3">
+                <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-amber/10 text-amber">
+                    {% include "includes/icon.html" with icon="hourglass_top" size=20 %}
+                </span>
+                <span class="font-label-md text-label-md text-on-surface-variant">Cotizaciones por vencer</span>
+            </span>
+            <span class="chip chip-warm">{{ por_vencer|length }}</span>
+        </div>
+        {% if por_vencer %}
+            <div class="space-y-1">
+                {% for entry in por_vencer %}
+                    <a href="{% url 'quotations:detail' entry.q.pk %}" class="flex items-center justify-between gap-2 p-2 rounded-lg hover:bg-surface-container transition-colors duration-150">
+                        <span class="font-body-md text-body-md truncate">{{ entry.q.client.name }}</span>
+                        <span class="font-label-sm text-label-sm {% if entry.days_left <= 1 %}text-error{% elif entry.days_left <= 5 %}text-amber{% else %}text-on-surface-variant{% endif %} whitespace-nowrap">
+                            {% if entry.days_left == 0 %}Hoy{% elif entry.days_left == 1 %}Mañana{% else %}{{ entry.days_left }} días{% endif %}
+                        </span>
+                    </a>
+                {% endfor %}
+            </div>
+            <a href="{% url 'quotations:index' %}?vencer=15" class="btn btn-outline btn-sm w-full mt-3">Ver todas</a>
+        {% else %}
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Nada por vencer. Bien.</p>
+            <a href="{% url 'quotations:create' %}" class="btn btn-outline btn-sm w-full mt-3">
+                {% include "includes/icon.html" with icon="add" size=16 %}
+                Nueva cotización
+            </a>
+        {% endif %}
+    </div>
+
+    <div class="card p-5">
+        <div class="flex items-center justify-between mb-3">
+            <span class="flex items-center gap-3">
+                <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-error/10 text-error">
+                    {% include "includes/icon.html" with icon="payments" size=20 %}
+                </span>
+                <span class="font-label-md text-label-md text-on-surface-variant">Por cobrar</span>
+            </span>
+            <span class="chip chip-error">{{ por_cobrar_count }}</span>
+        </div>
+        <p class="font-headline-md text-headline-md text-tabular">{{ pendiente_cobro|clp }}</p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Pedidos sin pagar</p>
+        <a href="{% url 'orders:index' %}" class="btn btn-outline btn-sm w-full mt-3">
+            {% include "includes/icon.html" with icon="receipt_long" size=16 %}
+            Revisar pedidos
+        </a>
+    </div>
+
+    <div class="card p-5">
+        <div class="flex items-center justify-between mb-3">
+            <span class="flex items-center gap-3">
+                <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-tertiary/10 text-tertiary">
+                    {% include "includes/icon.html" with icon="local_shipping" size=20 %}
+                </span>
+                <span class="font-label-md text-label-md text-on-surface-variant">Entregas pendientes</span>
+            </span>
+            <span class="chip chip-low">{{ en_entrega_count }}</span>
+        </div>
+        <p class="font-headline-md text-headline-md text-tabular">{{ en_entrega_count }} pedido{{ en_entrega_count|pluralize }}</p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">En curso de entrega</p>
+        <a href="{% url 'orders:index' %}" class="btn btn-outline btn-sm w-full mt-3">
+            {% include "includes/icon.html" with icon="local_shipping" size=16 %}
+            Ver entregas
+        </a>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+    <div class="card p-5 lg:col-span-2">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="font-headline-sm text-headline-sm">Cotizaciones por estado <span class="font-label-md text-label-md text-on-surface-variant font-normal">· {{ period_label }}</span></h2>
+            <a href="{% url 'quotations:index' %}" class="btn btn-ghost btn-sm">Ver todas</a>
+        </div>
+        {% if total_cotizaciones %}
+            <div class="space-y-3">
+                {% for label, count, code, pct in estados_cotizacion %}
+                    {% if count %}
+                        <a href="{% url 'quotations:index' %}?status={{ code }}" class="block">
+                            <div class="flex justify-between font-label-md text-label-md mb-1">
+                                <span class="text-on-surface-variant">{{ label }}</span>
+                                <span class="text-tabular">{{ count }}</span>
+                            </div>
+                            <div class="h-2 rounded-full bg-surface-container overflow-hidden">
+                                <div class="h-full rounded-full
+                                    {% if code == 'aprobada' or code == 'convertida' %}bg-tertiary
+                                    {% elif code == 'rechazada' %}bg-error
+                                    {% elif code == 'borrador' %}bg-outline
+                                    {% else %}bg-secondary-container{% endif %}"
+                                    style="width: {{ pct|floatformat:0 }}%"></div>
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="rounded-xl border border-dashed border-outline-variant/60 px-5 py-8 text-center">
+                <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-surface-container text-on-surface-variant mb-3">
+                    {% include "includes/icon.html" with icon="request_quote" size=22 %}
+                </span>
+                <p class="font-body-md text-body-md text-on-surface-variant">Aún no hay cotizaciones.
+                    <a href="{% url 'quotations:create' %}" class="text-primary font-semibold">Crea la primera</a> y verás el flujo por estado.</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="card p-5">
+        <h2 class="font-headline-sm text-headline-sm mb-4">Estado financiero <span class="font-label-md text-label-md text-on-surface-variant font-normal">· {{ period_label }}</span></h2>
+        <div class="space-y-4">
+            <div class="flex items-center justify-between">
+                <span class="font-body-md text-body-md text-on-surface-variant">Cobrado</span>
+                <span class="font-label-lg text-label-lg text-tabular text-emerald">{{ cobros_periodo|clp }}</span>
+            </div>
+            <div class="flex items-center justify-between">
+                <span class="font-body-md text-body-md text-on-surface-variant">Por cobrar</span>
+                <span class="font-label-lg text-label-lg text-tabular text-amber">{{ pendiente_cobro|clp }}</span>
+            </div>
+            <div class="flex items-center justify-between">
+                <span class="font-body-md text-body-md text-on-surface-variant">Valor aprobado</span>
+                <span class="font-label-lg text-label-lg text-tabular text-primary">{{ quotation_value|clp }}</span>
+            </div>
+            <div class="pt-3 border-t border-outline-variant/30 flex items-center justify-between">
+                <span class="font-headline-sm text-headline-sm">Venta del periodo</span>
+                <span class="font-headline-md text-headline-md text-tabular text-primary">{{ venta_periodo|clp }}</span>
+            </div>
+        </div>
+        <a href="{% url 'orders:index' %}" class="btn btn-outline btn-sm w-full mt-5">
+            {% include "includes/icon.html" with icon="receipt_long" size=16 %}
+            Ver pedidos
+        </a>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <div class="card p-5">
+        <h2 class="font-headline-sm text-headline-sm mb-4">Últimas cotizaciones</h2>
+        <div class="space-y-1">
+            {% for q in recientes %}
+                <a href="{% url 'quotations:detail' q.pk %}" class="flex items-center justify-between gap-3 p-3 rounded-xl hover:bg-surface-container transition-colors duration-150">
+                    <div class="min-w-0">
+                        <p class="font-label-md text-label-md truncate">{{ q.client.name }}</p>
+                        <p class="font-label-sm text-label-sm text-on-surface-variant">{{ q.folio }} · {{ q.created_at|date:"d/m/Y" }}</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-label-md text-label-md text-tabular">{{ q.total|clp }}</span>
+                        {% include "includes/status_badge.html" with value=q.status %}
+                    </div>
+                </a>
+            {% empty %}
+                <p class="font-body-md text-body-md text-on-surface-variant py-4 text-center">Sin cotizaciones todavía.</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="card p-5">
+        <h2 class="font-headline-sm text-headline-sm mb-4">Últimos pedidos</h2>
+        <div class="space-y-1">
+            {% for o in ultimos_pedidos %}
+                <a href="{% url 'orders:detail' o.pk %}" class="flex items-center justify-between gap-3 p-3 rounded-xl hover:bg-surface-container transition-colors duration-150">
+                    <div class="min-w-0">
+                        <p class="font-label-md text-label-md truncate">{{ o.client.name }}</p>
+                        <p class="font-label-sm text-label-sm text-on-surface-variant">{{ o.folio }} · {{ o.created_at|date:"d/m/Y" }}</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-label-md text-label-md text-tabular">{{ o.total|clp }}</span>
+                        {% include "includes/status_badge.html" with value=o.payment_status label=o.get_payment_status_display %}
+                    </div>
+                </a>
+            {% empty %}
+                <p class="font-body-md text-body-md text-on-surface-variant py-4 text-center">Sin pedidos todavía.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>

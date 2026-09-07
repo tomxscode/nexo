@@ -3,10 +3,120 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Paleta clara (Material 3 / brand indigo) */
+    --c-on-tertiary-fixed: 0 33 19;
+    --c-tertiary-fixed-dim: 78 222 163;
+    --c-on-surface-variant: 70 69 85;
+    --c-primary-fixed: 226 223 255;
+    --c-secondary: 133 83 0;
+    --c-on-surface: 19 27 46;
+    --c-background: 250 248 255;
+    --c-on-primary: 255 255 255;
+    --c-outline-variant: 199 196 216;
+    --c-on-secondary-container: 104 64 0;
+    --c-tertiary: 0 83 56;
+    --c-on-error: 255 255 255;
+    --c-surface-container: 234 237 255;
+    --c-primary: 79 70 229;
+    --c-inverse-on-surface: 238 240 255;
+    --c-on-secondary-fixed-variant: 101 62 0;
+    --c-surface: 250 248 255;
+    --c-on-error-container: 147 0 10;
+    --c-on-background: 19 27 46;
+    --c-surface-variant: 218 226 253;
+    --c-on-tertiary: 255 255 255;
+    --c-surface-container-lowest: 255 255 255;
+    --c-secondary-fixed-dim: 255 185 95;
+    --c-on-tertiary-container: 103 244 183;
+    --c-on-secondary-fixed: 42 23 0;
+    --c-primary-container: 79 70 229;
+    --c-surface-container-high: 226 231 255;
+    --c-secondary-container: 254 166 25;
+    --c-tertiary-fixed: 111 251 190;
+    --c-tertiary-container: 0 110 75;
+    --c-on-tertiary-fixed-variant: 0 82 54;
+    --c-surface-container-highest: 218 226 253;
+    --c-inverse-surface: 40 48 68;
+    --c-secondary-fixed: 255 221 184;
+    --c-surface-container-low: 242 243 255;
+    --c-outline: 119 117 135;
+    --c-surface-dim: 210 217 244;
+    --c-error: 186 26 26;
+    --c-on-primary-fixed-variant: 51 35 204;
+    --c-primary-fixed-dim: 195 192 255;
+    --c-on-primary-container: 218 215 255;
+    --c-on-primary-fixed: 15 0 105;
+    --c-inverse-primary: 195 192 255;
+    --c-error-container: 255 218 214;
+    --c-on-secondary: 255 255 255;
+    --c-surface-bright: 250 248 255;
+    --c-surface-tint: 77 68 227;
+    --c-emerald: 5 150 105;
+    --c-emerald-container: 167 243 208;
+    --c-amber: 217 119 6;
+    --c-amber-container: 254 243 199;
+  }
+
+  .dark {
+    /* Paleta oscura (Material 3) */
+    --c-on-tertiary-fixed: 0 57 37;
+    --c-tertiary-fixed-dim: 29 199 141;
+    --c-on-surface-variant: 201 199 214;
+    --c-primary-fixed: 226 223 255;
+    --c-secondary: 255 185 95;
+    --c-on-surface: 227 225 233;
+    --c-background: 18 19 24;
+    --c-on-primary: 255 255 255;
+    --c-outline-variant: 70 70 79;
+    --c-on-secondary-container: 255 221 184;
+    --c-tertiary: 78 222 163;
+    --c-on-error: 105 0 5;
+    --c-surface-container: 29 30 38;
+    --c-primary: 185 180 255;
+    --c-inverse-on-surface: 49 49 63;
+    --c-on-secondary-fixed-variant: 255 221 184;
+    --c-surface: 18 19 24;
+    --c-on-error-container: 255 218 214;
+    --c-on-background: 227 225 233;
+    --c-surface-variant: 70 69 79;
+    --c-on-tertiary: 0 56 35;
+    --c-surface-container-lowest: 11 11 18;
+    --c-secondary-fixed-dim: 133 83 0;
+    --c-on-tertiary-container: 103 244 183;
+    --c-on-secondary-fixed: 42 23 0;
+    --c-primary-container: 67 56 202;
+    --c-surface-container-high: 39 40 51;
+    --c-secondary-container: 92 62 0;
+    --c-tertiary-fixed: 103 244 183;
+    --c-tertiary-container: 0 110 75;
+    --c-on-tertiary-fixed-variant: 103 244 183;
+    --c-surface-container-highest: 50 51 63;
+    --c-inverse-surface: 227 225 233;
+    --c-secondary-fixed: 255 185 95;
+    --c-surface-container-low: 25 26 34;
+    --c-outline: 145 143 159;
+    --c-surface-dim: 18 19 24;
+    --c-error: 255 180 171;
+    --c-on-primary-fixed-variant: 213 210 255;
+    --c-primary-fixed-dim: 128 120 255;
+    --c-on-primary-container: 226 224 255;
+    --c-on-primary-fixed: 31 23 138;
+    --c-inverse-primary: 90 87 201;
+    --c-error-container: 147 0 10;
+    --c-on-secondary: 54 29 0;
+    --c-surface-bright: 56 58 70;
+    --c-surface-tint: 195 192 255;
+    --c-emerald: 52 211 153;
+    --c-emerald-container: 6 78 59;
+    --c-amber: 251 191 36;
+    --c-amber-container: 66 48 0;
+  }
+
   body {
     @apply antialiased;
-    background-color: #faf8ff;
-    color: #131b2e;
+    background-color: rgb(var(--c-background));
+    color: rgb(var(--c-on-surface));
     font-family: "Plus Jakarta Sans", system-ui, sans-serif;
   }
 
@@ -70,23 +180,27 @@
 @layer components {
   /* --- Botones --- */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl font-label-lg shadow-sm active:scale-[0.98] transition-all duration-150 select-none cursor-pointer;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl font-label-lg shadow-sm active:scale-[0.98] transition-all duration-150 select-none cursor-pointer whitespace-nowrap h-11 px-5;
   }
 
   .btn-primary {
-    @apply bg-primary-container hover:bg-primary text-on-primary;
+    @apply bg-primary-container text-on-primary hover:bg-[#3a33cf] hover:shadow-[0_4px_14px_0_rgba(79,70,229,0.35)];
   }
 
   .btn-warm {
-    @apply bg-secondary-container hover:bg-secondary-fixed-dim text-on-secondary-container;
+    @apply bg-[#f59e0b] text-[#0f172a] hover:bg-[#d97706] hover:shadow-[0_4px_14px_0_rgba(245,158,11,0.35)];
   }
 
   .btn-outline {
-    @apply border border-outline-variant/50 bg-surface-container-lowest text-on-surface hover:bg-surface-container;
+    @apply border border-outline-variant/60 bg-surface-container-lowest text-on-surface hover:bg-surface-container;
+  }
+
+  .btn-danger {
+    @apply bg-error text-on-error hover:bg-error/90;
   }
 
   .btn-ghost {
-    @apply text-primary hover:bg-primary-container/10 shadow-none;
+    @apply text-primary hover:bg-primary-container/10 shadow-none px-3;
   }
 
   .btn-sm {
@@ -97,9 +211,17 @@
     @apply h-11 px-4;
   }
 
+  .btn-lg {
+    @apply h-12 px-6 text-[15px];
+  }
+
   /* --- Campos --- */
   .input {
-    @apply h-11 w-full rounded-xl border border-outline-variant/50 bg-surface-container-lowest px-3.5 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/60 focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 focus:outline-none transition-colors duration-150;
+    @apply h-11 w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-3.5 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/60 focus:border-primary-container focus:shadow-[0_0_0_3px_rgb(var(--c-primary)/0.15)] focus:outline-none transition duration-150;
+  }
+
+  .input-sm {
+    @apply h-9 w-full px-3 text-[13px] rounded-lg bg-surface-container-lowest text-on-surface font-body-md border border-outline-variant placeholder:text-on-surface-variant/60 focus:border-primary-container focus:shadow-[0_0_0_3px_rgb(var(--c-primary)/0.15)] focus:outline-none transition duration-150;
   }
 
   .label {
@@ -122,14 +244,22 @@
 
   /* --- Chips de filtro --- */
   .chip {
-    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-label-md text-label-md transition-colors duration-150 cursor-pointer;
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-label-md text-label-md transition-colors duration-150 cursor-pointer bg-surface-container-lowest text-on-surface-variant border border-outline-variant/40 hover:bg-surface-container;
   }
 
   .chip-active {
-    @apply bg-primary-container text-on-primary;
+    @apply bg-primary-container text-on-primary border border-transparent hover:bg-primary;
   }
 
-  .chip-default {
-    @apply bg-surface-container-lowest text-on-surface-variant border border-outline-variant/40 hover:bg-surface-container;
+  .chip-warm {
+    @apply bg-secondary-container/15 text-on-secondary-container border border-secondary-container/25;
+  }
+
+  .chip-low {
+    @apply bg-surface-container/70 text-on-surface-variant border-none;
+  }
+
+  .chip-error {
+    @apply bg-error/10 text-error border border-error/20;
   }
 }

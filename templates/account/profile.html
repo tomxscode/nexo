@@ -1,0 +1,83 @@
+{% extends "workspace/base_workspace.html" %}
+{% load nexo %}
+
+{% block title %}Perfil · Nexo{% endblock %}
+
+{% block workspace_content %}
+    <div class="mb-5">
+        <h1 class="font-headline-md text-headline-md">Perfil de usuario</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-1">{{ user.email }}</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        <div class="lg:col-span-2 space-y-6">
+            <form method="post" class="card p-6">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="profile">
+                <h2 class="font-headline-sm text-headline-sm mb-4">Datos personales</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {% for field in profile_form %}
+                        <div class="{% if field.name in 'email,theme' %}sm:col-span-2 sm:max-w-xs{% endif %}">
+                            <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block mb-1.5">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <p class="font-body-sm text-body-sm text-error mt-1">{{ field.errors|striptags }}</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn btn-primary mt-5">
+                    {% include "includes/icon.html" with icon="save" size=18 %}
+                    Guardar perfil
+                </button>
+            </form>
+
+            <form method="post" class="card p-6">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="password">
+                <h2 class="font-headline-sm text-headline-sm mb-4">Cambiar contraseña</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {% for field in password_form %}
+                        <div class="sm:col-span-1 {% if field.name == 'old_password' %}sm:max-w-xs{% endif %}">
+                            <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block mb-1.5">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <p class="font-body-sm text-body-sm text-error mt-1">{{ field.errors|striptags }}</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn btn-outline mt-5">
+                    {% include "includes/icon.html" with icon="lock" size=18 %}
+                    Actualizar contraseña
+                </button>
+            </form>
+        </div>
+
+        <div class="card p-6">
+            <h2 class="font-headline-sm text-headline-sm mb-4">Mis negocios</h2>
+            <div class="space-y-2">
+                {% for m in memberships %}
+                    <div class="flex items-center justify-between gap-2 p-3 rounded-xl border border-outline-variant/30">
+                        <div class="min-w-0">
+                            <p class="font-label-md text-label-md truncate">{{ m.tenant.name }}</p>
+                            <p class="font-label-sm text-label-sm text-on-surface-variant">{{ m.get_role_display }}</p>
+                        </div>
+                        {% if m.tenant == user.current_tenant %}
+                            <span class="chip chip-warm">Activo</span>
+                        {% else %}
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="switch_tenant">
+                                <input type="hidden" name="tenant" value="{{ m.pk }}">
+                                <button type="submit" class="btn btn-ghost btn-sm">Usar</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                {% empty %}
+                    <p class="font-body-md text-body-md text-on-surface-variant text-center py-4">Sin negocios.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

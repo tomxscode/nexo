@@ -1,0 +1,82 @@
+{% extends "workspace/base_workspace.html" %}
+
+{% block title %}Plantillas de etapas · Nexo{% endblock %}
+
+{% block workspace_content %}
+    <div class="flex items-center justify-between mb-5">
+        <div>
+            <h1 class="font-headline-md text-headline-md">Plantillas de etapas</h1>
+            <p class="font-body-md text-body-md text-on-surface-variant">
+                Crea tus propios lotes de etapas para aplicar a cualquier pedido con un clic.
+            </p>
+        </div>
+        <a href="{% url 'orders:index' %}" class="btn btn-outline btn-sm">
+            {% include "includes/icon.html" with icon="arrow_back" size=16 %}
+            Pedidos
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-5 items-start">
+        <div class="card p-6">
+            <h2 class="font-headline-sm text-headline-sm mb-1">Nueva plantilla</h2>
+            <p class="font-body-md text-body-md text-on-surface-variant mb-4">Una etapa por línea, en el orden en que ocurren.</p>
+            <form method="post" class="space-y-4">
+                {% csrf_token %}
+                <div>
+                    <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">Nombre</label>
+                    <input type="text" name="name" class="input" placeholder="Ej: Fabricación a medida">
+                </div>
+                <div>
+                    <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">Etapas</label>
+                    <textarea name="stages" rows="6" class="input min-h-[96px] py-2.5" placeholder="Recepción de materiales&#10;Corte y fabricación&#10;Control de calidad&#10;Entrega"></textarea>
+                </div>
+                <button type="submit" name="action" value="create" class="btn btn-primary">
+                    {% include "includes/icon.html" with icon="add" size=18 %}
+                    Crear plantilla
+                </button>
+            </form>
+        </div>
+
+        <div class="space-y-3">
+            <div class="flex items-center justify-between px-1">
+                <h2 class="font-headline-sm text-headline-sm">Mis plantillas</h2>
+                <span class="chip chip-low">{{ templates|length }}</span>
+            </div>
+            {% for tpl in templates %}
+                <div class="card p-5">
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="min-w-0">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <h3 class="font-headline-sm text-headline-sm">{{ tpl.name }}</h3>
+                                {% if tpl.is_system %}
+                                    <span class="chip chip-warm">
+                                        {% include "includes/icon.html" with icon="recommend" size=14 %}
+                                        Sugerida por Nexo
+                                    </span>
+                                {% endif %}
+                            </div>
+                            <p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">{{ tpl.stages|length }} etapas</p>
+                        </div>
+                        <form method="post" onsubmit="return confirm('¿Eliminar la plantilla “{{ tpl.name }}”?' )">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="template_pk" value="{{ tpl.pk }}">
+                            <button type="submit" class="p-1.5 rounded-lg text-on-surface-variant hover:bg-error-container hover:text-on-error-container transition-colors duration-150" title="Eliminar plantilla">
+                                {% include "includes/icon.html" with icon="close" size=18 %}
+                            </button>
+                        </form>
+                    </div>
+                    <div class="flex flex-wrap gap-1.5 mt-3">
+                        {% for stage in tpl.stages %}
+                            <span class="chip chip-low">{{ stage }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% empty %}
+                <div class="card p-6 text-center">
+                    <p class="font-body-md text-body-md text-on-surface-variant">Sin plantillas. Crea la primera a la izquierda y aplícala a tus pedidos con un clic.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

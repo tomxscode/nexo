@@ -18,6 +18,9 @@ class Tenant(models.Model):
     email = models.EmailField("Email de contacto", blank=True)
     phone = models.CharField("Teléfono", max_length=32, blank=True, default="")
     address = models.CharField("Dirección", max_length=200, blank=True, default="")
+    giro = models.CharField("Giro", max_length=120, blank=True, default="")
+    delivery_terms = models.CharField("Plazo de entrega", max_length=120, blank=True, default="")
+    warranty = models.CharField("Garantía", max_length=120, blank=True, default="")
 
     logo = models.ImageField("Logo", upload_to="logos/", blank=True)
 
@@ -85,7 +88,15 @@ class Tenant(models.Model):
 class User(AbstractUser):
     """Usuario de Nexo. Se autentica con email."""
 
+    class Theme(models.TextChoices):
+        SYSTEM = "system", "Sistema"
+        LIGHT = "light", "Claro"
+        DARK = "dark", "Oscuro"
+
     email = models.EmailField("Correo electrónico", unique=True)
+    theme = models.CharField(
+        "Tema", max_length=8, choices=Theme.choices, default=Theme.SYSTEM
+    )
     current_tenant = models.ForeignKey(
         Tenant,
         on_delete=models.SET_NULL,

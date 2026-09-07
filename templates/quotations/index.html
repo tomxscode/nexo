@@ -1,0 +1,65 @@
+{% extends "workspace/base_workspace.html" %}
+{% load nexo %}
+
+{% block title %}Cotizaciones · Nexo{% endblock %}
+
+{% block workspace_content %}
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-5">
+        <h1 class="font-headline-md text-headline-md">Cotizaciones</h1>
+        <a href="{% url 'quotations:create' %}" class="btn btn-primary">
+            {% include "includes/icon.html" with icon="add" size=18 %}
+            Nueva cotización
+        </a>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2 mb-4">
+        <a href="?status=todas" class="chip {% if status == 'todas' %}chip-active{% endif %}">Todas {{ counts.todas }}</a>
+        <a href="?status=borrador" class="chip {% if status == 'borrador' %}chip-active{% endif %}">Borrador {{ counts.borrador }}</a>
+        <a href="?status=enviada" class="chip {% if status == 'enviada' %}chip-active{% endif %}">Enviadas {{ counts.enviada }}</a>
+        <a href="?status=vista" class="chip {% if status == 'vista' %}chip-active{% endif %}">Vistas {{ counts.vista }}</a>
+        <a href="?status=aprobada" class="chip {% if status == 'aprobada' %}chip-active{% endif %}">Aprobadas {{ counts.aprobada }}</a>
+        <a href="?status=rechazada" class="chip {% if status == 'rechazada' %}chip-active{% endif %}">Rechazadas {{ counts.rechazada }}</a>
+        <a href="?status=convertida" class="chip {% if status == 'convertida' %}chip-active{% endif %}">Convertidas {{ counts.convertida }}</a>
+        <a href="?vencer=15" class="chip {% if vencer == 15 %}chip-active{% endif %} {% if vencer == 15 %}chip-warm{% endif %}">Por vencer (15 días)</a>
+        {% if vencer %}
+            <a href="{{ request.path }}" class="chip chip-error">Quitar filtro</a>
+        {% endif %}
+    </div>
+
+    <div class="card overflow-x-auto">
+        <table class="w-full min-w-[560px]">
+            <thead>
+                <tr class="border-b border-outline-variant/30">
+                    <th class="table-th">Folio</th>
+                    <th class="table-th">Cliente</th>
+                    <th class="table-th text-center">Fecha</th>
+                    <th class="table-th text-center">Valida hasta</th>
+                    <th class="table-th text-right">Total</th>
+                    <th class="table-th text-center">Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for q in quotations %}
+                    <tr class="border-b border-outline-variant/20 hover:bg-surface-container transition-colors duration-150 cursor-pointer"
+                        onclick="window.location='{% url 'quotations:detail' q.pk %}'">
+                        <td class="table-td">
+                            <span class="font-label-md text-label-md text-primary">{{ q.folio }}</span>
+                        </td>
+                        <td class="table-td">{{ q.client.name }}</td>
+                        <td class="table-td text-center text-tabular">{{ q.issue_date|date:"d/m/y" }}</td>
+                        <td class="table-td text-center text-tabular">{{ q.valid_until|date:"d/m/y" }}</td>
+                        <td class="table-td text-right text-tabular font-semibold">{{ q.total|clp }}</td>
+                        <td class="table-td text-center">{% include "includes/status_badge.html" with value=q.status %}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="table-td text-center py-10">
+                            <p class="font-body-md text-body-md text-on-surface-variant mb-3">No hay cotizaciones aquí.</p>
+                            <a href="{% url 'quotations:create' %}" class="btn btn-primary btn-sm">Crear primera cotización</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

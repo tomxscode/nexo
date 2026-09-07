@@ -1,9 +1,24 @@
 {% load static %}<!DOCTYPE html>
-<html lang="es" class="bg-background">
+<html lang="es" class="bg-background" data-theme="{% if user.is_authenticated %}{{ user.theme }}{% else %}system{% endif %}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Nexo · Gestión de tu negocio{% endblock %}</title>
+    <script>
+        (function () {
+            var pref = document.documentElement.dataset.theme || "system";
+            var stored = null;
+            try { stored = localStorage.getItem("nexo-theme"); } catch (e) {}
+            if (["light", "dark", "system"].indexOf(stored) !== -1) pref = stored;
+            var mq = window.matchMedia("(prefers-color-scheme: dark)");
+            function apply() {
+                var dark = pref === "dark" || (pref === "system" && mq.matches);
+                document.documentElement.classList.toggle("dark", dark);
+            }
+            apply();
+            if (mq.addEventListener) mq.addEventListener("change", apply);
+        })();
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

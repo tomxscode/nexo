@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.utils.text import slugify
 
 from apps.core.models import Tenant, User
@@ -67,6 +67,21 @@ class OnboardingForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"class": "input", "placeholder": "Dirección comercial"}),
         label="Dirección",
     )
+    giro = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={"class": "input", "placeholder": "Ej: Comercio minorista / Venta por internet"}),
+        label="Giro",
+    )
+    delivery_terms = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={"class": "input", "placeholder": "Ej: 3 días corridos"}),
+        label="Plazo de entrega",
+    )
+    warranty = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={"class": "input", "placeholder": "Ej: 6 meses"}),
+        label="Garantía",
+    )
     logo = forms.ImageField(
         required=False,
         widget=forms.FileInput(attrs={"class": "input py-2.5", "accept": "image/*"}),
@@ -79,7 +94,7 @@ class OnboardingForm(forms.ModelForm):
 
     class Meta:
         model = Tenant
-        fields = ("name", "rut", "email", "phone", "address", "logo", "default_iva")
+        fields = ("name", "rut", "email", "phone", "address", "giro", "delivery_terms", "warranty", "logo", "default_iva")
 
     def save(self, commit=True):
         tenant = super().save(commit=False)
@@ -93,3 +108,60 @@ class OnboardingForm(forms.ModelForm):
         if commit:
             tenant.save()
         return tenant
+
+
+class ProfileForm(forms.ModelForm):
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={"class": "input", "autocomplete": "email"}
+        ),
+        label="Correo",
+    )
+    first_name = forms.CharField(
+        widget=forms.TextInput(attrs={"class": "input"}),
+        label="Nombre",
+    )
+    last_name = forms.CharField(
+        widget=forms.TextInput(attrs={"class": "input"}),
+        label="Apellido",
+    )
+    theme = forms.ChoiceField(
+        choices=User.Theme.choices,
+        widget=forms.Select(attrs={"class": "input"}),
+        label="Tema",
+    )
+
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name", "email", "theme")
+
+    def clean_email(self):
+        email = self.cleaned_data["email"].lower().strip()
+        if (
+            User.objects.exclude(pk=self.instance.pk)
+            .filter(email=email)
+            .exists()
+        ):
+            raise forms.ValidationError("Ese correo ya está en uso.")
+        return email
+
+
+class NexoPasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={"class": "input", "autocomplete": "current-password"}
+        ),
+        label="Contraseña actual",
+    )
+    new_password1 = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={"class": "input", "autocomplete": "new-password"}
+        ),
+        label="Nueva contraseña",
+    )
+    new_password2 = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={"class": "input", "autocomplete": "new-password"}
+        ),
+        label="Confirmar contraseña",
+    )

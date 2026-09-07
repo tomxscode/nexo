@@ -1,9 +1,9 @@
 {% with status=value|default:"borrador" %}
-    {% if status == "aprobada" or status == "ganada" or status == "pagado" or status == "activo" or status == "completado" %}
+    {% if status == "aprobada" or status == "ganada" or status == "pagado" or status == "activo" or status == "completado" or status == "convertida" %}
         <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm font-semibold bg-tertiary-fixed text-on-tertiary-fixed">
             <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>{{ label|default:status }}
         </span>
-    {% elif status == "enviada" or status == "pendiente" or status == "vista" or status == "prospecto" %}
+    {% elif status == "enviada" or status == "pendiente" or status == "vista" or status == "prospecto" or status == "parcial" %}
         <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm font-semibold bg-secondary-fixed text-on-secondary-fixed-variant">
             <span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>{{ label|default:status }}
         </span>

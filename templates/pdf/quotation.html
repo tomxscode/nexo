@@ -1,0 +1,205 @@
+{% load nexo %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>{{ quotation.folio }} · {{ quotation.client.name }}</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm 14mm 20mm;
+            @frame footer { -pdf-frame-content: footer_content; left: 14mm; right: 14mm; bottom: 9mm; height: 1cm; }
+        }
+        body { font-family: Helvetica, Arial, sans-serif; color: #1a1a1a; font-size: 9.5pt; }
+        table { width: 100%; }
+        .r { text-align: right; }
+        .k { color: #6b7280; }
+        .iod { color: #4f46e5; }
+        .sm { font-size: 7.5pt; color: #6b7280; }
+
+        /* 1. Encabezado: marca + documento */
+        .hdr { border-bottom: 2.5pt solid #4f46e5; padding-bottom: 9pt; }
+        .hdr .logo { width: 30pt; height: 30pt; }
+        .hdr .co { font-size: 15pt; font-weight: bold; letter-spacing: 0.2pt; }
+        .hdr .tag { font-size: 8.5pt; color: #555555; margin-top: 2pt; }
+        .hdr .doc { text-align: right; vertical-align: top; }
+        .hdr .doc .ttl { font-size: 15pt; font-weight: bold; color: #4f46e5; }
+        .hdr .doc .n { font-size: 10.5pt; font-weight: bold; margin-top: 4pt; }
+        .hdr .doc .d { font-size: 8.5pt; color: #444444; margin-top: 1.5pt; }
+
+        /* 2. Bloques empresa / cliente */
+        .blocks { margin-top: 10pt; }
+        .blocks td { vertical-align: top; }
+        .blocks .col { padding-right: 14pt; }
+        .blocks .lbl { font-size: 8pt; font-weight: bold; text-transform: uppercase; color: #4f46e5; border-bottom: 1pt solid #c7d2fe; padding-bottom: 3pt; margin-bottom: 6pt; }
+        .blocks .nm { font-size: 11pt; font-weight: bold; padding-bottom: 2pt; }
+        .blocks .row { font-size: 8.8pt; padding: 1.5pt 0; }
+
+        /* 3. Tabla de ítems */
+        .items { margin-top: 14pt; }
+        .items .h td { background-color: #4f46e5; color: #ffffff; font-size: 8pt; font-weight: bold; padding: 6pt 5pt; }
+        .items td { font-size: 8.8pt; padding: 6pt 5pt; border-bottom: 0.6pt solid #e5e7eb; }
+        .items tr.alt td { background-color: #f6f7ff; }
+        .items .dto { color: #b45309; font-weight: bold; }
+
+        /* 4. Totales */
+        .tot td { font-size: 9pt; padding: 3pt 5pt; }
+        .tot .g td { border-top: 1.5pt solid #4f46e5; font-size: 12.5pt; font-weight: bold; color: #4f46e5; }
+
+        /* 5. Condiciones comerciales */
+        .cond { margin-top: 16pt; }
+        .cond .lbl2 { font-size: 8pt; font-weight: bold; text-transform: uppercase; color: #4f46e5; border-bottom: 1pt solid #c7d2fe; padding-bottom: 3pt; margin-bottom: 5pt; }
+        .cond td { font-size: 8.8pt; padding: 4pt 5pt; border-bottom: 0.5pt solid #f1f1f1; }
+        .cond .lbl { width: 34%; font-weight: bold; }
+
+        /* 6. Pie */
+        .disclaimer { font-size: 7.5pt; color: #6b7280; margin-top: 16pt; border-top: 1.5pt solid #4f46e5; padding-top: 6pt; text-align: center; }
+        #footer_content { font-size: 7.5pt; color: #6b7280; text-align: center; width: 100%; }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Encabezado -->
+    <table class="hdr">
+        <tr>
+            <td style="width:55%;">
+                {% if quotation.tenant.logo %}
+                <img src="file://{{ quotation.tenant.logo.path }}" class="logo" style="float:left; margin-right:8pt;">
+                {% endif %}
+                <div class="co">{{ quotation.tenant.name }}</div>
+                <div class="tag">
+                    {{ quotation.tenant.address }}
+                    {% if quotation.tenant.address and quotation.tenant.email %} · {% endif %}
+                    {{ quotation.tenant.email }}
+                </div>
+            </td>
+            <td class="doc" style="width:45%;">
+                <div class="ttl">COTIZACIÓN</div>
+                <div class="n">N° {{ quotation.folio }}</div>
+                <div class="d">Fecha: {{ quotation.issue_date|date:"d-m-Y" }}</div>
+                <div class="d">Válida hasta: {{ quotation.valid_until|date:"d-m-Y" }}</div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- 2. Empresa / Cliente -->
+    <table class="blocks">
+        <tr>
+            <td class="col" style="width:50%;">
+                <div class="lbl">Datos de la empresa</div>
+                <div class="nm">{{ quotation.tenant.name }}</div>
+                {% if quotation.tenant.rut %}<div class="row"><b class="k">RUT:</b> {{ quotation.tenant.rut }}</div>{% endif %}
+                {% if quotation.tenant.giro %}<div class="row"><b class="k">Giro:</b> {{ quotation.tenant.giro }}</div>{% endif %}
+                {% if quotation.tenant.address %}<div class="row">{{ quotation.tenant.address }}</div>{% endif %}
+                {% if quotation.tenant.email %}<div class="row">{{ quotation.tenant.email }}</div>{% endif %}
+            </td>
+            <td style="width:50%;">
+                <div class="lbl">Cotizado para</div>
+                <div class="nm">{{ quotation.client.name }}</div>
+                {% if quotation.client.giro %}<div class="row"><b class="k">Giro:</b> {{ quotation.client.giro }}</div>{% endif %}
+                {% if quotation.client.rut %}<div class="row"><b class="k">RUT:</b> {{ quotation.client.rut }}</div>{% endif %}
+                {% if quotation.client.address %}<div class="row">{{ quotation.client.address }}</div>{% endif %}
+                {% if quotation.client.email %}<div class="row">{{ quotation.client.email }}</div>{% endif %}
+                {% if quotation.client.phone %}<div class="row"><b class="k">Tel:</b> {{ quotation.client.phone }}</div>{% endif %}
+            </td>
+        </tr>
+    </table>
+
+    <!-- 3. Ítems -->
+    <table class="items">
+        <tr class="h">
+            <td style="width:5%;">N°</td>
+            <td style="width:11%;">CÓDIGO</td>
+            <td style="width:37%;">DESCRIPCIÓN</td>
+            <td style="width:8%;" class="r">CANT.</td>
+            <td style="width:8%;" class="r">DTO</td>
+            <td style="width:15%;" class="r">PRECIO</td>
+            <td style="width:16%;" class="r">TOTAL</td>
+        </tr>
+        {% for item in quotation.items.all %}
+            <tr{% if forloop.counter|divisibleby:"2" %} class="alt"{% endif %}>
+                <td>{{ forloop.counter }}</td>
+                <td>{% if item.product and item.product.code %}{{ item.product.code }}{% else %}—{% endif %}</td>
+                <td>{{ item.description }}</td>
+                <td class="r">{{ item.quantity|floatformat:"-3" }}</td>
+                <td class="r dto">{% if item.discount_percent %}{{ item.discount_percent|floatformat:0 }}%{% else %}—{% endif %}</td>
+                <td class="r">{{ item.unit_price_net|clp }}</td>
+                <td class="r">{{ item.line_total|clp }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <!-- 4. Totales -->
+    <table style="margin-top:8pt;">
+        <tr>
+            <td style="width:50%;"></td>
+            <td style="width:50%;">
+                <table class="tot">
+                    <tr>
+                        <td class="k" style="width:55%;">Subtotal neto</td>
+                        <td class="r" style="width:45%;">{{ quotation.subtotal_net|clp }}</td>
+                    </tr>
+                    {% if quotation.discount %}
+                    <tr>
+                        <td class="k">Descuento global</td>
+                        <td class="r">−{{ quotation.discount|clp }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td class="k">Neto</td>
+                        <td class="r">{{ quotation.net_total|clp }}</td>
+                    </tr>
+                    <tr>
+                        <td class="k">IVA ({{ quotation.tenant.default_iva|floatformat:0 }}%)</td>
+                        <td class="r">{{ quotation.iva_amount|clp }}</td>
+                    </tr>
+                    <tr class="g">
+                        <td>TOTAL</td>
+                        <td class="r">{{ quotation.total|clp }}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <!-- 5. Condiciones comerciales -->
+    <div class="cond">
+        <div class="lbl2">Condiciones comerciales</div>
+        <table>
+            <tr>
+                <td class="lbl">Forma de pago</td>
+                <td>{{ quotation.payment_terms }}</td>
+            </tr>
+            {% if quotation.tenant.delivery_terms %}
+            <tr>
+                <td class="lbl">Plazo de entrega</td>
+                <td>{{ quotation.tenant.delivery_terms }}</td>
+            </tr>
+            {% endif %}
+            {% if quotation.tenant.warranty %}
+            <tr>
+                <td class="lbl">Garantía</td>
+                <td>{{ quotation.tenant.warranty }}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td class="lbl">Validez</td>
+                <td>hasta {{ quotation.valid_until|date:"d-m-Y" }}</td>
+            </tr>
+            {% if quotation.notes %}
+            <tr>
+                <td class="lbl">Observaciones</td>
+                <td>{{ quotation.notes }}</td>
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+
+    <!-- 6. Pie -->
+    <div class="disclaimer">
+        Documento no tributario — Cotización referencial. Los valores se expresan en NETO, el IVA
+        {{ quotation.tenant.default_iva|floatformat:0 }}% se calcula al final del documento.
+    </div>
+    <div id="footer_content">{{ quotation.tenant.name }} · {{ quotation.tenant.rut }} · {{ quotation.tenant.address }}</div>
+</body>
+</html>

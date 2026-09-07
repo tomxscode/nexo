@@ -1,0 +1,282 @@
+{% extends "workspace/base_workspace.html" %}
+{% load nexo %}
+
+{% block title %}{% if is_edit %}Editar {{ quotation.folio }}{% else %}Nueva cotización{% endif %} · Nexo{% endblock %}
+
+{% block workspace_content %}
+    <div class="flex items-center justify-between mb-5">
+        <div>
+            <h1 class="font-headline-md text-headline-md">
+                {% if is_edit %}Editar {{ quotation.folio }}{% else %}Nueva cotización{% endif %}
+            </h1>
+            <p class="font-body-md text-body-md text-on-surface-variant">
+                {% if is_edit %}
+                    Enviada a {{ quotation.client.name }}{% else %}Arma una cotización y compártela con tu cliente.{% endif %}
+            </p>
+        </div>
+        {% if is_edit %}
+            <a href="{% url 'quotations:detail' quotation.pk %}" class="btn btn-outline btn-sm">
+                {% include "includes/icon.html" with icon="arrow_back" size=16 %}
+                Volver
+            </a>
+        {% else %}
+            <a href="{% url 'quotations:index' %}" class="btn btn-outline btn-sm">
+                {% include "includes/icon.html" with icon="arrow_back" size=16 %}
+                Volver
+            </a>
+        {% endif %}
+    </div>
+
+    <form method="post" novalidate id="quotation-form">
+        {% csrf_token %}
+        {{ formset.management_form }}
+
+        {% if form.non_field_errors or formset.non_form_errors %}
+            <div class="chip chip-error mb-4 p-4">
+                {{ form.non_field_errors|join:" " }} {{ formset.non_form_errors|join:" " }}
+            </div>
+        {% endif %}
+
+        <div class="card p-5 mb-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 items-start">
+                <div>
+                    <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">Cliente</label>
+                    {{ form.client }}
+                    {% for error in form.client.errors %}<p class="mt-1 font-body-sm text-body-sm text-error">{{ error }}</p>{% endfor %}
+                </div>
+                <div>
+                    <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">Emisión</label>
+                    {{ form.issue_date }}
+                </div>
+                <div>
+                    <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">Válida hasta</label>
+                    {{ form.valid_until }}
+                </div>
+                <div>
+                    <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">Descuento global (CLP)</label>
+                    {{ form.discount }}
+                </div>
+                <div class="md:col-span-2 xl:col-span-2">
+                    <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">Forma de pago</label>
+                    {{ form.payment_terms }}
+                    {% for error in form.payment_terms.errors %}<p class="mt-1 font-body-sm text-body-sm text-error">{{ error }}</p>{% endfor %}
+                    <div id="payment-terms-custom-wrap" class="mt-2 hidden">
+                        {{ form.payment_terms_custom }}
+                        {% for error in form.payment_terms_custom.errors %}
+                            <p class="mt-1 font-body-sm text-body-sm text-error">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="md:col-span-2 xl:col-span-4">
+                    <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">Condiciones / notas</label>
+                    {{ form.notes }}
+                    {% for error in form.notes.errors %}<p class="mt-1 font-body-sm text-body-sm text-error">{{ error }}</p>{% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card p-5 mb-5">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="font-headline-sm text-headline-sm">Detalle</h2>
+                <button type="button" class="btn btn-warm btn-sm" onclick="NexoQuote.addRow()">
+                    {% include "includes/icon.html" with icon="add" size=16 %}
+                    Agregar línea
+                </button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full min-w-[960px] items-table">
+                    <thead>
+                        <tr class="border-b border-outline-variant/30">
+                            <th class="table-th text-left w-[22%]">Producto / Servicio</th>
+                            <th class="table-th text-left">Descripción</th>
+                            <th class="table-th text-center w-[90px]">Cant.</th>
+                            <th class="table-th text-right w-[150px]">P.U. Neto</th>
+                            <th class="table-th text-right w-[90px]">Dto %</th>
+                            <th class="table-th text-right w-[80px]">IVA %</th>
+                            <th class="table-th text-right w-[130px]">Total línea</th>
+                            <th class="table-th w-[40px]"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="items-body">
+                        {% for item in formset %}
+                            <tr class="item-row border-b border-outline-variant/20">
+                                {{ item.id }}
+                                <td class="table-td py-2">{{ item.product }}</td>
+                                <td class="table-td py-2">{{ item.description }}</td>
+                                <td class="table-td py-2 text-center">{{ item.quantity }}</td>
+                                <td class="table-td py-2 text-right">{{ item.unit_price_net }}</td>
+                                <td class="table-td py-2 text-right">{{ item.discount_percent }}</td>
+                                <td class="table-td py-2 text-right">{{ item.iva_rate }}</td>
+                                <td class="table-td py-2 text-right row-total font-semibold text-tabular">$0</td>
+                                <td class="table-td py-2 text-center">
+                                    <label class="flex items-center justify-center cursor-pointer text-on-surface-variant hover:text-error" title="Quitar línea">
+                                        {{ item.DELETE }}
+                                        {% include "includes/icon.html" with icon="close" size=18 %}
+                                    </label>
+                                </td>
+                            </tr>
+                            {% for error in item.errors.values %}
+                                {% if error %}<p class="font-body-sm text-body-sm text-error px-2">{{ error }}</p>{% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="flex flex-col-reverse lg:flex-row lg:items-start justify-between gap-5">
+            <div class="flex items-center gap-2">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    {% include "includes/icon.html" with icon="save" size=18 %}
+                    {% if is_edit %}Guardar cotización{% else %}Crear cotización{% endif %}
+                </button>
+                <a href="{% url 'quotations:index' %}" class="btn btn-outline">Cancelar</a>
+            </div>
+            <div class="card p-5 w-full lg:w-72">
+                <div class="space-y-2 font-body-md text-body-md">
+                    <div class="flex justify-between">
+                        <span class="text-on-surface-variant">Subtotal neto</span>
+                        <span id="sum-subtotal" class="text-tabular font-semibold">$0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-on-surface-variant">IVA</span>
+                        <span id="sum-iva" class="text-tabular font-semibold">$0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-on-surface-variant">Descuento</span>
+                        <span id="sum-discount" class="text-tabular font-semibold text-amber">−$0</span>
+                    </div>
+                    <div class="flex justify-between items-center pt-3 mt-1 border-t border-outline-variant/30">
+                        <span class="font-headline-sm text-headline-sm">TOTAL</span>
+                        <span id="sum-total" class="font-headline-md text-headline-md text-tabular text-primary">$0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script type="text/template" id="item-row-template">
+        <tr class="item-row border-b border-outline-variant/20">
+            <td class="table-td py-2">
+                <select name="items-__prefix__-product" class="input input-sm" onchange="NexoQuote.fillProduct(this)"></select>
+            </td>
+            <td class="table-td py-2"><input type="text" name="items-__prefix__-description" class="input input-sm" placeholder="Descripción"></td>
+            <td class="table-td py-2 text-center"><input type="number" name="items-__prefix__-quantity" class="input input-sm text-tabular text-center" value="1" step="0.01" min="0"></td>
+            <td class="table-td py-2 text-right"><input type="number" name="items-__prefix__-unit_price_net" class="input input-sm text-tabular text-right" value="0" step="0.01" min="0"></td>
+            <td class="table-td py-2 text-right"><input type="number" name="items-__prefix__-discount_percent" class="input input-sm text-tabular text-right" value="0" step="0.01" min="0" max="100"></td>
+            <td class="table-td py-2 text-right"><input type="number" name="items-__prefix__-iva_rate" class="input input-sm text-tabular text-right" value="19" step="0.01" min="0"></td>
+            <td class="table-td py-2 text-right row-total font-semibold text-tabular">$0</td>
+            <td class="table-td py-2 text-center">
+                <button type="button" class="text-on-surface-variant hover:text-error" onclick="NexoQuote.removeRow(this)">
+                    {% include "includes/icon.html" with icon="close" size=18 %}
+                </button>
+            </td>
+        </tr>
+    </script>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+    const FORM_PREFIX = "items";
+    const money = new Intl.NumberFormat("es-CL", { style: "currency", currency: "CLP", minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    const products = JSON.parse({{ products_json|escapejs }});
+
+    function number(value) {
+        const n = parseFloat(value);
+        return isNaN(n) ? 0 : n;
+    }
+
+    function lineTotal(row) {
+        const qty = number(row.querySelector('[name$="-quantity"]').value);
+        const price = number(row.querySelector('[name$="-unit_price_net"]').value);
+        const disc = number(row.querySelector('[name$="-discount_percent"]').value);
+        const iva = number(row.querySelector('[name$="-iva_rate"]').value);
+        const net = qty * price * (1 - disc / 100);
+        const gross = net * (1 + iva / 100);
+        return { net, ivaAmount: gross - net, gross };
+    }
+
+    function recalc() {
+        let subtotal = 0, iva = 0, total = 0;
+        document.querySelectorAll("#items-body .item-row").forEach(function (row) {
+            if (row.style.display === "none") return;
+            const t = lineTotal(row);
+            row.querySelector(".row-total").textContent = money.format(t.gross);
+            subtotal += t.net;
+            iva += t.ivaAmount;
+        });
+        const discount = number(document.querySelector('#id_discount').value);
+        total = subtotal + iva - discount;
+        document.getElementById("sum-subtotal").textContent = money.format(subtotal);
+        document.getElementById("sum-iva").textContent = money.format(iva);
+        document.getElementById("sum-discount").textContent = "−" + money.format(discount);
+        document.getElementById("sum-total").textContent = money.format(total);
+    }
+
+    window.NexoQuote = {
+        addRow: function () {
+            const tpl = document.getElementById("item-row-template").innerHTML;
+            const totalInput = document.getElementById("id_items-TOTAL_FORMS");
+            const row = document.createElement("table");
+            row.innerHTML = tpl;
+            const tr = row.querySelector("tr");
+            tr.querySelectorAll("select, input").forEach(function (el) {
+                el.name = el.name.replace("__prefix__", totalInput.value);
+                el.id = "id_" + el.name;
+            });
+            const sel = tr.querySelector('[name$="-product"]');
+            if (sel) {
+                sel.innerHTML = '<option value="">— Producto / servicio —</option>' +
+                    products.map(function (p) { return '<option value="' + p.id + '">' + p.name + '</option>'; }).join("");
+            }
+            document.getElementById("items-body").appendChild(tr);
+            totalInput.value = parseInt(totalInput.value, 10) + 1;
+            bind(tr);
+            recalc();
+        },
+        removeRow: function (btn) {
+            const tr = btn.closest("tr");
+            tr.style.display = "none";
+            tr.querySelectorAll("input, select").forEach(function (el) { el.value = ""; });
+            recalc();
+        },
+        fillProduct: function (sel) {
+            const p = products.find(function (p) { return p.id === sel.value; });
+            if (!p) return;
+            const row = sel.closest("tr");
+            row.querySelector('[name$="-description"]').value = p.description;
+            row.querySelector('[name$="-unit_price_net"]').value = p.price;
+            row.querySelector('[name$="-iva_rate"]').value = p.iva;
+            recalc();
+        }
+    };
+
+    function bind(root) {
+        root.querySelectorAll("input, select").forEach(function (el) {
+            el.addEventListener("input", recalc);
+            el.addEventListener("change", recalc);
+        });
+    }
+
+    bind(document.getElementById("quotation-form"));
+    document.getElementById("id_discount").addEventListener("input", recalc);
+    document.getElementById("items-body").addEventListener("change", function (e) {
+        if (e.target.matches('select[name$="-product"]')) NexoQuote.fillProduct(e.target);
+    });
+
+    const termsSel = document.getElementById("id_payment_terms");
+    const termsWrap = document.getElementById("payment-terms-custom-wrap");
+    const termsCustom = document.getElementById("id_payment_terms_custom");
+    function syncPaymentTerms() {
+        const custom = termsSel.value === "__custom__";
+        termsWrap.classList.toggle("hidden", !custom);
+        if (custom) termsCustom.focus();
+    }
+    termsSel.addEventListener("change", syncPaymentTerms);
+    syncPaymentTerms();
+
+    recalc();
+})();
+</script>
+{% endblock %}

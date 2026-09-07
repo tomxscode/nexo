@@ -1,0 +1,152 @@
+{% extends "workspace/base_workspace.html" %}
+
+{% block title %}Configuración · Nexo{% endblock %}
+
+{% block workspace_content %}
+    <div class="mb-5">
+        <h1 class="font-headline-md text-headline-md">Configuración</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-1">Datos de tu negocio y de tu equipo.</p>
+    </div>
+
+    <div class="flex gap-1 mb-5 border-b border-outline-variant/30">
+        <button type="button" data-tab="business" onclick="nexoTab(this)"
+                class="tab-btn font-label-md text-label-md px-4 py-2.5 -mb-px border-b-2 border-primary-container text-on-surface font-semibold">
+            Negocio
+        </button>
+        <button type="button" data-tab="members" onclick="nexoTab(this)"
+                class="tab-btn font-label-md text-label-md px-4 py-2.5 -mb-px border-b-2 border-transparent text-on-surface-variant hover:text-on-surface">
+            Team ({{ members|length }})
+        </button>
+    </div>
+
+    <div id="tab-business" class="tab-panel">
+        {% if not can_manage %}
+            <div class="card p-4 mb-5 flex items-center gap-2.5 border-l-4 border-primary-container">
+                {% include "includes/icon.html" with icon="lock" size=18 %}
+                <span class="font-body-md text-body-md text-on-surface">Solo propietarios y administradores editan estos datos.</span>
+            </div>
+        {% endif %}
+        <form method="post" enctype="multipart/form-data" class="card p-6 max-w-3xl">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="save_business">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {% for field in form %}
+                    <div class="{% if field.name == 'logo' %}sm:col-span-2{% endif %}">
+                        <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block mb-1.5">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <p class="font-body-sm text-body-sm text-error mt-1">{{ field.errors|striptags }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            {% if can_manage %}
+                <button type="submit" class="btn btn-primary mt-5">
+                    {% include "includes/icon.html" with icon="save" size=18 %}
+                    Guardar cambios
+                </button>
+            {% else %}
+                {{ form.as_p|json_script:"none" }}
+            {% endif %}
+        </form>
+    </div>
+
+    <div id="tab-members" class="tab-panel hidden">
+        {% if not can_manage %}
+            <div class="card p-4 mb-5 flex items-center gap-2.5 border-l-4 border-primary-container">
+                {% include "includes/icon.html" with icon="lock" size=18 %}
+                <span class="font-body-md text-body-md text-on-surface">Solo propietarios y administradores gestionan al equipo.</span>
+            </div>
+        {% endif %}
+
+        {% if can_manage %}
+            <form method="post" class="card p-5 mb-5 flex flex-col sm:flex-row items-end gap-3 max-w-3xl">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="add_member">
+                <div class="flex-1 w-full">
+                    <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block mb-1.5">Correo del miembro</label>
+                    {{ add_form.email }}
+                </div>
+                <div class="w-full sm:w-40">
+                    <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block mb-1.5">Rol</label>
+                    {{ add_form.role }}
+                </div>
+                <button type="submit" class="btn btn-primary btn-md">
+                    {% include "includes/icon.html" with icon="person_add" size=18 %}
+                    Invitar
+                </button>
+            </form>
+        {% endif %}
+
+        <div class="card max-w-3xl overflow-x-auto">
+            <table class="w-full min-w-[480px]">
+                <thead>
+                    <tr class="border-b border-outline-variant/30">
+                        <th class="table-th">Usuario</th>
+                        <th class="table-th">Rol</th>
+                        {% if can_manage %}<th class="table-th text-right">Acciones</th>{% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in members %}
+                        <tr class="border-b border-outline-variant/20">
+                            <td class="table-td">
+                                <span class="font-label-md text-label-md">{{ m.user.first_name|default:m.user.email }} {{ m.user.last_name }}</span>
+                                <span class="block font-label-sm text-label-sm text-on-surface-variant">{{ m.user.email }}{% if m.pk == my_pk %} · <span class="text-primary">tú</span>{% endif %}</span>
+                            </td>
+                            <td class="table-td">
+                                {% if can_manage and m.pk != my_pk %}
+                                    <form method="post" class="inline-flex items-center gap-2">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="action" value="role">
+                                        <input type="hidden" name="member_pk" value="{{ m.pk }}">
+                                        <select name="role" class="input input-sm w-36" onchange="this.form.submit()">
+                                            {% for value, label in roles %}
+                                                <option value="{{ value }}" {% if m.role == value %}selected{% endif %}>{{ label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </form>
+                                {% else %}
+                                    <span class="chip {% if m.pk == my_pk %}chip-warm{% else %}chip-low{% endif %}">{{ m.get_role_display }}</span>
+                                {% endif %}
+                            </td>
+                            {% if can_manage %}
+                                <td class="table-td text-right">
+                                    {% if m.pk != my_pk %}
+                                        <form method="post" onsubmit="return confirm('¿Quitar a {{ m.user.email }} del negocio?' )">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="action" value="remove">
+                                            <input type="hidden" name="member_pk" value="{{ m.pk }}">
+                                            <button type="submit" class="btn btn-ghost btn-sm text-error">
+                                                {% include "includes/icon.html" with icon="person_remove" size=16 %}
+                                                Quitar
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="3" class="table-td text-center">Sin miembros todavía.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        function nexoTab(btn) {
+            document.querySelectorAll('.tab-btn').forEach(function (b) {
+                b.classList.remove('border-primary-container', 'text-on-surface', 'font-semibold');
+                b.classList.add('border-transparent', 'text-on-surface-variant');
+            });
+            btn.classList.add('border-primary-container', 'text-on-surface', 'font-semibold');
+            btn.classList.remove('border-transparent', 'text-on-surface-variant');
+            document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.add('hidden'); });
+            var panel = document.getElementById('tab-' + btn.dataset.tab);
+            if (panel) panel.classList.remove('hidden');
+        }
+    </script>
+{% endblock %}

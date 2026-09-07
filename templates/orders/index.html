@@ -1,0 +1,84 @@
+{% extends "workspace/base_workspace.html" %}
+{% load nexo %}
+
+{% block title %}Pedidos · Nexo{% endblock %}
+
+{% block workspace_content %}
+    <h1 class="font-headline-md text-headline-md mb-5">Pedidos</h1>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <div class="card p-5">
+            <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Total</p>
+            <p class="font-headline-lg text-headline-lg text-tabular">{{ total_pendiente|add:total_pagado|clp }}</p>
+        </div>
+        <div class="card p-5">
+            <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Por cobrar</p>
+            <p class="font-headline-lg text-headline-lg text-tabular text-amber">{{ total_pendiente|clp }}</p>
+        </div>
+        <div class="card p-5">
+            <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Pagado</p>
+            <p class="font-headline-lg text-headline-lg text-tabular text-emerald">{{ total_pagado|clp }}</p>
+        </div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2 mb-4">
+        <a href="?payment=todas" class="chip {% if payment == 'todas' %}chip-active{% endif %}">Todos</a>
+        <a href="?payment=pendiente" class="chip {% if payment == 'pendiente' %}chip-active{% endif %}">Pendiente</a>
+        <a href="?payment=parcial" class="chip {% if payment == 'parcial' %}chip-active{% endif %}">Parcial</a>
+        <a href="?payment=pagado" class="chip {% if payment == 'pagado' %}chip-active{% endif %}">Pagado</a>
+    </div>
+
+    <div class="space-y-3">
+        {% for order in orders %}
+            <div class="card p-4">
+                <div class="flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-4 justify-between">
+                    <a href="{% url 'orders:detail' order.pk %}" class="flex items-center gap-4 flex-1 min-w-0">
+                        {% if order.payment_status == 'pagado' %}
+                            <span class="flex items-center justify-center w-10 h-10 rounded-xl bg-emerald/10 text-emerald shrink-0">
+                                {% include "includes/icon.html" with icon="check_circle" size=22 %}
+                            </span>
+                        {% else %}
+                            <span class="flex items-center justify-center w-10 h-10 rounded-xl bg-primary-container/10 text-primary shrink-0">
+                                {% include "includes/icon.html" with icon="shopping_cart" size=22 %}
+                            </span>
+                        {% endif %}
+                        <div class="min-w-0">
+                            <p class="font-label-lg text-label-lg truncate">
+                                <span class="text-primary">{{ order.folio }}</span>
+                                <span class="text-on-surface-variant text-label-md"> {{ order.created_at|date:"d/m/Y" }}</span>
+                            </p>
+                            <p class="font-body-md text-body-md truncate">{{ order.client.name }}
+                                {% if order.quotation %}<span class="text-on-surface-variant">· desde {{ order.quotation.folio }}</span>{% endif %}
+                            </p>
+                        </div>
+                    </a>
+                    <div class="flex items-center gap-3 lg:w-72 lg:justify-end shrink-0">
+                        <div class="w-24 sm:w-32 shrink-0">
+                            <div class="flex justify-between font-label-sm text-label-sm mb-1">
+                                <span class="text-on-surface-variant">Progreso</span>
+                                <span class="text-tabular">{{ order.progress|floatformat:0 }}%</span>
+                            </div>
+                            <div class="h-1.5 rounded-full bg-surface-container overflow-hidden">
+                                <div class="h-full rounded-full {% if order.progress >= 100 %}bg-emerald{% elif order.progress > 0 %}bg-amber{% else %}bg-outline-variant{% endif %}"
+                                     style="width: {{ order.progress|floatformat:0 }}%"></div>
+                            </div>
+                            {% if order.delivered %}
+                                <p class="font-label-sm text-label-sm text-tertiary mt-1">Entregado</p>
+                            {% elif order.delivery_progress is not None %}
+                                <p class="font-label-sm text-label-sm text-on-surface-variant mt-1 text-tabular">Entrega {{ order.delivery_progress }}%</p>
+                            {% endif %}
+                        </div>
+                        <span class="font-headline-sm text-headline-sm text-tabular whitespace-nowrap">{{ order.total|clp }}</span>
+                        {% include "includes/status_badge.html" with value=order.payment_status label=order.get_payment_status_display %}
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="card p-10 text-center">
+                <p class="font-body-md text-body-md text-on-surface-variant">
+                    No hay pedidos. Convierte una <a href="{% url 'quotations:index' %}" class="text-primary font-semibold">cotización aprobada</a> en un pedido.
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

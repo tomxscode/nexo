@@ -1,0 +1,41 @@
+<button type="button" onclick="nexoToggleNotif()"
+        class="relative p-2 rounded-xl text-on-surface-variant hover:bg-surface-container transition-colors duration-150"
+        aria-label="Notificaciones">
+    {% include "includes/icon.html" with icon="notifications" size=20 %}
+    {% include "notifications/_badge.html" %}
+</button>
+
+<div id="notif-panel" class="hidden absolute right-0 top-full mt-2 z-50 w-[min(20rem,calc(100vw-2rem))] max-w-[90vw] card overflow-hidden" role="menu">
+    <div class="flex items-center justify-between px-4 py-3 border-b border-outline-variant/30">
+        <h3 class="font-headline-sm text-headline-sm">Notificaciones</h3>
+        {% if notifications_recent %}
+            <form hx-post="{% url 'notifications:mark_all_read' %}" hx-target="#notif-bell" hx-swap="outerHTML">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-ghost btn-sm">
+                    {% include "includes/icon.html" with icon="done_all" size=16 %}
+                    Marcar leídas
+                </button>
+            </form>
+        {% endif %}
+    </div>
+    <div class="max-h-[22rem] overflow-y-auto">
+        {% for n in notifications_recent %}
+            <form hx-post="{% url 'notifications:mark_read' n.pk %}" hx-target="#notif-badge" hx-swap="outerHTML">
+                {% csrf_token %}
+                <button type="submit"
+                        class="w-full text-left flex items-start gap-2.5 px-4 py-3 hover:bg-surface-container transition-colors duration-150 {% if not n.is_read %}bg-primary-container/5{% endif %}">
+                    <span class="mt-0.5 {% if n.category == 'rechazada' %}text-error{% elif n.category == 'aprobada' %}text-tertiary{% elif n.category == 'por_vencer' and n.threshold <= 5 %}text-amber{% else %}text-primary{% endif %}">
+                        {% include "includes/icon.html" with icon="notifications" size=18 %}
+                    </span>
+                    <span class="min-w-0 flex-1">
+                        <span class="block font-body-md text-body-md text-on-surface">{{ n.text }}</span>
+                        <span class="block font-label-sm text-label-sm text-on-surface-variant mt-0.5">{{ n.created_at|date:"d/m H:i" }}{% if not n.is_read %} · <span class="text-primary font-semibold">Nueva</span>{% endif %}</span>
+                    </span>
+                    {% if not n.is_read %}<span class="w-2 h-2 rounded-full bg-primary-container mt-1.5 shrink-0"></span>{% endif %}
+                </button>
+            </form>
+        {% empty %}
+            <p class="px-4 py-8 text-center font-body-md text-body-md text-on-surface-variant">Sin notificaciones todavía.</p>
+        {% endfor %}
+    </div>
+</div>

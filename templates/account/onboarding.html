@@ -47,7 +47,7 @@
                 <form method="post" enctype="multipart/form-data" class="space-y-4">
                     {% csrf_token %}
                     <div>
-                        <label for="{{ form.name.id_for_label }}" class="label">{{ form.name.label }}</label>
+                        <label for="{{ form.name.id_for_label }}" class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">{{ form.name.label }}</label>
                         {{ form.name }}
                         {% for error in form.name.errors %}
                             <p class="font-body-sm text-body-sm text-error mt-1">{{ error }}</p>
@@ -55,30 +55,44 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label for="{{ form.rut.id_for_label }}" class="label">{{ form.rut.label }}</label>
+                            <label for="{{ form.rut.id_for_label }}" class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">{{ form.rut.label }}</label>
                             {{ form.rut }}
                         </div>
                         <div>
-                            <label for="{{ form.default_iva.id_for_label }}" class="label">{{ form.default_iva.label }}</label>
+                            <label for="{{ form.default_iva.id_for_label }}" class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">{{ form.default_iva.label }}</label>
                             {{ form.default_iva }}
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label for="{{ form.email.id_for_label }}" class="label">{{ form.email.label }}</label>
+                            <label for="{{ form.email.id_for_label }}" class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">{{ form.email.label }}</label>
                             {{ form.email }}
                         </div>
                         <div>
-                            <label for="{{ form.phone.id_for_label }}" class="label">{{ form.phone.label }}</label>
+                            <label for="{{ form.phone.id_for_label }}" class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">{{ form.phone.label }}</label>
                             {{ form.phone }}
                         </div>
                     </div>
                     <div>
-                        <label for="{{ form.address.id_for_label }}" class="label">{{ form.address.label }}</label>
+                        <label for="{{ form.address.id_for_label }}" class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">{{ form.address.label }}</label>
                         {{ form.address }}
                     </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="{{ form.giro.id_for_label }}" class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">{{ form.giro.label }}</label>
+                            {{ form.giro }}
+                        </div>
+                        <div>
+                            <label for="{{ form.delivery_terms.id_for_label }}" class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">{{ form.delivery_terms.label }}</label>
+                            {{ form.delivery_terms }}
+                        </div>
+                        <div>
+                            <label for="{{ form.warranty.id_for_label }}" class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">{{ form.warranty.label }}</label>
+                            {{ form.warranty }}
+                        </div>
+                    </div>
                     <div>
-                        <label for="{{ form.logo.id_for_label }}" class="label">{{ form.logo.label }}</label>
+                        <label for="{{ form.logo.id_for_label }}" class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">{{ form.logo.label }}</label>
                         {{ form.logo }}
                     </div>
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 pt-4 border-t border-outline-variant/30">

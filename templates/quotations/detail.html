@@ -1,0 +1,206 @@
+{% extends "workspace/base_workspace.html" %}
+{% load nexo %}
+
+{% block title %}{{ quotation.folio }} · {{ quotation.client.name }} · Nexo{% endblock %}
+
+{% block workspace_content %}
+    <div class="card p-6 mb-5">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+                <span class="flex items-center justify-center w-12 h-12 rounded-2xl bg-primary-container/10 text-primary">
+                    {% include "includes/icon.html" with icon="request_quote" size=26 %}
+                </span>
+                <div>
+                    <h1 class="font-headline-md text-headline-md">{{ quotation.folio }}</h1>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">
+                        {{ quotation.client.name }} · Creada el {{ quotation.created_at|date:"d/m/Y" }}
+                    </p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+                {% include "includes/status_badge.html" with value=quotation.status %}
+                <span class="chip chip-low">
+                    {% include "includes/icon.html" with icon="payments" size=15 %}
+                    Forma de pago: {{ quotation.payment_terms }}
+                </span>
+                {% if quotation.status == 'aprobada' %}
+                    <span class="chip chip-low"><span class="font-bold">{{ quotation.approved_by_name }}</span> · {{ quotation.approved_at|date:"d/m/Y H:i" }}</span>
+                {% endif %}
+                {% if quotation.status == 'borrador' or quotation.status == 'rechazada' %}
+                    <form method="post" action="{% url 'quotations:send' quotation.pk %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">
+                            {% include "includes/icon.html" with icon="send" size=18 %}
+                            Enviar a cliente
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-5">
+            <div class="card p-4">
+                <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Subtotal neto</p>
+                <p class="font-headline-sm text-headline-sm text-tabular">{{ quotation.subtotal_net|clp }}</p>
+            </div>
+            <div class="card p-4">
+                <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">IVA</p>
+                <p class="font-headline-sm text-headline-sm text-tabular">{{ quotation.iva_amount|clp }}</p>
+            </div>
+            <div class="card p-4">
+                <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Total</p>
+                <p class="font-headline-sm text-headline-sm text-tabular text-primary">{{ quotation.total|clp }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 xl:grid-cols-[1fr,22rem] gap-5 items-start">
+        <div class="card overflow-x-auto">
+            <table class="w-full min-w-[640px]">
+                <thead>
+                    <tr class="border-b border-outline-variant/30">
+                        <th class="table-th">Descripción</th>
+                        <th class="table-th text-center">Cant.</th>
+                        <th class="table-th text-right">P.U. Neto</th>
+                        <th class="table-th text-right">Dto</th>
+                        <th class="table-th text-right">Neto</th>
+                        <th class="table-th text-right">IVA</th>
+                        <th class="table-th text-right">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in quotation.items.all %}
+                        <tr class="border-b border-outline-variant/20">
+                            <td class="table-td">
+                                {{ item.description }}
+                                {% if item.product %}<span class="block font-label-sm text-label-sm text-on-surface-variant">{{ item.product.code }}</span>{% endif %}
+                            </td>
+                            <td class="table-td text-center text-tabular">{{ item.quantity|floatformat:"-3" }}</td>
+                            <td class="table-td text-right text-tabular">{{ item.unit_price_net|clp }}</td>
+                            <td class="table-td text-right text-tabular">{% if item.discount_percent %}{{ item.discount_percent|floatformat:0 }}%{% else %}—{% endif %}</td>
+                            <td class="table-td text-right text-tabular">{{ item.line_total|clp }}</td>
+                            <td class="table-td text-right text-tabular">{{ item.line_iva|clp }}</td>
+                            <td class="table-td text-right text-tabular font-semibold">{{ item.line_gross|clp }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="4" class="table-td text-right text-on-surface-variant">Subtotal neto</td>
+                        <td class="table-td text-right text-tabular">{{ quotation.subtotal_net|clp }}</td>
+                        <td class="table-td text-right text-tabular">{{ quotation.iva_amount|clp }}</td>
+                        <td class="table-td text-right text-tabular font-bold">{{ quotation.total|clp }}</td>
+                    </tr>
+                    {% if quotation.discount %}
+                        <tr class="border-t border-outline-variant/20">
+                            <td colspan="5" class="table-td text-right text-amber">Descuento global</td>
+                            <td class="table-td text-right text-tabular text-amber">−{{ quotation.discount|clp }}</td>
+                            <td></td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="space-y-5">
+            <div class="card p-5">
+                <h2 class="font-headline-sm text-headline-sm mb-3">Compartir con el cliente</h2>
+                <p class="font-body-sm text-body-sm text-on-surface-variant mb-3">
+                    {% if quotation.status == 'borrador' or quotation.status == 'rechazada' %}
+                        Esta cotización está como {{ quotation.get_status_display|lower }}. Usa "Enviar a cliente" para activar el link y permitir la aprobación online.
+                    {% else %}
+                        Envía este link a tu cliente para que apruebe o rechace la cotización.
+                    {% endif %}
+                </p>
+                <div class="flex items-center gap-2 p-2 rounded-xl border border-outline-variant/60 bg-surface-container-low mb-4">
+                    <span class="text-on-surface-variant ml-1">
+                        {% include "includes/icon.html" with icon="link" size=18 %}
+                    </span>
+                    <input type="text" readonly value="{{ public_url }}" onfocus="this.select()"
+                           class="flex-1 min-w-0 bg-transparent border-0 focus:outline-none focus:ring-0 font-label-sm text-label-sm text-on-surface">
+                    <button type="button" class="btn btn-primary btn-sm" data-url="{{ public_url }}"
+                            onclick="navigator.clipboard.writeText(this.dataset.url); const b=this; const o=this.innerHTML; this.innerHTML='¡Copiado!'; setTimeout(()=>{b.innerHTML=o;},1800);">
+                        {% include "includes/icon.html" with icon="content_copy" size=15 %}
+                        Copiar
+                    </button>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <a href="{% url 'quotations:pdf' quotation.approval_token %}" target="_blank" class="btn btn-outline btn-sm">
+                        {% include "includes/icon.html" with icon="picture_as_pdf" size=16 %}
+                        PDF
+                    </a>
+                </div>
+            </div>
+
+            <div class="card p-5">
+                <h2 class="font-headline-sm text-headline-sm mb-3">Acciones</h2>
+                <div class="flex flex-col gap-2">
+                    {% if quotation.status == 'aprobada' %}
+                        <form method="post" action="{% url 'quotations:convert' quotation.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-warm w-full">
+                                {% include "includes/icon.html" with icon="shopping_cart" size=18 %}
+                                Convertir en pedido
+                            </button>
+                        </form>
+                    {% endif %}
+                    <a href="{% url 'quotations:edit' quotation.pk %}" class="btn btn-outline w-full">
+                        {% include "includes/icon.html" with icon="edit" size=18 %}
+                        Editar
+                    </a>
+                    {% if quotation.status == 'borrador' or quotation.status == 'rechazada' %}
+                        <form method="post" action="{% url 'quotations:delete' quotation.pk %}"
+                              onsubmit="return confirm('¿Eliminar {{ quotation.folio }}? Esta acción no se puede deshacer.')">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger w-full">
+                                {% include "includes/icon.html" with icon="delete" size=18 %}
+                                Eliminar
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card p-5">
+                <h2 class="font-headline-sm text-headline-sm mb-2">Condiciones</h2>
+                <div class="flex items-center gap-2 mb-3">
+                    {% include "includes/icon.html" with icon="payments" size=17 %}
+                    <span class="font-label-lg text-label-lg">{{ quotation.payment_terms }}</span>
+                </div>
+                {% if quotation.notes %}
+                    <p class="font-body-md text-body-md text-on-surface-variant whitespace-pre-line">{{ quotation.notes }}</p>
+                {% else %}
+                    <p class="font-body-md text-body-md text-on-surface-variant">Sin notas adicionales.</p>
+                {% endif %}
+            </div>
+
+            {% if quotation.events.all %}
+                <div class="card p-5">
+                    <h2 class="font-headline-sm text-headline-sm mb-4">Historial</h2>
+                    <div class="space-y-4">
+                        {% for event in quotation.events.all %}
+                            <div class="flex gap-3">
+                                <span class="flex items-center justify-center w-8 h-8 rounded-full shrink-0 {% if event.action == 'aprobada' %}bg-tertiary-fixed text-on-tertiary-fixed{% elif event.action == 'rechazada' %}bg-error-container/60 text-on-error-container{% elif event.action == 'enviada' %}bg-secondary-fixed text-on-secondary-fixed-variant{% else %}bg-primary-container/10 text-primary{% endif %}">
+                                    {% if event.action == 'creada' %}{% include "includes/icon.html" with icon="edit_note" size=18 %}
+                                    {% elif event.action == 'enviada' %}{% include "includes/icon.html" with icon="send" size=18 %}
+                                    {% elif event.action == 'vista' %}{% include "includes/icon.html" with icon="visibility" size=18 %}
+                                    {% elif event.action == 'aprobada' %}{% include "includes/icon.html" with icon="check_circle" size=18 %}
+                                    {% elif event.action == 'rechazada' %}{% include "includes/icon.html" with icon="close" size=18 %}
+                                    {% elif event.action == 'convertida' %}{% include "includes/icon.html" with icon="shopping_cart" size=18 %}{% endif %}
+                                </span>
+                                <div class="min-w-0 flex-1">
+                                    <p class="font-label-md text-label-md">
+                                        {{ event.get_action_display }}{% if event.by_name %} · <span class="text-on-surface-variant">{{ event.by_name }}</span>{% endif %}
+                                        {% if event.by_email %}<span class="text-on-surface-variant text-tabular"> · {{ event.by_email }}</span>{% endif %}
+                                    </p>
+                                    <p class="font-label-sm text-label-sm text-on-surface-variant">{{ event.created_at|date:"d/m/Y H:i" }}</p>
+                                    {% if event.comment %}
+                                        <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 whitespace-pre-line">“{{ event.comment }}”</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends "workspace/base_workspace.html" %}
+{% load nexo %}
+
+{% block title %}Clientes · Nexo{% endblock %}
+
+{% block workspace_content %}
+    <div class="grid grid-cols-1 lg:grid-cols-[24rem,1fr] gap-6 items-start">
+        <div class="card p-4">
+            <div class="flex items-center justify-between mb-4">
+                <h1 class="font-headline-md text-headline-md">Clientes</h1>
+                <a href="{% url 'clients:create' %}" class="btn btn-primary btn-sm">
+                    {% include "includes/icon.html" with icon="person_add" size=16 %}
+                    Nuevo Cliente
+                </a>
+            </div>
+            <form method="get" class="relative mb-4">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">
+                    {% include "includes/icon.html" with icon="search" size=18 %}
+                </span>
+                <input type="search" name="q" value="{{ q }}" placeholder="Buscar por nombre, RUT…" class="input pl-10">
+            </form>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mb-3">{{ clients|length }} clientes</p>
+            <div class="space-y-1 max-h-[60vh] overflow-y-auto pr-1">
+                {% for client in clients %}
+                    <a href="?q={{ q }}&sel={{ client.pk }}"
+                       class="flex items-center gap-3 p-2.5 rounded-xl transition-colors duration-150 {% if selected and selected.pk == client.pk %}bg-primary-container text-on-primary{% else %}hover:bg-surface-container{% endif %}">
+                        <span class="flex items-center justify-center w-9 h-9 rounded-full {% if selected.pk == client.pk %}bg-on-primary text-primary{% else %}bg-primary-container/10 text-primary{% endif %} font-label-sm text-label-sm">
+                            {{ client.name|first|upper }}
+                        </span>
+                        <span class="min-w-0">
+                            <span class="block font-label-md text-label-md truncate">{{ client.name }}</span>
+                            <span class="block font-label-sm text-label-sm {% if selected.pk == client.pk %}text-on-primary/70{% else %}text-on-surface-variant{% endif %}">{{ client.folio }}</span>
+                        </span>
+                    </a>
+                {% empty %}
+                    <p class="font-body-md text-body-md text-on-surface-variant py-6 text-center">Sin clientes todavía.<br>
+                        <a href="{% url 'clients:create' %}" class="text-primary font-semibold">Crea el primero</a>.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% if selected %}
+            <div class="card p-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-outline-variant/30 pb-5 mb-5">
+                    <div class="flex items-center gap-4">
+                        <span class="flex items-center justify-center w-12 h-12 rounded-2xl bg-primary-container/10 text-primary font-headline-sm text-headline-sm">
+                            {{ selected.name|first|upper }}
+                        </span>
+                        <div>
+                            <h2 class="font-headline-md text-headline-md">{{ selected.name }}</h2>
+                            <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">{{ selected.folio }}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <a href="{% url 'quotations:create' %}?client={{ selected.pk }}" class="btn btn-warm btn-sm">
+                            {% include "includes/icon.html" with icon="request_quote" size=16 %}
+                            Cotizar
+                        </a>
+                        <a href="{% url 'clients:update' selected.pk %}" class="btn btn-outline btn-sm">
+                            {% include "includes/icon.html" with icon="edit" size=16 %}
+                            Editar
+                        </a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+                    <div class="card p-4">
+                        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">RUT</p>
+                        <p class="font-body-md text-body-md text-tabular">{{ selected.rut|default:"—" }}</p>
+                    </div>
+                    <div class="card p-4">
+                        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Giro</p>
+                        <p class="font-body-md text-body-md">{{ selected.giro|default:"—" }}</p>
+                    </div>
+                    <div class="card p-4">
+                        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Email</p>
+                        <p class="font-body-md text-body-md truncate">{{ selected.email|default:"—" }}</p>
+                    </div>
+                    <div class="card p-4">
+                        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Teléfono</p>
+                        <p class="font-body-md text-body-md">{{ selected.phone|default:"—" }}</p>
+                    </div>
+                    <div class="card p-4">
+                        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Dirección</p>
+                        <p class="font-body-md text-body-md truncate">{{ selected.address|default:"—" }}</p>
+                    </div>
+                    <div class="card p-4">
+                        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Historial</p>
+                        <p class="font-body-md text-body-md text-tabular">
+                            {{ selected.quotations.count }} cotizaciones · {{ selected.orders.count }} pedidos
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-headline-sm text-headline-sm mb-3">Historial de cotizaciones</h3>
+                        {% for q in selected.quotations.all %}
+                            <a href="{% url 'quotations:detail' q.pk %}" class="flex items-center justify-between gap-3 p-3 rounded-xl hover:bg-surface-container transition-colors duration-150 mb-1">
+                                <div>
+                                    <p class="font-label-md text-label-md">{{ q.folio }}</p>
+                                    <p class="font-label-sm text-label-sm text-on-surface-variant">{{ q.created_at|date:"d/m/Y" }}</p>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-label-md text-label-md text-tabular">{{ q.total|clp }}</span>
+                                    {% include "includes/status_badge.html" with value=q.status %}
+                                </div>
+                            </a>
+                        {% empty %}
+                            <p class="font-body-md text-body-md text-on-surface-variant">Aún sin cotizaciones.</p>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <h3 class="font-headline-sm text-headline-sm mb-3">Pedidos</h3>
+                        {% for o in selected.orders.all %}
+                            <a href="{% url 'orders:detail' o.pk %}" class="flex items-center justify-between gap-3 p-3 rounded-xl hover:bg-surface-container transition-colors duration-150 mb-1">
+                                <div>
+                                    <p class="font-label-md text-label-md">{{ o.folio }}</p>
+                                    <p class="font-label-sm text-label-sm text-on-surface-variant">{{ o.created_at|date:"d/m/Y" }}</p>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-label-md text-label-md text-tabular">{{ o.total|clp }}</span>
+                                    {% include "includes/status_badge.html" with value=o.payment_status label=o.get_payment_status_display %}
+                                </div>
+                            </a>
+                        {% empty %}
+                            <p class="font-body-md text-body-md text-on-surface-variant">Aún sin pedidos.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {% if selected.notes %}
+                    <div class="mt-6 pt-5 border-t border-outline-variant/30">
+                        <h3 class="font-headline-sm text-headline-sm mb-2">Notas</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant whitespace-pre-line">{{ selected.notes }}</p>
+                    </div>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="card p-10 text-center">
+                <span class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary-container/10 text-primary mb-4">
+                    {% include "includes/icon.html" with icon="group" size=28 %}
+                </span>
+                <h2 class="font-headline-md text-headline-md mb-2">Selecciona un cliente</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant max-w-md mx-auto">Elige un cliente de la lista o crea uno nuevo para empezar a cotizar.</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

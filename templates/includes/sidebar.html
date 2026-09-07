@@ -18,7 +18,7 @@
         <nav class="space-y-1" aria-label="Principal">
             {% for item in nav_items %}
                 <a href="{{ item.url }}"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-label-lg text-label-lg transition-colors duration-150 {% if item.active %}bg-primary-container text-on-primary font-semibold{% else %}text-on-surface-variant hover:bg-surface-container hover:bg-surface-container-high{% endif %}">
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-label-lg text-label-lg transition-colors duration-150 {% if item.active %}bg-primary-container text-on-primary font-semibold{% else %}text-on-surface-variant hover:bg-surface-container-high{% endif %}">
                     {% include "includes/icon.html" with icon=item.icon size=20 filled=item.active %}
                     {{ item.label }}
                 </a>
@@ -31,7 +31,7 @@
             {% include "includes/icon.html" with icon="help" size=20 %}
             Ayuda y Soporte
         </a>
-        <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-colors duration-150">
+        <a href="{% url 'account:profile' %}" class="flex items-center gap-3 px-3 py-2 rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-colors duration-150">
             {% include "includes/icon.html" with icon="account_circle" size=20 %}
             Perfil de Usuario
         </a>

@@ -1,0 +1,5 @@
+<span id="notif-badge" class="relative">
+    {% if unread_count %}
+        <span class="absolute -top-[3px] -right-[3px] h-[18px] min-w-[18px] px-1 rounded-full bg-error text-on-error text-[10px] font-bold flex items-center justify-center leading-none">{{ unread_count }}</span>
+    {% endif %}
+</span>

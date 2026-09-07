@@ -5,15 +5,27 @@
 
     <div class="md:ml-60 min-h-screen flex flex-col">
         {% include "includes/topbar.html" %}
-        <main class="flex-1 px-gutter-mobile md:px-gutter-desktop py-6 md:py-8 bg-surface">
+        <main class="flex-1 px-gutter-mobile md:px-gutter-desktop py-6 md:py-8 pb-24 md:pb-8 bg-surface">
             <div class="max-w-container-max mx-auto">
                 {% if messages %}
                     <div class="mb-4 space-y-2">
                         {% for message in messages %}
-                            <div class="card px-4 py-3 flex items-center gap-2.5">
-                                {% include "includes/icon.html" with icon="info" size=18 %}
-                                <span class="font-body-md text-body-md text-on-surface">{{ message }}</span>
-                            </div>
+                            {% if message.level_tag == 'error' %}
+                                <div class="card px-4 py-3 flex items-center gap-2.5 border-l-4 border-error" role="alert">
+                                    {% include "includes/icon.html" with icon="error" size=18 %}
+                                    <span class="font-body-md text-body-md text-on-surface">{{ message }}</span>
+                                </div>
+                            {% elif message.level_tag == 'success' %}
+                                <div class="card px-4 py-3 flex items-center gap-2.5 border-l-4 border-tertiary" role="status">
+                                    {% include "includes/icon.html" with icon="check_circle" size=18 %}
+                                    <span class="font-body-md text-body-md text-on-surface">{{ message }}</span>
+                                </div>
+                            {% else %}
+                                <div class="card px-4 py-3 flex items-center gap-2.5 border-l-4 border-primary-container" role="status">
+                                    {% include "includes/icon.html" with icon="info" size=18 %}
+                                    <span class="font-body-md text-body-md text-on-surface">{{ message }}</span>
+                                </div>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 {% endif %}
@@ -21,4 +33,53 @@
             </div>
         </main>
     </div>
+
+    <nav class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-surface-container-lowest border-t border-outline-variant/40 flex justify-around pb-[env(safe-area-inset-bottom)]" aria-label="Principal móvil">
+        {% for item in nav_items %}
+            <a href="{{ item.url }}"
+               class="flex flex-col items-center justify-center gap-0.5 py-2 px-3 min-w-0 flex-1 {% if item.active %}text-primary{% else %}text-on-surface-variant{% endif %}">
+                {% include "includes/icon.html" with icon=item.icon size=22 filled=item.active %}
+                <span class="font-label-sm text-label-sm {% if item.active %}font-semibold{% endif %}">{{ item.label }}</span>
+            </a>
+        {% endfor %}
+    </nav>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        function nexoToggleNotif() {
+            document.getElementById('notif-panel')?.classList.toggle('hidden');
+        }
+        document.addEventListener('click', function (e) {
+            var bell = document.getElementById('notif-bell');
+            if (!bell) return;
+            if (!bell.contains(e.target)) {
+                var panel = bell.querySelector('#notif-panel');
+                if (panel) panel.classList.add('hidden');
+            }
+        });
+
+        function nexoToggleTheme() {
+            var root = document.documentElement;
+            var next = root.classList.contains('dark') ? 'light' : 'dark';
+            root.classList.toggle('dark', next === 'dark');
+            setThemeIcons(next === 'dark');
+            try { localStorage.setItem('nexo-theme', next); } catch (e) {}
+            var fd = new FormData();
+            fd.append('theme', next);
+            fetch("{% url 'account:theme' %}", {
+                method: 'POST',
+                body: fd,
+                headers: { 'X-CSRFToken': '{{ csrf_token }}' }
+            });
+        }
+
+        function setThemeIcons(dark) {
+            var d = document.getElementById('theme-icon-dark');
+            var l = document.getElementById('theme-icon-light');
+            if (d) d.style.display = dark ? 'none' : '';
+            if (l) l.style.display = dark ? '' : 'none';
+        }
+        setThemeIcons(document.documentElement.classList.contains('dark'));
+    </script>
 {% endblock %}

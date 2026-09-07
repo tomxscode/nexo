@@ -1,0 +1,71 @@
+{% extends "workspace/base_workspace.html" %}
+
+{% block title %}{% if is_edit %}Editar {{ client.name }}{% else %}Nuevo cliente{% endif %} · Nexo{% endblock %}
+
+{% block workspace_content %}
+    <div class="max-w-2xl">
+        <div class="flex items-center justify-between mb-5">
+            <div>
+                <h1 class="font-headline-md text-headline-md">
+                    {% if is_edit %}Editar cliente{% else %}Nuevo cliente{% endif %}
+                </h1>
+                <p class="font-body-md text-body-md text-on-surface-variant">
+                    {% if is_edit %}{{ client.folio }} · {{ client.name }}{% else %}Agrega un cliente o empresa a tu negocio.{% endif %}
+                </p>
+            </div>
+            <a href="{% url 'clients:index' %}" class="btn btn-outline btn-sm">
+                {% include "includes/icon.html" with icon="arrow_back" size=16 %}
+                Volver
+            </a>
+        </div>
+
+        <form method="post" novalidate class="card p-6">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                <div class="chip chip-error mb-4 p-4">{{ form.non_field_errors|join:" " }}</div>
+            {% endif %}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="md:col-span-2">
+                    <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">Nombre</label>
+                    {{ form.name }}
+                    {% for error in form.name.errors %}<p class="mt-1 font-body-sm text-body-sm text-error">{{ error }}</p>{% endfor %}
+                </div>
+                <div>
+                    <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">RUT</label>
+                    {{ form.rut }}
+                </div>
+                <div>
+                    <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">Teléfono</label>
+                    {{ form.phone }}
+                </div>
+                <div>
+                    <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">Giro</label>
+                    {{ form.giro }}
+                </div>
+                <div>
+                    <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">Email</label>
+                    {{ form.email }}
+                </div>
+                <div>
+                    <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">Dirección</label>
+                    {{ form.address }}
+                </div>
+                <div class="md:col-span-2">
+                    <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">Notas</label>
+                    {{ form.notes }}
+                </div>
+                <label class="flex items-center gap-2 md:col-span-2 font-body-md text-body-md cursor-pointer">
+                    {{ form.active }}
+                    Cliente activo
+                </label>
+            </div>
+            <div class="flex items-center gap-2 mt-6 pt-5 border-t border-outline-variant/30">
+                <button type="submit" class="btn btn-primary">
+                    {% include "includes/icon.html" with icon="save" size=18 %}
+                    {% if is_edit %}Guardar cambios{% else %}Crear cliente{% endif %}
+                </button>
+                <a href="{% url 'clients:index' %}" class="btn btn-outline">Cancelar</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% load nexo %}
+
+{% block title %}{{ quotation.folio }} · {{ quotation.tenant.name }}{% endblock %}
+
+{% block body %}
+        <div class="min-h-screen flex flex-col">
+            <header class="py-5 px-6 md:px-gutter-desktop">
+                <div class="max-w-2xl mx-auto flex items-center justify-between">
+                    <span class="font-headline-sm text-headline-sm text-primary flex items-center gap-2">
+                        {% include "includes/icon.html" with icon="view_in_ar" size=24 %}
+                        Nexo
+                    </span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant">{{ quotation.tenant.name }}</span>
+                </div>
+            </header>
+
+            <main class="flex-1 px-6 pb-16">
+                <div class="max-w-2xl mx-auto">
+                    {% if messages %}
+                        <div class="mb-5 space-y-2">
+                            {% for message in messages %}
+                                <div class="card px-4 py-3 flex items-center gap-2.5">
+                                    {% include "includes/icon.html" with icon="info" size=18 %}
+                                    <span class="font-body-md text-body-md">{{ message }}</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+                        <div>
+                            <h1 class="font-headline-md text-headline-md">{{ quotation.folio }}</h1>
+                            <p class="font-body-sm text-body-sm text-on-surface-variant">
+                                Fecha {{ quotation.issue_date|date:"d/m/Y" }} · Válida hasta {{ quotation.valid_until|date:"d/m/Y" }}
+                            </p>
+                        </div>
+                        {% include "includes/status_badge.html" with value=quotation.status %}
+                    </div>
+
+                    <div class="card p-6 mb-5">
+                        <h2 class="font-headline-sm text-headline-sm mb-1">{{ quotation.client.name }}</h2>
+                        <div class="overflow-x-auto">
+                            <table class="w-full min-w-[480px] mt-3">
+                                <thead>
+                                    <tr class="border-b border-outline-variant/30">
+                                        <th class="table-th text-left">Descripción</th>
+                                        <th class="table-th text-center">Cant.</th>
+                                        <th class="table-th text-right">P.U. neto</th>
+                                        <th class="table-th text-right">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in quotation.items.all %}
+                                        <tr class="border-b border-outline-variant/20">
+                                            <td class="table-td">{{ item.description }}</td>
+                                            <td class="table-td text-center text-tabular">{{ item.quantity|floatformat:"-3" }}</td>
+                                            <td class="table-td text-right text-tabular">{{ item.unit_price_net|clp }}</td>
+                                            <td class="table-td text-right text-tabular">{{ item.line_gross|clp }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="flex justify-end mt-4">
+                                <div class="w-64 space-y-1.5">
+                                    <div class="flex justify-between font-body-sm text-body-sm">
+                                        <span class="text-on-surface-variant">Subtotal neto</span>
+                                        <span class="text-tabular">{{ quotation.subtotal_net|clp }}</span>
+                                    </div>
+                                    <div class="flex justify-between font-body-sm text-body-sm">
+                                        <span class="text-on-surface-variant">IVA</span>
+                                        <span class="text-tabular">{{ quotation.iva_amount|clp }}</span>
+                                    </div>
+                                    {% if quotation.discount %}
+                                        <div class="flex justify-between font-body-sm text-body-sm">
+                                            <span class="text-on-surface-variant">Descuento</span>
+                                            <span class="text-tabular text-amber">−{{ quotation.discount|clp }}</span>
+                                        </div>
+                                    {% endif %}
+                                    <div class="flex justify-between items-center pt-2.5 border-t border-outline-variant/30">
+                                        <span class="font-headline-sm text-headline-sm">TOTAL</span>
+                                        <span class="font-headline-md text-headline-md text-primary text-tabular">{{ quotation.total|clp }}</span>
+                                    </div>
+                                    <div class="flex justify-between items-center gap-3 pt-2 font-label-md text-label-md">
+                                        <span class="text-on-surface-variant flex items-center gap-1.5">
+                                            {% include "includes/icon.html" with icon="payments" size=16 %}
+                                            Forma de pago
+                                        </span>
+                                        <span class="font-semibold text-right">{{ quotation.payment_terms }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if quotation.notes %}
+                            <div class="mt-5 pt-4 border-t border-outline-variant/30">
+                                <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Condiciones</p>
+                                <p class="font-body-md text-body-md text-on-surface-variant whitespace-pre-line">{{ quotation.notes }}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    {% if quotation.status == 'aprobada' %}
+                        <div class="card p-6 text-center">
+                            <span class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-emerald/10 text-emerald mb-3">
+                                {% include "includes/icon.html" with icon="verified" size=30 %}
+                            </span>
+                            <h2 class="font-headline-md text-headline-md mb-1">¡Cotización aprobada!</h2>
+                            <p class="font-body-md text-body-md text-on-surface-variant">
+                                Aprobada por <span class="font-semibold">{{ quotation.approved_by_name }}</span>{% if quotation.approved_by_email %} · <span class="text-tabular">{{ quotation.approved_by_email }}</span>{% endif %}
+                                el {{ quotation.approved_at|date:"d/m/Y \a \l\a\s H:i" }}. El negocio ya lo sabe y pronto te contactará.
+                            </p>
+                            {% if quotation.approval_comment %}
+                                <div class="mt-4 p-4 rounded-xl bg-surface-container-low text-left">
+                                    <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Tu comentario</p>
+                                    <p class="font-body-md text-body-md whitespace-pre-line">“{{ quotation.approval_comment }}”</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% elif quotation.status == 'rechazada' %}
+                        <div class="card p-6 text-center">
+                            <span class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-error/10 text-error mb-3">
+                                {% include "includes/icon.html" with icon="thumb_down" size=30 %}
+                            </span>
+                            <h2 class="font-headline-md text-headline-md mb-1">Cotización rechazada</h2>
+                            <p class="font-body-md text-body-md text-on-surface-variant">No pasa nada. Si cambias de opinión, contacta al negocio.</p>
+                            {% if quotation.approval_comment %}
+                                <div class="mt-4 p-4 rounded-xl bg-error-container/40 text-left">
+                                    <p class="font-label-sm text-label-sm text-on-error-container uppercase tracking-wider mb-1">Tu comentario</p>
+                                    <p class="font-body-md text-body-md text-on-error-container whitespace-pre-line">“{{ quotation.approval_comment }}”</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% elif quotation.status == 'convertida' %}
+                        <div class="card p-6 text-center">
+                            <span class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary-container/10 text-primary mb-3">
+                                {% include "includes/icon.html" with icon="shopping_cart_checkout" size=30 %}
+                            </span>
+                            <h2 class="font-headline-md text-headline-md mb-1">Ya es un pedido</h2>
+                            <p class="font-body-md text-body-md text-on-surface-variant">Esta cotización ya fue convertida en pedido. ¡Gracias por tu confianza!</p>
+                        </div>
+                    {% elif quotation.is_approvable %}
+                        <div class="card p-6">
+                            <h2 class="font-headline-md text-headline-md mb-1">¿Aprobamos esta cotización?</h2>
+                            <p class="font-body-sm text-body-sm text-on-surface-variant mb-5">
+                                Confirma los productos, servicios y totales. Tu nombre y correo quedan registrados y avisan al negocio para armar tu pedido.
+                            </p>
+                            <form method="post" class="space-y-4">
+                                {% csrf_token %}
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">Tu nombre</label>
+                                        <input type="text" name="name" placeholder="Nombre y apellido" class="input" required>
+                                    </div>
+                                    <div>
+                                        <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">Tu correo</label>
+                                        <input type="email" name="email" placeholder="correo@ejemplo.cl" class="input" required>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1.5 block">Comentario (opcional)</label>
+                                    <textarea name="comment" rows="3" placeholder="Cuéntale al negocio cualquier detalle de la aprobación…" class="input min-h-[80px] py-2.5"></textarea>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                    <button type="submit" name="action" value="aprobar" class="btn btn-primary btn-md w-full">
+                                        {% include "includes/icon.html" with icon="check_circle" size=18 %}
+                                        Aprobar cotización
+                                    </button>
+                                    <button type="submit" name="action" value="rechazar" class="btn btn-outline btn-md w-full">
+                                        {% include "includes/icon.html" with icon="close" size=18 %}
+                                        Rechazar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+            </main>
+
+            <footer class="py-6 px-6 text-center border-t border-outline-variant/20">
+                <p class="font-label-sm text-label-sm text-on-surface-variant">Enviada con <span class="text-primary font-semibold">Nexo</span> · {{ quotation.tenant.name }} · RUT {{ quotation.tenant.rut|default:"—" }}</p>
+            </footer>
+        </div>
+{% endblock %}

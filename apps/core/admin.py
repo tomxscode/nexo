@@ -8,6 +8,12 @@ class TenantAdmin(admin.ModelAdmin):
     list_display = ("name", "slug", "rut", "plan", "active", "created_at")
     list_filter = ("plan", "active")
     search_fields = ("name", "slug", "rut")
+    fieldsets = (
+        (None, {"fields": ("name", "slug", "rut", "email", "phone", "address", "logo")}),
+        ("Datos comerciales", {"fields": ("giro", "delivery_terms", "warranty", "currency", "default_iva")}),
+        ("Folios", {"fields": ("next_client_number", "next_quotation_number", "next_order_number")}),
+        ("Plan", {"fields": ("plan", "active")}),
+    )
 
 
 @admin.register(User)

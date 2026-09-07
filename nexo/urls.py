@@ -16,6 +16,7 @@ urlpatterns = [
     path("pedidos/", include("apps.orders.urls")),
     path("productos/", include("apps.products.urls")),
     path("configuracion/", include("apps.settings.urls")),
+    path("notificaciones/", include("apps.notifications.urls")),
 ]
 
 if settings.DEBUG:

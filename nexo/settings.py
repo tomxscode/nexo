@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "apps.orders",
     "apps.products",
     "apps.settings",
+    "apps.notifications",
 ]
 
 MIDDLEWARE = [
@@ -79,6 +80,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "apps.core.context_processors.workspace",
+                "apps.notifications.context_processors.bell",
             ],
         },
     },
