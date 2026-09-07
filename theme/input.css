@@ -167,9 +167,37 @@
       0 8px 10px -6px rgb(15 23 42 / 0.03);
   }
 
+  /* Elevaciones del landing (mockup aprobado) */
+  .elevation-1 {
+    box-shadow:
+      0 1px 3px 0 rgb(15 23 42 / 0.04),
+      0 1px 2px -1px rgb(15 23 42 / 0.04);
+    border: 1px solid rgb(226 232 240 / 0.85);
+  }
+
+  .elevation-2 {
+    box-shadow:
+      0 10px 20px -5px rgb(79 70 229 / 0.08),
+      0 4px 6px -2px rgb(15 23 42 / 0.03);
+    border: 1px solid rgb(199 196 216 / 0.4);
+  }
+
+  .elevation-3 {
+    box-shadow:
+      0 20px 25px -5px rgb(15 23 42 / 0.08),
+      0 8px 10px -6px rgb(15 23 42 / 0.03);
+  }
+
+  .hover-lift:hover {
+    box-shadow:
+      0 10px 20px -5px rgb(79 70 229 / 0.08),
+      0 4px 6px -2px rgb(15 23 42 / 0.03);
+    border-color: rgb(199 196 216 / 0.4);
+  }
+
   /* Glows del brand (landing / CTAs de conversion) */
   .warm-glow {
-    box-shadow: 0 8px 30px -6px rgb(245 158 11 / 0.25);
+    box-shadow: 0 4px 14px 0 rgb(254 166 25 / 0.35);
   }
 
   .indigo-glow {

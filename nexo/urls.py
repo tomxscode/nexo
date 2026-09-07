@@ -7,10 +7,12 @@ from apps.account.views import onboarding, signup
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    # Landing pública
+    path("", include("apps.landing.urls")),
     # Auth / onboarding
     path("", include("apps.account.urls")),
     # Workspace
-    path("", include("apps.dashboard.urls")),
+    path("dashboard/", include("apps.dashboard.urls")),
     path("cotizaciones/", include("apps.quotations.urls")),
     path("clientes/", include("apps.clients.urls")),
     path("pedidos/", include("apps.orders.urls")),

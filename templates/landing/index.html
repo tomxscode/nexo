@@ -1,0 +1,656 @@
+{% extends "base.html" %}
+
+{% block title %}Nexo | El mini CRM y creador de cotizaciones online ágil{% endblock %}
+
+{% block body %}
+<div class="scroll-smooth">
+<!-- 1. TopNavBar (Landing Nav) -->
+<header class="bg-surface/80 dark:bg-surface/90 backdrop-blur-md top-0 sticky z-50 shadow-sm border-b border-outline-variant/30">
+<div class="max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop h-16 flex items-center justify-between">
+<!-- Left: Iniciar Sesión + Empezar Gratis CTA -->
+<div class="flex items-center gap-space-sm order-1">
+<a class="text-label-lg font-label-lg text-on-surface-variant hover:text-primary transition-colors px-3 py-2 rounded-xl" href="{% url 'account:login' %}">
+          Iniciar Sesión
+        </a>
+<a class="bg-primary-container hover:bg-primary text-on-primary text-label-lg font-label-lg px-4 py-2.5 rounded-xl transition-all duration-200 indigo-glow active:scale-95 inline-flex items-center gap-1.5" href="{% url 'account:signup' %}">
+<span>Empezar gratis</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<!-- Center: Navigation Links -->
+<nav class="hidden md:flex items-center gap-8 order-2">
+<a class="text-label-lg font-label-lg text-primary font-semibold hover:text-primary transition-all duration-200" href="#funcionalidades">
+          Funcionalidades
+        </a>
+<a class="text-label-lg font-label-lg text-on-surface-variant hover:text-on-surface transition-colors hover:text-primary duration-200" href="#presupuestos">
+          Presupuestos
+        </a>
+<a class="text-label-lg font-label-lg text-on-surface-variant hover:text-on-surface transition-colors hover:text-primary duration-200" href="#precios">
+          Precios
+        </a>
+<a class="text-label-lg font-label-lg text-on-surface-variant hover:text-on-surface transition-colors hover:text-primary duration-200" href="#testimonios">
+          Testimonios
+        </a>
+</nav>
+<!-- Right: Official Nexo Logo -->
+<div class="order-3 flex items-center">
+<a aria-label="Nexo - Home" class="flex items-center gap-2" href="/">
+<span class="flex items-center justify-center w-10 h-10 rounded-xl bg-primary-container text-on-primary">
+<span class="material-symbols-outlined text-[22px]">hub</span>
+</span>
+<span class="font-headline-md text-headline-md text-on-surface hidden sm:block">Nexo</span>
+</a>
+</div>
+</div>
+</header>
+<!-- 2. Hero Section -->
+<section class="relative overflow-hidden pt-12 pb-20 md:pt-20 md:pb-28">
+<!-- Subtle warm atmospheric gradients -->
+<div class="absolute top-0 right-1/4 w-96 h-96 bg-surface-container-highest/60 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+<div class="absolute top-12 left-10 w-80 h-80 bg-secondary-fixed/30 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+<div class="max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop">
+<!-- Hero Top Text Block -->
+<div class="max-w-3xl mx-auto text-center mb-12">
+<!-- Friendly Pill Badge -->
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-low border border-outline-variant/40 mb-6">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span>
+<span class="text-label-sm font-label-sm text-secondary font-bold tracking-wide">EL MINI CRM QUE ENAMORA</span>
+<span class="text-label-sm font-label-sm text-outline">• Diseñado por Gallegeeks</span>
+</div>
+<!-- Hero Headline -->
+<h1 class="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface tracking-tight mb-6">
+          El mini CRM para cotizar rápido y cerrar acuerdos <span class="text-primary underline decoration-secondary-container decoration-4 underline-offset-4">con una sonrisa</span>
+</h1>
+<!-- Subtitle -->
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl mx-auto mb-8">
+          Crea presupuestos atractivos e interactivos en 2 minutos, envíalos con enlace directo y da seguimiento a tus clientes sin la pesadez de los CRMs tradicionales. Un producto pensado con cariño por Gallegeeks.
+        </p>
+<!-- CTA Cluster -->
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+<div class="flex flex-col items-center">
+<a class="w-full sm:w-auto bg-secondary-container hover:bg-secondary-fixed-dim text-on-secondary-container font-label-lg text-label-lg px-8 py-3.5 rounded-xl warm-glow transition-all duration-200 active:scale-95 flex items-center justify-center gap-2" href="{% url 'account:signup' %}">
+<span>Empezar gratis</span>
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+</a>
+<span class="text-label-sm font-label-sm text-outline mt-1.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">check_circle</span>
+              Sin tarjeta de crédito requerida
+            </span>
+</div>
+<a class="w-full sm:w-auto bg-surface-container-lowest hover:bg-surface-container-low text-primary text-label-lg font-label-lg px-6 py-3.5 rounded-xl border border-outline-variant/60 elevation-1 transition-all duration-200 active:scale-95 flex items-center justify-center gap-2" href="#presupuestos">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+<span>Ver cotización de ejemplo</span>
+</a>
+</div>
+</div>
+<!-- Showcase Visual / Mockup de producto Hero -->
+<div class="relative max-w-5xl mx-auto mt-6">
+<!-- Interactive Mockup Container -->
+<div class="bg-surface-container-lowest rounded-2xl elevation-3 border border-outline-variant/40 p-4 md:p-6 lg:p-8">
+<!-- Mockup Top bar simulation -->
+<div class="flex items-center justify-between border-b border-outline-variant/30 pb-4 mb-6">
+<div class="flex items-center gap-3">
+<div class="flex gap-1.5">
+<span class="w-3 h-3 rounded-full bg-error/70"></span>
+<span class="w-3 h-3 rounded-full bg-secondary-container/80"></span>
+<span class="w-3 h-3 rounded-full bg-tertiary/70"></span>
+</div>
+<div class="hidden sm:flex items-center gap-2 text-label-sm font-label-sm text-outline bg-surface-container-low px-3 py-1 rounded-lg">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span>nexo.lat/p/presupuesto-1042-valeria-studio</span>
+</div>
+</div>
+<!-- Mini Pipeline Tracker Header -->
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm text-on-surface-variant hidden md:inline">Estado del deal:</span>
+<div class="inline-flex p-1 bg-surface-container-low rounded-xl text-label-sm font-label-sm">
+<span class="px-2.5 py-0.5 text-outline">Lead</span>
+<span class="px-2.5 py-0.5 text-outline">Cotizado</span>
+<span class="px-2.5 py-0.5 bg-surface-container-lowest text-tertiary font-bold rounded-lg shadow-sm flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Ganado
+                </span>
+</div>
+</div>
+</div>
+<!-- Mockup Main Grid: Quote Details + Pipeline summary -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Left & Center: Interactive Quote Document (8 cols) -->
+<div class="lg:col-span-8 bg-surface rounded-xl p-6 border border-outline-variant/40">
+<!-- Quote Header -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-outline-variant/30">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<h3 class="text-headline-sm font-headline-sm text-on-surface font-bold">Presupuesto #1042</h3>
+<span class="bg-[#ECFDF5] text-[#047857] text-label-sm font-label-sm px-2.5 py-0.5 rounded-full inline-flex items-center gap-1 font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span> Aprobada ✓
+                    </span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Proyecto: Rediseño de Identidad &amp; Plataforma Web</p>
+</div>
+<div class="text-left sm:text-right">
+<span class="text-label-sm font-label-sm text-outline uppercase tracking-wider block">Importe total</span>
+<span class="text-headline-lg font-headline-lg text-primary font-extrabold tracking-tight">€1,850.00</span>
+</div>
+</div>
+<!-- Client Info Bar -->
+<div class="py-4 flex items-center justify-between text-body-sm font-body-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-primary text-label-md">
+                    VS
+                  </div>
+<div>
+<span class="font-bold text-on-surface block">Valeria Silva</span>
+<span class="text-outline text-label-sm">Directora Creativa · Estudio Aura</span>
+</div>
+</div>
+<div class="text-right hidden sm:block">
+<span class="text-label-sm text-outline block">Aceptado el:</span>
+<span class="font-medium text-on-surface">Hoy, 11:24 hs</span>
+</div>
+</div>
+<!-- Line Item Table -->
+<div class="mt-4 overflow-x-auto">
+<table class="w-full text-left text-body-sm">
+<thead>
+<tr class="border-b border-outline-variant/30 text-outline text-label-sm font-label-sm">
+<th class="py-2.5">Concepto / Entregable</th>
+<th class="py-2.5 text-center">Horas/Cant.</th>
+<th class="py-2.5 text-right">Subtotal</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3">
+<span class="font-semibold text-on-surface block">Dirección de Arte &amp; Brand Book</span>
+<span class="text-outline text-body-sm">Paleta, tipografía y manual de voz digital</span>
+</td>
+<td class="py-3 text-center text-on-surface-variant">1 un.</td>
+<td class="py-3 text-right font-medium text-on-surface">€750.00</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3">
+<span class="font-semibold text-on-surface block">Desarrollo Web Responsive Nexo</span>
+<span class="text-outline text-body-sm">Landing ultra-rápida con Tailwind + CMS</span>
+</td>
+<td class="py-3 text-center text-on-surface-variant">1 un.</td>
+<td class="py-3 text-right font-medium text-on-surface">€1,100.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Digital Signature Confirmation Strip -->
+<div class="mt-6 p-4 rounded-xl bg-tertiary-fixed/30 border border-tertiary-fixed flex flex-col sm:flex-row items-center justify-between gap-3">
+<div class="flex items-center gap-2 text-tertiary font-medium text-label-md">
+<span class="material-symbols-outlined text-[20px] text-tertiary">verified_user</span>
+<span>Firmado digitalmente con hash seguro por Valeria Silva</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 bg-surface-container-lowest text-tertiary font-label-sm font-label-sm rounded-lg border border-tertiary-fixed shadow-sm hover:bg-surface transition-all">
+                    Descargar PDF
+                  </button>
+</div>
+</div>
+</div>
+<!-- Right: Mini-Pipeline Agile Panel (4 cols) -->
+<div class="lg:col-span-4 flex flex-col gap-4">
+<!-- Quick Activity Card -->
+<div class="bg-surface-container-low rounded-xl p-5 border border-outline-variant/30 flex-1">
+<div class="flex items-center justify-between mb-4">
+<span class="text-label-md font-label-md text-on-surface font-bold">Actividad en tiempo real</span>
+<span class="material-symbols-outlined text-primary text-[20px]">notifications_active</span>
+</div>
+<div class="space-y-3.5">
+<div class="flex items-start gap-3 text-body-sm">
+<div class="w-2 h-2 rounded-full bg-tertiary mt-1.5 flex-shrink-0"></div>
+<div>
+<p class="text-on-surface font-medium">¡Presupuesto aceptado!</p>
+<span class="text-outline text-label-sm">Valeria Silva firmó hace 12 min</span>
+</div>
+</div>
+<div class="flex items-start gap-3 text-body-sm">
+<div class="w-2 h-2 rounded-full bg-secondary-container mt-1.5 flex-shrink-0"></div>
+<div>
+<p class="text-on-surface font-medium">Cotización visualizada 3 veces</p>
+<span class="text-outline text-label-sm">Cliente abrió desde Madrid, España</span>
+</div>
+</div>
+<div class="flex items-start gap-3 text-body-sm">
+<div class="w-2 h-2 rounded-full bg-primary-container mt-1.5 flex-shrink-0"></div>
+<div>
+<p class="text-on-surface font-medium">Enlace enviado por WhatsApp</p>
+<span class="text-outline text-label-sm">Ayer a las 18:40 hs</span>
+</div>
+</div>
+</div>
+<!-- Instant Action Button -->
+<div class="mt-6 pt-4 border-t border-outline-variant/30">
+<button class="w-full bg-primary hover:bg-primary-container text-on-primary py-2.5 rounded-xl font-label-md text-label-md transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">send</span>
+<span>Enviar factura de anticipo</span>
+</button>
+</div>
+</div>
+<!-- Mini Metric Card -->
+<div class="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant/40 elevation-1 flex items-center justify-between">
+<div>
+<span class="text-label-sm font-label-sm text-outline">Ratio de cierre este mes</span>
+<p class="text-headline-sm font-headline-sm font-extrabold text-on-surface">78.4% <span class="text-tertiary text-label-md font-bold">+14% vs mes anterior</span></p>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">trending_up</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. Social Proof Band -->
+<section class="border-y border-outline-variant/30 bg-surface-container-low/50 py-10">
+<div class="max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop text-center">
+<p class="text-label-md font-label-md text-on-surface-variant font-semibold tracking-wide uppercase mb-6">
+        Más de 3,400 freelancers, estudios y pequeños negocios agilizan sus ventas con Nexo
+      </p>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 items-center opacity-70 grayscale hover:grayscale-0 transition-all duration-300">
+<div class="flex items-center justify-center gap-1.5 font-headline-sm font-bold text-on-surface">
+<span class="material-symbols-outlined text-primary text-[22px]">interests</span>
+<span>NÓMADA</span>
+</div>
+<div class="flex items-center justify-center gap-1.5 font-headline-sm font-bold text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[22px]">draw</span>
+<span>STUDIO K</span>
+</div>
+<div class="flex items-center justify-center gap-1.5 font-headline-sm font-bold text-on-surface">
+<span class="material-symbols-outlined text-tertiary text-[22px]">code</span>
+<span>DEVWAVE</span>
+</div>
+<div class="flex items-center justify-center gap-1.5 font-headline-sm font-bold text-on-surface">
+<span class="material-symbols-outlined text-primary text-[22px]">diamond</span>
+<span>LUMEN LAB</span>
+</div>
+<div class="flex items-center justify-center gap-1.5 font-headline-sm font-bold text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[22px]">photo_camera</span>
+<span>FOKO PRO</span>
+</div>
+<div class="flex items-center justify-center gap-1.5 font-headline-sm font-bold text-on-surface">
+<span class="material-symbols-outlined text-tertiary text-[22px]">hub</span>
+<span>GALLEGEEKS</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. Features Bento Grid Section -->
+<section class="py-20 md:py-28 bg-background" id="funcionalidades">
+<div class="max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop">
+<div class="max-w-2xl mx-auto text-center mb-16">
+<span class="text-label-sm font-label-sm font-bold text-primary tracking-wider uppercase bg-primary-fixed px-3 py-1 rounded-full">
+          Funcionalidades hechas a medida
+        </span>
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg text-on-surface mt-4 mb-4">
+          Todo lo que necesitas, nada de lo que sobra
+        </h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant">
+          Sin configuraciones infinitas ni manuales de 50 páginas. Nexo está diseñado para que abras la app y ganes tiempo desde el minuto cero.
+        </p>
+</div>
+<!-- Bento Grid (4 Cards) -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Card 1: Presupuestos interactivos online (Large - 7 cols) -->
+<div class="md:col-span-7 bg-surface-container-lowest rounded-2xl p-8 elevation-1 hover-lift transition-all duration-200 border border-outline-variant/40 flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center text-primary mb-6">
+<span class="material-symbols-outlined text-[26px]">draw</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-3">
+              Presupuestos interactivos con firma en 1 clic
+            </h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6">
+              Olvida adjuntar PDFs estáticos por correo. Genera una página web limpia para tu cotización donde tu cliente puede revisar desgloses, seleccionar opcionales y firmar digitalmente desde su teléfono móvil.
+            </p>
+</div>
+<!-- Micro visual teaser -->
+<div class="bg-surface rounded-xl p-4 border border-outline-variant/30 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="w-8 h-8 rounded-full bg-[#ECFDF5] text-[#047857] flex items-center justify-center font-bold text-label-md">✓</span>
+<div>
+<p class="text-label-md font-label-md font-semibold text-on-surface">Aprobado y sellado</p>
+<span class="text-label-sm text-outline">Validez legal con registro de hora e IP</span>
+</div>
+</div>
+<span class="bg-primary text-on-primary text-label-sm font-label-sm px-3 py-1.5 rounded-lg">Ver demo interactiva</span>
+</div>
+</div>
+<!-- Card 2: Pipeline visual sin fricción (5 cols) -->
+<div class="md:col-span-5 bg-surface-container-lowest rounded-2xl p-8 elevation-1 hover-lift transition-all duration-200 border border-outline-variant/40 flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center text-secondary mb-6">
+<span class="material-symbols-outlined text-[26px]">view_kanban</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-3">
+              Pipeline visual sin enredos
+            </h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6">
+              Sabrás siempre en qué etapa está cada oportunidad: Nuevo lead, Propuesta enviada, En revisión o Negocio ganado. Sin gráficos innecesarios.
+            </p>
+</div>
+<div class="grid grid-cols-3 gap-2 bg-surface p-2.5 rounded-xl border border-outline-variant/30">
+<div class="bg-surface-container-lowest p-2 rounded-lg text-center border border-outline-variant/20">
+<span class="text-label-sm text-outline block">Pendientes</span>
+<span class="font-bold text-on-surface text-label-md">3 · €2,400</span>
+</div>
+<div class="bg-surface-container-lowest p-2 rounded-lg text-center border border-outline-variant/20">
+<span class="text-label-sm text-secondary block">Enviados</span>
+<span class="font-bold text-secondary text-label-md">5 · €6,850</span>
+</div>
+<div class="bg-[#ECFDF5] p-2 rounded-lg text-center border border-[#10B981]/30">
+<span class="text-label-sm text-[#047857] block">Ganados</span>
+<span class="font-bold text-[#047857] text-label-md">8 · €14,200</span>
+</div>
+</div>
+</div>
+<!-- Card 3: Seguimiento y alertas amigables (5 cols) -->
+<div class="md:col-span-5 bg-surface-container-lowest rounded-2xl p-8 elevation-1 hover-lift transition-all duration-200 border border-outline-variant/40 flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-primary mb-6">
+<span class="material-symbols-outlined text-[26px]">mark_email_read</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-3">
+              Alertas amigables de apertura
+            </h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6">
+              Recibe un aviso instantáneo en tu móvil cuando tu cliente abra tu propuesta. El momento perfecto para hacer un seguimiento cálido y oportuno.
+            </p>
+</div>
+<div class="bg-surface-container-low p-3.5 rounded-xl border border-outline-variant/30 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center text-[16px]">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<div class="text-body-sm">
+<p class="font-semibold text-on-surface">"Acaban de ver tu presupuesto"</p>
+<span class="text-outline text-label-sm">Estudio Aura lo revisó hace 2 minutos</span>
+</div>
+</div>
+</div>
+<!-- Card 4: Pagos de anticipos y cobros integrados (7 cols) -->
+<div class="md:col-span-7 bg-surface-container-lowest rounded-2xl p-8 elevation-1 hover-lift transition-all duration-200 border border-outline-variant/40 flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary mb-6">
+<span class="material-symbols-outlined text-[26px]">payments</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-3">
+              Cobro de anticipos sin fricción
+            </h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6">
+              Conecta Stripe, Bizum o transferencia bancaria directa. Permite que tus clientes paguen el depósito del 50% en el mismo acto en el que aceptan el presupuesto.
+            </p>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl bg-surface border border-outline-variant/30">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[20px]">account_balance_wallet</span>
+<span class="text-label-md font-semibold text-on-surface">Depósito recibido: €925.00</span>
+</div>
+<span class="text-label-sm font-bold text-tertiary bg-[#ECFDF5] px-3 py-1 rounded-full">Acreditado al instante</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. How It Works (3 Steps) -->
+<section class="py-20 bg-surface-container-low/60 border-t border-outline-variant/30" id="presupuestos">
+<div class="max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop">
+<div class="max-w-2xl mx-auto text-center mb-16">
+<span class="text-label-sm font-label-sm font-bold text-secondary uppercase tracking-wider">Flujo simple y veloz</span>
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg text-on-surface mt-2 mb-4">
+          Cómo funciona Nexo en 3 sencillos pasos
+        </h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant">
+          Pasa de la conversación informal a un contrato firmado y con anticipo cobrado en tiempo récord.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+<div class="bg-surface-container-lowest p-8 rounded-2xl elevation-1 border border-outline-variant/40 flex flex-col items-start relative">
+<div class="w-12 h-12 rounded-xl bg-primary-container text-on-primary font-bold text-headline-sm flex items-center justify-center mb-6">
+            1
+          </div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-2">Diseña o elige tu plantilla</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6">
+            Selecciona tus servicios habituales con tarifas predefinidas, añade ítems modulares y personaliza los colores con tu marca en cuestión de segundos.
+          </p>
+<div class="mt-auto flex items-center gap-2 text-label-sm text-primary font-semibold">
+<span class="material-symbols-outlined text-[16px]">speed</span>
+<span>Toma menos de 2 minutos</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-2xl elevation-1 border border-outline-variant/40 flex flex-col items-start relative">
+<div class="w-12 h-12 rounded-xl bg-secondary-container text-on-secondary-container font-bold text-headline-sm flex items-center justify-center mb-6">
+            2
+          </div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-2">Comparte el link personalizado</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6">
+            Envía el enlace interactivo por WhatsApp, email o mensaje directo. Se visualiza perfecto en teléfonos, tablets y computadoras.
+          </p>
+<div class="mt-auto flex items-center gap-2 text-label-sm text-secondary font-semibold">
+<span class="material-symbols-outlined text-[16px]">link</span>
+<span>Link corto y profesional</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-2xl elevation-1 border border-outline-variant/40 flex flex-col items-start relative">
+<div class="w-12 h-12 rounded-xl bg-tertiary-container text-on-primary font-bold text-headline-sm flex items-center justify-center mb-6">
+            3
+          </div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-2">Aprobación y celebración</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6">
+            Tu cliente firma con un clic, descarga el PDF oficial si lo desea y abona el anticipo. Ambos reciben confirmación instantánea.
+          </p>
+<div class="mt-auto flex items-center gap-2 text-label-sm text-tertiary font-semibold">
+<span class="material-symbols-outlined text-[16px]">celebration</span>
+<span>¡Acuerdo cerrado!</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. Pricing Section -->
+<section class="py-20 md:py-28 bg-background" id="precios">
+<div class="max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop">
+<div class="max-w-2xl mx-auto text-center mb-14">
+<span class="text-label-sm font-label-sm font-bold text-primary tracking-wider uppercase bg-primary-fixed px-3 py-1 rounded-full">
+          Planes transparentes
+        </span>
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg text-on-surface mt-4 mb-4">
+          Precios claros, sin sorpresas ni permanencias
+        </h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant mb-8">
+          Empieza gratis y escala a medida que tu cartera de clientes y volumen de proyectos crezca.
+        </p>
+<!-- Toggle selector mensual / anual -->
+<div class="inline-flex items-center gap-3 p-1.5 bg-surface-container-low rounded-xl border border-outline-variant/40">
+<button class="px-4 py-2 rounded-lg bg-surface-container-lowest text-primary font-label-md text-label-md shadow-sm font-bold">
+            Facturación Mensual
+          </button>
+<button class="px-4 py-2 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-label-md flex items-center gap-1.5 transition-colors">
+<span>Anual</span>
+<span class="bg-secondary-container/20 text-secondary text-label-sm px-2 py-0.5 rounded-full font-bold">2 meses gratis</span>
+</button>
+</div>
+</div>
+<!-- Pricing Cards Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+<!-- Plan 1: Inicial (Gratis) -->
+<div class="bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/40 elevation-1 flex flex-col justify-between">
+<div>
+<div class="mb-6">
+<h3 class="text-headline-sm font-headline-sm text-on-surface font-bold">Inicial</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Ideal para probar Nexo o si estás arrancando como independiente.</p>
+</div>
+<div class="mb-6">
+<span class="text-display-lg font-display-lg font-extrabold text-on-surface">€0</span>
+<span class="text-body-sm text-outline"> / para siempre</span>
+</div>
+<ul class="space-y-3.5 mb-8 text-body-sm text-on-surface">
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-tertiary text-[18px]">check</span>
+<span>Hasta 3 presupuestos activos al mes</span>
+</li>
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-tertiary text-[18px]">check</span>
+<span>Firma digital básica</span>
+</li>
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-tertiary text-[18px]">check</span>
+<span>Mini pipeline hasta 10 clientes</span>
+</li>
+<li class="flex items-center gap-2.5 text-outline">
+<span class="material-symbols-outlined text-outline text-[18px]">close</span>
+<span class="line-through">Dominio y marca personalizada</span>
+</li>
+</ul>
+</div>
+<a class="w-full text-center bg-surface-container-low hover:bg-surface-container text-primary font-label-md text-label-md py-3 rounded-xl border border-outline-variant/50 transition-all active:scale-95" href="{% url 'account:signup' %}">
+            Empezar gratis
+          </a>
+</div>
+<!-- Plan 2: Pro Freelancer (Featured) -->
+<div class="bg-surface-container-lowest rounded-2xl p-8 border-2 border-primary-container elevation-2 flex flex-col justify-between relative">
+<div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-secondary-container text-on-secondary-container text-label-sm font-label-sm px-4 py-1 rounded-full font-bold uppercase tracking-wider warm-glow">
+            Más elegido
+          </div>
+<div>
+<div class="mb-6">
+<h3 class="text-headline-sm font-headline-sm text-primary font-bold">Pro Freelancer</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Para profesionales que viven de sus servicios y quieren cerrar rápido.</p>
+</div>
+<div class="mb-6">
+<span class="text-display-lg font-display-lg font-extrabold text-on-surface">€14</span>
+<span class="text-body-sm text-outline"> / mes</span>
+</div>
+<ul class="space-y-3.5 mb-8 text-body-sm text-on-surface">
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-tertiary text-[18px]">check</span>
+<span class="font-semibold">Presupuestos ilimitados</span>
+</li>
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-tertiary text-[18px]">check</span>
+<span>Alertas en tiempo real cuando abren tus cotizaciones</span>
+</li>
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-tertiary text-[18px]">check</span>
+<span>Tu logotipo y paleta de colores propia</span>
+</li>
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-tertiary text-[18px]">check</span>
+<span>Cobro de anticipos integrado (Stripe / Bizum)</span>
+</li>
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-tertiary text-[18px]">check</span>
+<span>Exportación a PDF y enlace directo</span>
+</li>
+</ul>
+</div>
+<a class="w-full text-center bg-primary-container hover:bg-primary text-on-primary font-label-lg font-label-lg py-3.5 rounded-xl indigo-glow transition-all active:scale-95 font-bold" href="{% url 'account:signup' %}">
+            Probar 14 días gratis
+          </a>
+</div>
+<!-- Plan 3: Estudio / Agencia -->
+<div class="bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/40 elevation-1 flex flex-col justify-between">
+<div>
+<div class="mb-6">
+<h3 class="text-headline-sm font-headline-sm text-on-surface font-bold">Estudio / Agencia</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Para boutiques creativas y pequeños equipos con múltiples proyectos.</p>
+</div>
+<div class="mb-6">
+<span class="text-display-lg font-display-lg font-extrabold text-on-surface">€29</span>
+<span class="text-body-sm text-outline"> / mes</span>
+</div>
+<ul class="space-y-3.5 mb-8 text-body-sm text-on-surface">
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-tertiary text-[18px]">check</span>
+<span>Todo lo incluido en el Plan Pro</span>
+</li>
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-tertiary text-[18px]">check</span>
+<span class="font-semibold">Hasta 5 miembros de equipo</span>
+</li>
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-tertiary text-[18px]">check</span>
+<span>Subdominio personalizado (cotizaciones.tuestudio.com)</span>
+</li>
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-tertiary text-[18px]">check</span>
+<span>Reportes avanzados de conversión y analítica</span>
+</li>
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-tertiary text-[18px]">check</span>
+<span>Soporte prioritario por WhatsApp</span>
+</li>
+</ul>
+</div>
+<a class="w-full text-center bg-surface-container-low hover:bg-surface-container text-primary font-label-md text-label-md py-3 rounded-xl border border-outline-variant/50 transition-all active:scale-95" href="{% url 'account:signup' %}">
+            Elegir plan Estudio
+          </a>
+</div>
+</div>
+</div>
+</section>
+<!-- 7. Final Conversion Banner -->
+<section class="py-16 md:py-24 bg-surface-container-low border-y border-outline-variant/30 relative overflow-hidden" id="empezar">
+<div class="max-w-4xl mx-auto px-gutter-mobile md:px-gutter-desktop text-center relative z-10">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-outline-variant/40 mb-6">
+<span class="material-symbols-outlined text-secondary text-[18px]">star</span>
+<span class="text-label-sm font-label-sm text-on-surface font-semibold">Listo en 2 minutos · Sin instalaciones</span>
+</div>
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg text-on-surface mb-6">
+        ¿Listo para enviar presupuestos que tus clientes amen aprobar?
+      </h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl mx-auto mb-8">
+        Únete a miles de profesionales que transformaron sus cotizaciones aburridas en acuerdos cerrados con Nexo.
+      </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+<a class="w-full sm:w-auto bg-secondary-container hover:bg-secondary-fixed-dim text-on-secondary-container font-label-lg text-label-lg px-9 py-4 rounded-xl warm-glow transition-all duration-200 active:scale-95 font-bold flex items-center justify-center gap-2" href="{% url 'account:signup' %}">
+<span>Empezar gratis hoy</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+<a class="w-full sm:w-auto bg-surface-container-lowest hover:bg-surface text-on-surface font-label-md text-label-md px-6 py-4 rounded-xl border border-outline-variant/50 elevation-1 transition-all" href="{% url 'account:signup' %}">
+          Hablar con el equipo
+        </a>
+</div>
+<p class="text-label-sm font-label-sm text-outline mt-4">
+        Prueba gratuita de 14 días · Cancela cuando quieras · Soporte cercano en español
+      </p>
+</div>
+</section>
+<!-- 8. Footer -->
+<footer class="bg-surface-container-low dark:bg-inverse-surface border-t border-outline-variant/30 dark:border-outline-variant/10">
+<div class="max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop py-space-xl flex flex-col md:flex-row items-center justify-between gap-space-md">
+<!-- Brand & Gallegeeks Endorsement -->
+<div class="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+<a aria-label="Nexo - Home" class="flex items-center gap-2" href="/">
+<span class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary-container text-on-primary">
+<span class="material-symbols-outlined text-[18px]">hub</span>
+</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Nexo</span>
+</a>
+<span class="text-body-sm font-body-sm text-on-surface-variant">
+          © 2026 Nexo. Un producto de Gallegeeks. Todos los derechos reservados.
+        </span>
+</div>
+<!-- Footer Navigation Links -->
+<div class="flex flex-wrap items-center justify-center gap-6">
+<a class="text-label-md font-label-md text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 hover:underline" href="#start">
+          Privacidad
+        </a>
+<a class="text-label-md font-label-md text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 hover:underline" href="#start">
+          Términos de servicio
+        </a>
+<a class="text-label-md font-label-md text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 hover:underline" href="{% url 'account:signup' %}">
+          Contacto
+        </a>
+<a class="text-label-md font-label-md font-bold text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 hover:underline flex items-center gap-1" href="https://gallegeeks.com" rel="noopener" target="_blank">
+<span>Gallegeeks</span>
+<span class="material-symbols-outlined text-[14px]">north_east</span>
+</a>
+</div>
+</div>
+</footer>
+</div>
+{% endblock %}

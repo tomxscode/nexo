@@ -8,6 +8,11 @@ Desarrollado en **Django 5.2** + **MySQL** + **Tailwind CSS** (Material 3), con 
 
 ## Características
 
+### Landing pública
+- Página de marketing en `/` (nav, hero con mockup del producto, prueba social, bento de funcionalidades, "cómo funciona", planes de precios y CTA de cierre).
+- CTAs conectados al registro (`/signup/`) y al login (`/login/`); el dashboard de trabajo queda en `/dashboard/`.
+- Versión oscura vía el mismo sistema de temas (sigue la preferencia del sistema).
+
 ### Clientes y productos
 - CRUD de clientes (RUT, contacto, notas) y productos o servicios (precio neto/bruto, margen %, stock, IVA).
 - Productos inactivos se ocultan en nuevas cotizaciones.
@@ -138,7 +143,7 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-Abre **http://localhost:8000/** y usa **Crear cuenta gratis** (signup) para crear el propietario del primer negocio, o crea un superusuario con `python manage.py createsuperuser` para el admin de Django (`/admin/`).
+Abre **http://localhost:8000/** — verás la **landing** pública (marketing + CTAs). Usa **Empezar gratis** para crear el propietario del primer negocio, o crea un superusuario con `python manage.py createsuperuser` para el admin de Django (`/admin/`). El workspace (dashboard, cotizaciones, pedidos, etc.) vive bajo `/dashboard/`.
 
 ### 5. Compilar el CSS (Tailwind)
 
